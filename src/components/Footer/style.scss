@@ -1,0 +1,102 @@
+.footer-container {
+
+    background-color: #514e4e;
+    .footer{
+    
+        .left-footer-inner {
+            display: flex;
+            flex-direction: row;
+        }
+    
+        .social-media-container {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+
+            a {
+                border: 2px solid #fff;
+                margin-right: 35px;
+                width: 30px;
+                height: 30px;
+                background-color: transparent;
+                display: flex;
+                justify-content: center;
+                border-radius: 100%;
+            }
+
+            .icon {
+            color: #f8f7f7;
+            size: 25px;
+            align-self: center;
+            }
+
+            a:hover {
+                background-color: #fbfcfb;
+                .icon {
+                    color: #514e4e;
+                    color: red;
+                }
+            }
+        }
+    
+        .inner-footer {
+            text-align: left;
+        }
+
+        h6 {
+            font-size: 1.20rem;
+            text-transform: uppercase;
+            font-weight: 500;
+            color: #f8f7f7;
+        }
+
+        p {
+            font-size: 1.0rem;
+            font-weight: 400;
+            color: #f8f7f7;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 0px;
+            margin-left: 0px;
+        }
+
+        li {
+            font-size: 1.0rem;
+            font-weight: 500;
+            color: #f8f7f7;
+            line-height: 30px;
+        }
+
+        .centre-left-footer {
+            a {
+                text-decoration: none !important;
+                color: #f8f7f7;
+            }
+
+            a:hover {
+                text-decoration: underline !important;
+            }
+        }
+
+        .centre-right-footer {
+            a {
+                text-decoration: none !important;
+                color: #f8f7f7;
+            }
+
+            a:hover {
+                text-decoration: underline !important;
+            }
+        }
+
+        .right-footer {
+            .icon {
+                margin-right: 20px;
+            }
+        }
+    }
+    
+}
+
