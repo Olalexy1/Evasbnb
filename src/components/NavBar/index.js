@@ -117,7 +117,7 @@ function NavBar() {
             {/* <Button variant="outline-success">Search</Button> */}
 
             <button className="cssbuttons-io">
-              <span> Enquiries</span>
+              <span> Enquiries </span>
             </button>
           </Nav>
         </Navbar.Collapse>

@@ -11,7 +11,8 @@ import slider2 from '../../images/cara-grobbelaar.jpg'
 import slider3 from '../../images/harry-cunningham.jpg'
 import slider4 from '../../images/vije-vijendranath.jpg'
 
-import { FaChevronCircleRight, FaChevronCircleLeft } from 'react-icons/fa';
+
+import { FaChevronCircleRight, FaChevronCircleLeft, FaUser, FaChild, FaBed, FaCalendarDay } from 'react-icons/fa';
 
 import './style.scss'
 
@@ -62,23 +63,55 @@ const Banner = () => {
                     </Carousel.Caption>
                 </Carousel.Item>
             </Carousel>
-            <Container className='form-container px-3'>
-                <Row>
-                    <form action="/search/destination" method="POST">
-                        <Col lg md={3}>
-
+            <Container className='form-container my-5'>
+                <Form action="#" method="POST">
+                    <Row className='form mx-2'>
+                        <Col className="form-sect mb-3 mt-3" lg md={3}>
+                            <Form.Label className='label'><FaCalendarDay className='form-icons'/> Check-In</Form.Label>
+                            <Form.Control type="date" name="checkin"/>
                         </Col>
-                        <Col lg md={3}>
-
+                        <Col className="form-sect mb-3 mt-3" lg md={3}>
+                            <Form.Label className='label'><FaCalendarDay className='form-icons'/> Check-Out</Form.Label>
+                            <Form.Control type="date" name="checkout"/>
                         </Col>
-                        <Col lg={4} md={3}>
-
+                        <Col className="form-sect mb-3 mt-3" lg={4} md={3}>
+                            <Row className='px-0'>
+                                <Col className='mb-3' lg md={4} sm={4}>
+                                    <Form.Label className='label'><FaUser className='form-icons'/> Adult</Form.Label>
+                                    <Form.Select aria-label="Default select example">
+                                        <option>1</option>
+                                        <option value="1">2</option>
+                                        <option value="2">3</option>
+                                        <option value="3">4</option>
+                                    </Form.Select>
+                                </Col>
+                                <Col className='mb-3' lg md={4} sm={4}>
+                                    <Form.Label className='label'><FaChild className='form-icons'/> Children</Form.Label>
+                                    <Form.Select aria-label="Default select example">
+                                        <option>1</option>
+                                        <option value="1">2</option>
+                                        <option value="2">3</option>
+                                        <option value="3">4</option>
+                                    </Form.Select>
+                                </Col>
+                                <Col className='' lg md={4} sm={4}>
+                                    <Form.Label className='label'><FaBed className='form-icons'/> Rooms</Form.Label>
+                                    <Form.Select aria-label="Default select example">
+                                        <option>1</option>
+                                        <option value="1">2</option>
+                                        <option value="2">3</option>
+                                        <option value="3">4</option>
+                                    </Form.Select>
+                                </Col>
+                            </Row>
                         </Col>
-                        <Col lg md={3}>
-
+                        <Col className="form-btn pt-3 mb-3 mt-3" lg md={3}>
+                            <button className="cssbuttons-io">
+                                <span> Search </span>
+                            </button>
                         </Col>
-                    </form>
-                </Row>
+                    </Row>
+                </Form>
             </Container>
         </Container>
      );
