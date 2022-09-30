@@ -6,6 +6,7 @@ import Container from 'react-bootstrap/Container';
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
 import Banner from './components/Banner';
+import { MidSection, BottomSection } from './components/Section'
 
 
 
@@ -14,6 +15,8 @@ function App() {
     <Container fluid className='px-0 mx-0'>
       <NavBar/>
       <Banner/>
+      <MidSection/>
+      <BottomSection/>
       <Footer/>
     </Container>
     

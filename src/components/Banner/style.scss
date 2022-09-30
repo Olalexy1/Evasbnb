@@ -13,15 +13,20 @@
     .form {
         // border: 1px solid red;
         border-radius: 0.8em;
-        box-shadow: 15px 15px 30px #bebebe, -15px -15px 30px #ffffff;;
+        box-shadow: 15px 15px 30px #bebebe;
+        margin-top: -105px;
+        z-index: 5 !important;
+        position: relative;
+        background-color: #fff;
 
-        .form-sect {
-            // border: 1px dashed black;
-        }
+        // .form-sect {
+        //     border: 1px dashed black;
+        // box-shadow: 15px 15px 30px #bebebe, -15px -15px 30px #ffffff;
+        // }
 
-        .form-btn {
-            // border: 1px dashed black;
-        }
+        // .form-btn {
+        //     border: 1px dashed black;
+        // }
 
         .form-icons {
             size: 1.0rem;
@@ -87,4 +92,58 @@
         transform: scale(0.95);
    }
 
+}
+
+
+/* 
+##Device = Tablets, Ipads (landscape)
+##Screen = B/w 768px to 1024px
+*/
+
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+    .form-container {
+    
+        .form {
+            border-radius: 0.8em;
+            box-shadow: 15px 15px 30px #bebebe;
+            margin-top: -115px;
+            z-index: 5 !important;
+            position: relative;
+            background-color: #fff;
+        }
+    }
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+    .form-container {
+    
+        .form {
+            border-radius: 0.8em;
+            box-shadow: 15px 15px 30px #bebebe;
+            margin-top: 0px;
+            z-index: 5 !important;
+            position: relative;
+            background-color: #fff;
+        }
+    }
+}
+  
+/* 
+##Device = Most of the Smartphones Mobiles (Portrait)
+##Screen = B/w 320px to 479px
+*/
+  
+@media (min-width: 320px) and (max-width: 480px) {
+    .form-container {
+    
+        .form {
+            border-radius: 0.8em;
+            box-shadow: 15px 15px 30px #bebebe;
+            margin-top: 0px;
+            z-index: 5 !important;
+            position: relative;
+            background-color: #fff;
+        }
+    }
+    
 }
