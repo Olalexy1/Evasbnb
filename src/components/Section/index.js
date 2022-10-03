@@ -8,7 +8,9 @@ import RedRoom from '../../images/redroom.jpeg';
 import PurpleRoom from '../../images/purpleroom.jpeg';
 import GreenRoom from '../../images/greenroom.jpeg';
 
-import { FaBed, FaBath, FaWifi } from 'react-icons/fa';
+import { FaBed, FaBath, FaWifi, FaParking, faSwimmer, FaSwimmer, } from 'react-icons/fa';
+import { GiMeal, GiVacuumCleaner } from 'react-icons/gi'
+import { MdOutlineLocalLaundryService, MdPets, MdKitchen } from 'react-icons/md'
 
 import './style.scss'
 
@@ -67,27 +69,47 @@ const MidSection = () => {
 
 const BottomSection = () => {
     return ( 
-        <Container fluid>
-            <Container className='services-container'>
-                <Row>
-                    <Col lg={12}>
+        <Container fluid className=''>
+            <Container className='services-container px-5 mb-5'>
+                <Row className='px-0'>
+                    <Col className='text-container px-0 pt-3' lg={4} md={12}>
                         <h3>Our Services</h3>
-                        <p>We are providing you with the best services</p>
+                        <p>We are providing you with the best services available...</p>
                     </Col>
-                    <Col lg={12}>
-                        <Row>
-                            <Col className='service-icon-container' lg={2} md={3} sm={4}></Col>
-                            <Col className='service-icon-container' lg={2} md={3} sm={4}></Col>
-                            <Col className='service-icon-container' lg={2} md={3} sm={4}></Col>
-                            <Col className='service-icon-container' lg={2} md={3} sm={4}></Col>
-                            <Col className='service-icon-container' lg={2} md={3} sm={4}></Col>
-                            <Col className='service-icon-container' lg={2} md={3} sm={4}></Col>
-                            <Col className='service-icon-container' lg={2} md={3} sm={4}></Col>
-                            <Col className='service-icon-container' lg={2} md={3} sm={4}></Col>
-                            <Col className='service-icon-container' lg={2} md={3} sm={4}></Col>
-                            <Col className='service-icon-container' lg={2} md={3} sm={4}></Col>
-                            <Col className='service-icon-container' lg={2} md={3} sm={4}></Col>
-                            <Col className='service-icon-container' lg={2} md={3} sm={4}></Col>
+                    <Col lg={8} md={12}>
+                        <Row className='px-0'>
+                            <Col className='service-icon-container pt-3 px-0' lg={3} md={4} sm={6}>
+                                <GiMeal/>
+                                <p>Delicious Meals</p>
+                            </Col>
+                            <Col className='service-icon-container pt-3 px-0' lg={3} md={4} sm={6}>
+                                <FaParking/>
+                                <p>Parking Area</p>
+                            </Col>
+                            <Col className='service-icon-container pt-3 px-0' lg={3} md={4} sm={6}>
+                                <FaWifi/>
+                                <p>Free Wifi</p>
+                            </Col>
+                            <Col className='service-icon-container pt-3 px-0' lg={3} md={4} sm={6}>
+                                <MdOutlineLocalLaundryService/>
+                                <p>Laundry services</p>
+                            </Col>
+                            <Col className='service-icon-container pt-3 px-0' lg={3} md={4} sm={6}>
+                                <FaSwimmer/>
+                                <p>Swimming</p>
+                            </Col>
+                            <Col className='service-icon-container pt-3 px-0' lg={3} md={4} sm={6}>
+                                <MdPets/>
+                                <p>Pets Allowed</p>
+                            </Col>
+                            <Col className='service-icon-container pt-3 px-0' lg={3} md={4} sm={6}>
+                                <GiVacuumCleaner/>
+                                <p>Cleaning Services</p>
+                            </Col>
+                            <Col className='service-icon-container pt-3 px-0' lg={3} md={4} sm={6}>
+                                <MdKitchen/>
+                                <p>Kitchen Area</p>
+                            </Col>
                         </Row>
                     </Col>
                 </Row>
