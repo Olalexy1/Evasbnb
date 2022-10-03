@@ -6,7 +6,7 @@ import Container from 'react-bootstrap/Container';
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
 import Banner from './components/Banner';
-import { MidSection, BottomSection } from './components/Section'
+import { MidSection, BottomSection, Gallery } from './components/Section'
 
 
 
@@ -16,6 +16,7 @@ function App() {
       <NavBar/>
       <Banner/>
       <MidSection/>
+      <Gallery/>
       <BottomSection/>
       <Footer/>
     </Container>

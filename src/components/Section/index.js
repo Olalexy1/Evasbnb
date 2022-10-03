@@ -9,8 +9,15 @@ import PurpleRoom from '../../images/purpleroom.jpeg';
 import GreenRoom from '../../images/greenroom.jpeg';
 
 import { FaBed, FaBath, FaWifi, FaParking, faSwimmer, FaSwimmer, } from 'react-icons/fa';
-import { GiMeal, GiVacuumCleaner } from 'react-icons/gi'
-import { MdOutlineLocalLaundryService, MdPets, MdKitchen } from 'react-icons/md'
+import { GiMeal, GiVacuumCleaner } from 'react-icons/gi';
+import { MdOutlineLocalLaundryService, MdPets, MdKitchen } from 'react-icons/md';
+
+import Carousel from 'react-grid-carousel';
+
+import slider1 from '../../images/arthur-hickinbotham.jpg'
+import slider2 from '../../images/cara-grobbelaar.jpg'
+import slider3 from '../../images/harry-cunningham.jpg'
+import slider4 from '../../images/vije-vijendranath.jpg'
 
 import './style.scss'
 
@@ -69,7 +76,7 @@ const MidSection = () => {
 
 const BottomSection = () => {
     return ( 
-        <Container fluid className=''>
+        <Container fluid className='mt-5'>
             <Container className='services-container px-5 mb-5'>
                 <Row className='px-0'>
                     <Col className='text-container px-0 pt-3' lg={4} md={12}>
@@ -118,5 +125,33 @@ const BottomSection = () => {
     );
 }
 
+
+const Gallery = () => {
+    return (
+        <Container fluid className='px-0 mx-0'>
+                <Carousel containerStyle={{padding: '0px'}} cols={3} rows={1} gap={10} loop autoplay={3500} scrollSnap={true}>
+                <Carousel.Item>
+                <img width="100%" src={slider1} />
+                </Carousel.Item>
+                <Carousel.Item>
+                <img width="100%" src={slider4} />
+                </Carousel.Item>
+                <Carousel.Item>
+                <img width="100%" src={slider2} />
+                </Carousel.Item>
+                <Carousel.Item>
+                <img width="100%" src={slider3} />
+                </Carousel.Item>
+                <Carousel.Item>
+                <img width="100%" src={slider1} />
+                </Carousel.Item>
+                <Carousel.Item>
+                <img width="100%" src={slider4} />
+                </Carousel.Item>
+            </Carousel>
+      </Container>
+    )
+}
+
  
-export { MidSection, BottomSection };
+export { MidSection, BottomSection, Gallery };
