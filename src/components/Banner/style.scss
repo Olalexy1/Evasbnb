@@ -41,7 +41,6 @@
         }
     }
 
-    /* From uiverse.io by @adamgiebl */
     .cssbuttons-io {
         position: relative;
         font-family: inherit;
@@ -53,7 +52,7 @@
         background: linear-gradient(to right, #DF1F1F, #F10000);
         color: ghostwhite;
         overflow: hidden;
-        width: 100%;
+        width: 100% !important;
     }
    
    .cssbuttons-io span {

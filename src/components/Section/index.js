@@ -11,6 +11,7 @@ import GreenRoom from '../../images/greenroom.jpeg';
 import { FaBed, FaBath, FaWifi, FaParking, faSwimmer, FaSwimmer, } from 'react-icons/fa';
 import { GiMeal, GiVacuumCleaner } from 'react-icons/gi';
 import { MdOutlineLocalLaundryService, MdPets, MdKitchen } from 'react-icons/md';
+import { IoBed } from 'react-icons/io5';
 
 import Carousel from 'react-grid-carousel';
 
@@ -23,7 +24,7 @@ import './style.scss'
 
 const MidSection = () => {
     return ( 
-        <Container fluid className='my-5'>
+        <Container fluid className='mt-5'>
             <Container className='midsection py-5'>
                 <h3>Our Popular Rooms</h3>
                 <p>Lorem ipsum dolor sit amet. Quo voluptatem officiis aut totam mollitia sit tempore autem <br/> quo architecto laborum qui sequi sint id accusamus tempore.</p>
@@ -33,9 +34,9 @@ const MidSection = () => {
                             <img src={RedRoom} alt="Avatar" className='img'/>
                         </div>
                         <div className="text-container py-2">
-                                <h6><b>Red Room</b></h6>
+                                <a href=''><b>Red Room</b></a>
                                 <ul>
-                                    <li><FaBed className='icon'/> Double Bed</li>
+                                    <li><IoBed className='icon'/> Double Bed</li>
                                     <li><FaBath className='icon'/> 1 Bathroom</li>
                                     <li><FaWifi className='icon'/> Wifi </li>
                                 </ul>
@@ -47,9 +48,9 @@ const MidSection = () => {
                             <img src={PurpleRoom} alt="Avatar" className='img'/>
                         </div>
                         <div className="text-container py-2">
-                                <h6><b>Purple Room</b></h6>
+                                <a href=''><b>Purple Room</b></a>
                                 <ul>
-                                    <li><FaBed className='icon'/> Double Bed</li>
+                                    <li><IoBed className='icon'/> Double Bed</li>
                                     <li><FaBath className='icon'/> 1 Bathroom</li>
                                     <li><FaWifi className='icon'/> Wifi </li>
                                 </ul>
@@ -61,9 +62,9 @@ const MidSection = () => {
                             <img src={GreenRoom} alt="Avatar" className='img'/>
                         </div>
                         <div className="text-container py-2">
-                                <h6><b>Green Room</b></h6>
+                                <a href=''><b>Green Room</b></a>
                                 <ul>
-                                    <li><FaBed className='icon'/> Double Bed</li>
+                                    <li><IoBed className='icon'/> Double Bed</li>
                                     <li><FaBath className='icon'/> 1 Bathroom</li>
                                     <li><FaWifi className='icon'/> Wifi </li>
                                 </ul>

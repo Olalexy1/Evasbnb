@@ -12,8 +12,8 @@ import slider3 from '../../images/harry-cunningham.jpg'
 import slider4 from '../../images/vije-vijendranath.jpg'
 
 
-import { FaChevronCircleRight, FaChevronCircleLeft, FaUser, FaChild, FaBed, FaCalendarDay } from 'react-icons/fa';
-
+import { FaChevronCircleRight, FaChevronCircleLeft, FaUser, FaChild, FaCalendarDay } from 'react-icons/fa';
+import { IoBed } from 'react-icons/io5';
 import './style.scss'
 
 const Banner = () => {
@@ -95,7 +95,7 @@ const Banner = () => {
                                     </Form.Select>
                                 </Col>
                                 <Col className='' lg md={4} sm={4}>
-                                    <Form.Label className='label'><FaBed className='form-icons'/> Rooms</Form.Label>
+                                    <Form.Label className='label'><IoBed className='form-icons'/> Rooms</Form.Label>
                                     <Form.Select aria-label="Default select example">
                                         <option>1</option>
                                         <option value="1">2</option>

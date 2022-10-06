@@ -87,8 +87,8 @@ function NavBar() {
       <Navbar.Brand className="brand" href="#home">
             <img
               src={logo}
-              width="50"
-              // height="50"
+              width="60"
+              height="60"
               className="d-inline-block align-top"
               alt="Eva's Bed and Breakfast logo"
             /> <span>Eva's Bed and Breakfast</span>

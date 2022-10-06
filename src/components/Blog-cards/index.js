@@ -13,7 +13,7 @@ import './style.scss'
 
 const Blogcards = () => {
     return ( 
-        <Container fluid>
+        <Container fluid className='pt-5'>
             <Container className='blogcards-container my-5'>
             <h3>Latest From Our Blog</h3>
                 <Row className='mx-2 pt-3'>

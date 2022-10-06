@@ -1,10 +1,13 @@
 import React from 'react';
 import Slider from "react-slick";
 
-import slider1 from '../../images/arthur-hickinbotham.jpg';
-import slider2 from '../../images/cara-grobbelaar.jpg';
-import slider3 from '../../images/harry-cunningham.jpg';
-// import { FaChevronCircleRight, FaChevronCircleLeft } from 'react-icons/fa';
+import RedRoom from '../../images/redroom.jpeg';
+import PurpleRoom from '../../images/purpleroom.jpeg';
+import GreenRoom from '../../images/greenroom.jpeg';
+
+import { FaBed, FaBath, FaWifi, FaUser } from 'react-icons/fa';
+import { IoBed } from 'react-icons/io5';
+import { MdFreeBreakfast } from 'react-icons/md';
 import Container from 'react-bootstrap/Container';
 
 import './style.scss'
@@ -52,17 +55,25 @@ const Slickcarousel = () => {
             breakpoint: 1024,
             settings: {
             slidesToShow: 3,
-            slidesToScroll: 3,
+            slidesToScroll: 1,
             infinite: true,
             dots: true
             }
         },
         {
+          breakpoint: 786,
+          settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          initialSlide: 1,
+          }
+      },
+        {
             breakpoint: 600,
             settings: {
             slidesToShow: 2,
             slidesToScroll: 2,
-            initialSlide: 2
+            initialSlide: 1,
             }
         },
         {
@@ -79,15 +90,112 @@ const Slickcarousel = () => {
 
   return (
     <Container fluid className='slick-container py-5'>
-        <Container className='slick-carousel'>
+        <Container className='slick-carousel my-5'>
         <h3 className='py-3'>All Our Rooms</h3>
         <Slider {...settings}>
-            <div><img src={slider1} alt=""/></div>
-            <div><img src={slider2} alt=""/></div>
-            <div><img src={slider3} alt=""/></div>
-            <div><img src={slider2} alt=""/></div>
-            <div><img src={slider3} alt=""/></div>
+            <div className='carousel-card'>
+              <img src={RedRoom} alt=""/>
+              <div className="text-container py-2">
+                <a href=''><b>Red Room</b></a>
+                <ul>
+                    <li><IoBed className='icon'/> 1 Double Bed</li>
+                    <li><FaBath className='icon'/> 1 Bathroom</li>
+                    <li><FaWifi className='icon'/> Wifi </li>
+                </ul>
+                <ul>
+                    <li><FaUser className='icon'/> 2 Adults</li>
+                    <li><MdFreeBreakfast className='icon'/> Breakfast </li>
+                </ul>
+                <span className='amt'>ZAR 250</span> <span className='night'> / Night</span>
+              </div>
+            </div>
+
+            <div>
+              <img src={PurpleRoom} alt=""/>
+              <div className="text-container py-2">
+                <a href=''><b>Purple Room</b></a>
+                <ul>
+                    <li><IoBed className='icon'/> 1 Double Bed</li>
+                    <li><FaBath className='icon'/> 1 Bathroom</li>
+                    <li><FaWifi className='icon'/> Wifi </li>
+                </ul>
+                <ul>
+                    <li><FaUser className='icon'/> 2 Adults</li>
+                    <li><MdFreeBreakfast className='icon'/> Breakfast </li>
+                </ul>
+                <span className='amt'>ZAR 250</span> <span className='night'> / Night</span>
+              </div>
+            </div>
+
+            <div>
+              <img src={GreenRoom} alt=""/>
+              <div className="text-container py-2">
+                <a href=''><b>Green Room</b></a>
+                <ul>
+                    <li><IoBed className='icon'/> 1 Double Bed</li>
+                    <li><FaBath className='icon'/> 1 Bathroom</li>
+                    <li><FaWifi className='icon'/> Wifi </li>
+                </ul>
+                <ul>
+                    <li><FaUser className='icon'/> 2 Adults</li>
+                    <li><MdFreeBreakfast className='icon'/> Breakfast </li>
+                </ul>
+                <span className='amt'>ZAR 250</span> <span className='night'> / Night</span>
+              </div>
+            </div>
+
+            <div>
+              <img src={RedRoom} alt=""/>
+              <div className="text-container py-2">
+                <a href=''><b>Red Room</b></a>
+                <ul>
+                    <li><IoBed className='icon'/> 1 Double Bed</li>
+                    <li><FaBath className='icon'/> 1 Bathroom</li>
+                    <li><FaWifi className='icon'/> Wifi </li>
+                </ul>
+                <ul>
+                    <li><FaUser className='icon'/> 2 Adults</li>
+                    <li><MdFreeBreakfast className='icon'/> Breakfast </li>
+                </ul>
+                <span className='amt'>ZAR 250</span> <span className='night'> / Night</span>
+              </div>
+            </div>
+
+            <div>
+              <img src={GreenRoom} alt=""/>
+              <div className="text-container py-2">
+                <a href=''><b>Green Room</b></a>
+                <ul>
+                    <li><IoBed className='icon'/> 1 Double Bed</li>
+                    <li><FaBath className='icon'/> 1 Bathroom</li>
+                    <li><FaWifi className='icon'/> Wifi </li>
+                </ul>
+                <ul>
+                    <li><FaUser className='icon'/> 2 Adults</li>
+                    <li><MdFreeBreakfast className='icon'/> Breakfast </li>
+                </ul>
+                <span className='amt'>ZAR 250</span> <span className='night'> / Night</span>
+              </div>
+            </div>
+
+            <div>
+              <img src={PurpleRoom} alt=""/>
+              <div className="text-container py-2">
+                <a href=''><b>Purple Room</b></a>
+                <ul>
+                    <li><IoBed className='icon'/> 1 Double Bed</li>
+                    <li><FaBath className='icon'/> 1 Bathroom</li>
+                    <li><FaWifi className='icon'/> Wifi </li>
+                </ul>
+                <ul>
+                    <li><FaUser className='icon'/> 2 Adults</li>
+                    <li><MdFreeBreakfast className='icon'/> Breakfast </li>
+                </ul>
+                <span className='amt'>ZAR 250</span> <span className='night'> / Night</span>
+              </div>
+            </div>
         </Slider>
+
         <button className="cssbuttons-io mt-5">
             <a href=''> <span> View All Rooms </span> </a>
         </button>
