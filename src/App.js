@@ -3,29 +3,28 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from 'react-bootstrap/Container';
 
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
-import Banner from './components/Banner';
-import { MidSection, BottomSection, Gallery } from './components/Section';
-import Slickcarousel from './components/Slick-carousel';
-import Blogcards from './components/Blog-cards';
-import { Subform, Inqiuryform } from './components/Forms';
 
+
+import Homepage from './pages/HomePage';
+import Rooms from './pages/Rooms';
 
 
 function App() {
   return (
-    <Container fluid className='px-0 mx-0'>
-      <NavBar/>
-      <Banner/>
-      <MidSection/>
-      <Slickcarousel/>
-      <BottomSection/>
-      <Blogcards/>
-      <Subform/>
-      <Footer/>
-    </Container>
-    
+    <Router>
+      <Container fluid className='px-0 mx-0'>
+        <NavBar/>
+          <Routes>
+            <Route exact path="/" element={<Homepage />} />
+            <Route exact path="/Rooms" element={<Rooms />} />
+          </Routes>
+        <Footer/>
+      </Container>
+    </Router>
   );
 }
 

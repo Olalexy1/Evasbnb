@@ -59,7 +59,7 @@
 
 .slick-slide > div:hover {
     img {
-        transform: translateY(-30%);
+        transform: scale(1.2);
         transition: transform .5s ease;
        }
 
@@ -68,6 +68,12 @@
         font-weight: 500;
         color: #F10000;
         transition: 0.3s;
+    }
+
+    .text-container {
+        z-index: 5;
+        transition: transform .3s ease-in-out;
+
     }
 }
 
@@ -181,36 +187,11 @@
 */
 
 @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
-    .slick-slide > div:hover {
-        img {
-            transform: translateY(-45%);
-            transition: transform .5s ease;
-           }
-    
-        a {
-            font-size: 1.25rem;
-            font-weight: 500;
-            color: #F10000;
-            transition: 0.3s;
-        }
-    }
     
 }
 
 @media (min-width: 481px) and (max-width: 767px) {
-    .slick-slide > div:hover {
-        img {
-            transform: translateY(-38%) !important;
-            transition: transform .5s ease;
-           }
     
-        a {
-            font-size: 1.25rem;
-            font-weight: 500;
-            color: #F10000;
-            transition: 0.3s;
-        }
-    }
     
 }
   
@@ -235,19 +216,6 @@
         align-self: center;
     }
 
-    .slick-slide > div:hover {
-        img {
-            transform: translateY(-45%) !important;
-            transition: transform .5s ease;
-           }
-    
-        a {
-            font-size: 1.25rem;
-            font-weight: 500;
-            color: #F10000;
-            transition: 0.3s;
-        }
-    }
-    
+
 }
 

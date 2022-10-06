@@ -79,8 +79,8 @@ const MidSection = () => {
 
 const BottomSection = () => {
     return ( 
-        <Container fluid className='mt-5'>
-            <Container className='services-container px-5 mb-5'>
+        <Container fluid className='pt-5'>
+            <Container className='services-container px-5 my-5'>
                 <Row className='px-0'>
                     <Col className='text-container px-0 pt-3' lg={4} md={12}>
                         <h3>Our Services</h3>
