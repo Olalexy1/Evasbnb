@@ -1,0 +1,142 @@
+.slick-slide > div {
+    margin: 0 5px;
+    overflow: hidden;
+    border-radius: 0.8em;
+}
+
+.slick-list {
+    margin: 0 -5px;
+}
+
+.slick-carousel {
+    display: flex;
+    flex-direction: column;
+
+    img {
+    height: 400px;
+    width: 100%;
+    border-radius: 0.8em;
+    }
+
+    img:hover {
+        transform: scale(1.2);
+        transition: transform .5s ease;
+    }
+
+    /* From uiverse.io by @adamgiebl */
+    .cssbuttons-io {
+        position: relative;
+        font-family: inherit;
+        font-weight: 500;
+        font-size: 18px;
+        letter-spacing: 0.05em;
+        border-radius: 0.8em;
+        border: none;
+        background: linear-gradient(to right, #DF1F1F, #F10000);
+        color: ghostwhite;
+        overflow: hidden;
+        width: 33%;
+        align-self: center;
+    }
+   
+   .cssbuttons-io a {
+        position: relative;
+        z-index: 10;
+        transition: color 0.4s;
+        display: inline-flex;
+        align-items: center;
+        padding: 0.8em 1.2em 0.8em 1.05em;
+        text-decoration: none;
+        color: ghostwhite;
+        font-family: inherit;
+        font-weight: 500;
+        font-size: 18px;
+        letter-spacing: 0.05em;
+   }
+   
+   .cssbuttons-io::before,
+   .cssbuttons-io::after {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 33%;
+        height: 100%;
+        z-index: 0;
+   }
+   
+   .cssbuttons-io::before {
+    content: "";
+        background: #222222;
+        width: 120%;
+        left: -10%;
+        transform: skew(30deg);
+        transition: transform 0.4s cubic-bezier(0.3, 1, 0.8, 1);
+   }
+   
+   .cssbuttons-io:hover::before {
+        transform: translate3d(100%, 0, 0);
+   }
+   
+   .cssbuttons-io:active {
+        transform: scale(0.95);
+   }
+
+}
+
+
+.slick-container {
+    background-color: #615E5E;
+
+    h3 {
+        align-self: center;
+        font-size: 1.75rem;
+        font-weight: 600;
+        color: #fff;
+    }
+
+    p {
+        align-self: center;
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #fff;
+    }
+
+}
+
+/* 
+##Device = Tablets, Ipads (landscape)
+##Screen = B/w 768px to 1024px
+*/
+
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+
+    
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+    
+}
+  
+  /* 
+    ##Device = Most of the Smartphones Mobiles (Portrait)
+    ##Screen = B/w 320px to 479px
+  */
+  
+@media (min-width: 320px) and (max-width: 480px) {
+    .cssbuttons-io {
+        position: relative;
+        font-family: inherit;
+        font-weight: 500;
+        font-size: 18px;
+        letter-spacing: 0.05em;
+        border-radius: 0.8em;
+        border: none;
+        background: linear-gradient(to right, #DF1F1F, #F10000);
+        color: ghostwhite;
+        overflow: hidden;
+        width: 80% !important;
+        align-self: center;
+    }
+    
+}
+

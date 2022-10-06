@@ -6,7 +6,10 @@ import Container from 'react-bootstrap/Container';
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
 import Banner from './components/Banner';
-import { MidSection, BottomSection, Gallery } from './components/Section'
+import { MidSection, BottomSection, Gallery } from './components/Section';
+import Slickcarousel from './components/Slick-carousel';
+import Blogcards from './components/Blog-cards';
+import { Subform, Inqiuryform } from './components/Forms';
 
 
 
@@ -16,8 +19,10 @@ function App() {
       <NavBar/>
       <Banner/>
       <MidSection/>
-      <Gallery/>
+      <Slickcarousel/>
       <BottomSection/>
+      <Blogcards/>
+      <Subform/>
       <Footer/>
     </Container>
     

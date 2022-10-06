@@ -14,10 +14,10 @@ import { MdOutlineLocalLaundryService, MdPets, MdKitchen } from 'react-icons/md'
 
 import Carousel from 'react-grid-carousel';
 
-import slider1 from '../../images/arthur-hickinbotham.jpg'
-import slider2 from '../../images/cara-grobbelaar.jpg'
-import slider3 from '../../images/harry-cunningham.jpg'
-import slider4 from '../../images/vije-vijendranath.jpg'
+import slider1 from '../../images/arthur-hickinbotham.jpg';
+import slider2 from '../../images/cara-grobbelaar.jpg';
+import slider3 from '../../images/harry-cunningham.jpg';
+import slider4 from '../../images/vije-vijendranath.jpg';
 
 import './style.scss'
 
@@ -36,7 +36,8 @@ const MidSection = () => {
                                 <h6><b>Red Room</b></h6>
                                 <ul>
                                     <li><FaBed className='icon'/> Double Bed</li>
-                                    <li><FaBath className='icon'/> 1 Bathroom</li> 
+                                    <li><FaBath className='icon'/> 1 Bathroom</li>
+                                    <li><FaWifi className='icon'/> Wifi </li>
                                 </ul>
                                 <span className='amt'>ZAR 250</span> <span className='night'> / Night</span>
                         </div>
@@ -49,7 +50,8 @@ const MidSection = () => {
                                 <h6><b>Purple Room</b></h6>
                                 <ul>
                                     <li><FaBed className='icon'/> Double Bed</li>
-                                    <li><FaBath className='icon'/> 1 Bathroom</li> 
+                                    <li><FaBath className='icon'/> 1 Bathroom</li>
+                                    <li><FaWifi className='icon'/> Wifi </li>
                                 </ul>
                                 <span className='amt'>ZAR 250</span> <span className='night'> / Night</span>
                         </div>
@@ -128,7 +130,7 @@ const BottomSection = () => {
 
 const Gallery = () => {
     return (
-        <Container fluid className='px-0 mx-0'>
+        <Container fluid className='px-0 mx-0 mb-5'>
                 <Carousel containerStyle={{padding: '0px'}} cols={3} rows={1} gap={10} loop autoplay={3500} scrollSnap={true}>
                 <Carousel.Item>
                 <img width="100%" src={slider1} />
