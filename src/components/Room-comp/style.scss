@@ -1,0 +1,103 @@
+* {
+    box-sizing: border-box;
+}
+
+.room-comp-container {
+
+    .room-brief {
+        box-shadow: 0 1px 13.5px 1.5px rgba(0,0,0,0.2);
+        border-radius: 0.8em;
+
+        .brief {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-right: 1px solid #B5B5B6;
+        }
+
+        .price-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+
+    .amt {
+        font-size: 1.3rem;
+        font-weight: 500;
+        color: #F10000;
+        line-height: 30px;
+    }
+
+    .night {
+        font-size: 1.0rem;
+        font-weight: 500;
+        color: #615E5E;
+        line-height: 30px;
+        margin-right: 15px;
+    }
+
+    .price {
+        font-size: 1.0rem;
+        font-weight: 500;
+        color: #222222;
+        line-height: 30px;
+        margin-right: 15px;
+    }
+}
+
+/* 
+##Device = Tablets, Ipads (landscape)
+##Screen = B/w 768px to 1024px
+*/
+
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+
+    
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+    .room-comp-container {
+
+        .room-brief {
+            box-shadow: 0 1px 13.5px 1.5px rgba(0,0,0,0.2);
+            border-radius: 0.8em;
+    
+            .brief {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                border-bottom: 1px solid #B5B5B6;
+                border-right: 0px;
+            }
+        }
+    }
+}
+  
+  /* 
+    ##Device = Most of the Smartphones Mobiles (Portrait)
+    ##Screen = B/w 320px to 479px
+  */
+  
+@media (min-width: 320px) and (max-width: 480px) {
+    .room-comp-container {
+
+        .room-brief {
+            box-shadow: 0 1px 13.5px 1.5px rgba(0,0,0,0.2);
+            border-radius: 0.8em;
+    
+            .brief {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                border-bottom: 1px solid #B5B5B6;
+                border-right: 0px;
+            }
+        }
+    }
+}
+

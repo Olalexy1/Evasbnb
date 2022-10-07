@@ -2,6 +2,9 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
+import { Subform } from '../../components/Forms';
+import Allservices from '../../components/Services-comp';
+
 import './style.scss'
 
 const Services = () => {
@@ -16,6 +19,8 @@ const Services = () => {
                         </ul>
                     </div>
                 </Col>
+                <Allservices/>
+                <Subform/>
         </Container>
      );
 }

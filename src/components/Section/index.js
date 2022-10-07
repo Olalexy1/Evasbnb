@@ -34,7 +34,7 @@ const MidSection = () => {
                             <img src={RedRoom} alt="Avatar" className='img'/>
                         </div>
                         <div className="text-container py-2">
-                                <a href=''><b>Red Room</b></a>
+                                <a href='/Room'><b>Red Room</b></a>
                                 <ul>
                                     <li><IoBed className='icon'/> Double Bed</li>
                                     <li><FaBath className='icon'/> 1 Bathroom</li>
@@ -48,7 +48,7 @@ const MidSection = () => {
                             <img src={PurpleRoom} alt="Avatar" className='img'/>
                         </div>
                         <div className="text-container py-2">
-                                <a href=''><b>Purple Room</b></a>
+                                <a href='/Room'><b>Purple Room</b></a>
                                 <ul>
                                     <li><IoBed className='icon'/> Double Bed</li>
                                     <li><FaBath className='icon'/> 1 Bathroom</li>
@@ -62,7 +62,7 @@ const MidSection = () => {
                             <img src={GreenRoom} alt="Avatar" className='img'/>
                         </div>
                         <div className="text-container py-2">
-                                <a href=''><b>Green Room</b></a>
+                                <a href='/Room'><b>Green Room</b></a>
                                 <ul>
                                     <li><IoBed className='icon'/> Double Bed</li>
                                     <li><FaBath className='icon'/> 1 Bathroom</li>

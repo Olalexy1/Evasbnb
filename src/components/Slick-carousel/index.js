@@ -96,7 +96,7 @@ const Slickcarousel = () => {
             <div className='carousel-card'>
               <img src={RedRoom} alt=""/>
               <div className="text-container py-2">
-                <a href=''><b>Red Room</b></a>
+                <a href='/Room'><b>Red Room</b></a>
                 <ul>
                     <li><IoBed className='icon'/> 1 Double Bed</li>
                     <li><FaBath className='icon'/> 1 Bathroom</li>
@@ -113,7 +113,7 @@ const Slickcarousel = () => {
             <div>
               <img src={PurpleRoom} alt=""/>
               <div className="text-container py-2">
-                <a href=''><b>Purple Room</b></a>
+                <a href='/Room'><b>Purple Room</b></a>
                 <ul>
                     <li><IoBed className='icon'/> 1 Double Bed</li>
                     <li><FaBath className='icon'/> 1 Bathroom</li>
@@ -130,7 +130,7 @@ const Slickcarousel = () => {
             <div>
               <img src={GreenRoom} alt=""/>
               <div className="text-container py-2">
-                <a href=''><b>Green Room</b></a>
+                <a href='/Room'><b>Green Room</b></a>
                 <ul>
                     <li><IoBed className='icon'/> 1 Double Bed</li>
                     <li><FaBath className='icon'/> 1 Bathroom</li>
@@ -147,7 +147,7 @@ const Slickcarousel = () => {
             <div>
               <img src={RedRoom} alt=""/>
               <div className="text-container py-2">
-                <a href=''><b>Red Room</b></a>
+                <a href='/Room'><b>Red Room</b></a>
                 <ul>
                     <li><IoBed className='icon'/> 1 Double Bed</li>
                     <li><FaBath className='icon'/> 1 Bathroom</li>
@@ -164,7 +164,7 @@ const Slickcarousel = () => {
             <div>
               <img src={GreenRoom} alt=""/>
               <div className="text-container py-2">
-                <a href=''><b>Green Room</b></a>
+                <a href='/Room'><b>Green Room</b></a>
                 <ul>
                     <li><IoBed className='icon'/> 1 Double Bed</li>
                     <li><FaBath className='icon'/> 1 Bathroom</li>
@@ -181,7 +181,7 @@ const Slickcarousel = () => {
             <div>
               <img src={PurpleRoom} alt=""/>
               <div className="text-container py-2">
-                <a href=''><b>Purple Room</b></a>
+                <a href='/Room'><b>Purple Room</b></a>
                 <ul>
                     <li><IoBed className='icon'/> 1 Double Bed</li>
                     <li><FaBath className='icon'/> 1 Bathroom</li>

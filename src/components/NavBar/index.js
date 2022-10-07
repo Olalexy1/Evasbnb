@@ -84,7 +84,7 @@ function NavBar() {
   return (
     <Navbar fluid className="navigation-container" bg="light" expand="lg" sticky="top">
       <Container fluid className='navigation'>
-      <Navbar.Brand className="brand" href="#home">
+      <Navbar.Brand className="brand" href="/">
             <img
               src={logo}
               width="60"
