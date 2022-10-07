@@ -197,7 +197,7 @@ const Slickcarousel = () => {
         </Slider>
 
         <button className="cssbuttons-io mt-5">
-            <a href=''> <span> View All Rooms </span> </a>
+            <a href='/Rooms'> <span> View All Rooms </span> </a>
         </button>
         </Container>
     </Container>

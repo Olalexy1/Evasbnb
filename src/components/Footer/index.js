@@ -31,7 +31,7 @@ const Footer = () => {
                             <a href=""> <FaFacebook className='icon'/> </a>
                             <a href=""> <FaInstagram className='icon'/> </a>
                             <a href=""> <FaTwitter className='icon'/> </a>
-                            <a href="https://www.airbnb.co.uk/users/show/406076701"> <FaAirbnb className='icon'/> </a>    
+                            <a href="https://www.airbnb.co.uk/users/show/406076701" target='_blank'> <FaAirbnb className='icon'/> </a>    
                         </div>  
 
                     </Col>
@@ -43,7 +43,7 @@ const Footer = () => {
                             <li>WIFI</li>
                             <li>Laundry Services</li>
                             <li>Kitchen</li>
-                            <li><a href="">See More...</a></li>
+                            <li><a href="/Services">See More...</a></li>
                         </ul>
                     </Col>
                     <Col lg md={6} className='centre-right-footer inner-footer mb-4'>
@@ -54,7 +54,7 @@ const Footer = () => {
                             <li><a href=""> FAQs </a></li>
                             <li><a href="/Rooms"> Our Rooms </a></li>
                             <li><a href="/Blog"> Blog </a></li>
-                            <li><a href=""> Properties </a></li>
+                            <li><a href="/Properties"> Properties </a></li>
                         </ul>
                     </Col>
                     <Col lg md={6} className='right-footer inner-footer mb-4'>

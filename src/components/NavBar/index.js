@@ -96,13 +96,16 @@ function NavBar() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="nav-links-container ms-auto my-1">
-            <Nav.Link className='links' href="#home">Home</Nav.Link>
-            <NavDropdown className='links' title="Properties" id="basic-nav-dropdown">
+            <Nav.Link className='links' href="/">Home</Nav.Link>
+
+            {/* <NavDropdown className='links' title="Properties" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-            </NavDropdown>
+            </NavDropdown> */}
+
             <Nav.Link className='links' href="/Rooms">Rooms</Nav.Link>
             <Nav.Link className='links' href="/Booking">Bookings</Nav.Link>
+            <Nav.Link className='links' href="/Blog">Blog</Nav.Link>
             <Nav.Link className='links' href="/Contact">Contact Us</Nav.Link>
             <Nav.Link className='links-alt' href="#link">USD</Nav.Link>
             <Nav.Link className='links-alt' href="#link">

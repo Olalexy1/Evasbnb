@@ -12,7 +12,11 @@ import Footer from './components/Footer';
 import Homepage from './pages/HomePage';
 import Rooms from './pages/Rooms';
 import Aboutus from './pages/AboutUs';
-import Booking from './pages/Bookings'
+import Booking from './pages/Bookings';
+import Contact from './pages/ContactUs';
+import Blog from './pages/Blog';
+import Services from './pages/Services-page';
+import Properties from './pages/Properties';
 
 
 function App() {
@@ -25,6 +29,10 @@ function App() {
             <Route exact path="/Rooms" element={<Rooms />} />
             <Route exact path="/About" element={<Aboutus />} />
             <Route exact path="/Booking" element={<Booking />} />
+            <Route exact path="/Contact" element={<Contact />} />
+            <Route exact path="/Blog" element={<Blog />} />
+            <Route exact path="/Services" element={<Services />} />
+            <Route exact path="/Properties" element={<Properties />} />
           </Routes>
         <Footer/>
       </Container>

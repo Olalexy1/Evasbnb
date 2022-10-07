@@ -4,15 +4,15 @@ import Col from 'react-bootstrap/Col';
 
 import './style.scss'
 
-const Booking = () => {
+const Properties = () => {
     return ( 
-        <Container fluid className='booking-container px-0'>
+        <Container fluid className='properties-container px-0'>
                 <Col lg={12} className='background-image px-0'>
                     <div className='text-container px-0'>
-                        <h3>Bookings</h3>
+                        <h3>Properties</h3>
                         <ul>
                             <li><a href='/'>Home</a></li>
-                            <li><span>/Bookings</span></li>
+                            <li><span>/properties</span></li>
                         </ul>
                     </div>
                 </Col>
@@ -20,4 +20,4 @@ const Booking = () => {
      );
 }
  
-export default Booking;
+export default Properties;
