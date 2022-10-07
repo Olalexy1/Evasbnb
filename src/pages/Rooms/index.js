@@ -11,13 +11,20 @@ import { GiMeal, GiVacuumCleaner } from 'react-icons/gi';
 import { MdOutlineLocalLaundryService, MdPets, MdKitchen } from 'react-icons/md';
 import { IoBed } from 'react-icons/io5';
 
-import './style.scss';
+import './style.scss'
 
 const Rooms = () => {
     return ( 
-        <Container fluid className='rooms-container px-0 mx-0'>
-            <Row className='background-img'>
-            </Row>
+        <Container fluid className='rooms-container px-0'>
+                <Col lg={12} className='background-image px-0'>
+                    <div className='text-container px-0'>
+                        <h3>All Rooms</h3>
+                        <ul>
+                            <li><a href='/'>Home</a></li>
+                            <li><span>/Rooms</span></li>
+                        </ul>
+                    </div>
+                </Col>
         </Container>
      );
 }

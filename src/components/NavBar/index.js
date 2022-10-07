@@ -102,8 +102,8 @@ function NavBar() {
               <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
             </NavDropdown>
             <Nav.Link className='links' href="/Rooms">Rooms</Nav.Link>
-            <Nav.Link className='links' href="#link">Bookings</Nav.Link>
-            <Nav.Link className='links' href="#link">Contact Us</Nav.Link>
+            <Nav.Link className='links' href="/Booking">Bookings</Nav.Link>
+            <Nav.Link className='links' href="/Contact">Contact Us</Nav.Link>
             <Nav.Link className='links-alt' href="#link">USD</Nav.Link>
             <Nav.Link className='links-alt' href="#link">
               <img

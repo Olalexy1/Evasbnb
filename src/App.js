@@ -11,6 +11,8 @@ import Footer from './components/Footer';
 
 import Homepage from './pages/HomePage';
 import Rooms from './pages/Rooms';
+import Aboutus from './pages/AboutUs';
+import Booking from './pages/Bookings'
 
 
 function App() {
@@ -21,6 +23,8 @@ function App() {
           <Routes>
             <Route exact path="/" element={<Homepage />} />
             <Route exact path="/Rooms" element={<Rooms />} />
+            <Route exact path="/About" element={<Aboutus />} />
+            <Route exact path="/Booking" element={<Booking />} />
           </Routes>
         <Footer/>
       </Container>

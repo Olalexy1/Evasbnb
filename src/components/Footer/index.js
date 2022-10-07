@@ -17,7 +17,7 @@ const Footer = () => {
                 <Row className='footer py-5'>
                     <Col lg={4} md={6} className='left-footer inner-footer mb-4'>
                         <div className='left-footer-inner'>
-                            <a href=""> <img src={logo} width="50px" alt="Eva's Logo" className='me-3' /></a>
+                            <a href="/"> <img src={logo} width="50px" alt="Eva's Logo" className='me-3' /></a>
                             <h6>Eva's Bed and Breakfast</h6>
                         </div>
 
@@ -31,7 +31,7 @@ const Footer = () => {
                             <a href=""> <FaFacebook className='icon'/> </a>
                             <a href=""> <FaInstagram className='icon'/> </a>
                             <a href=""> <FaTwitter className='icon'/> </a>
-                            <a href=""> <FaAirbnb className='icon'/> </a>    
+                            <a href="https://www.airbnb.co.uk/users/show/406076701"> <FaAirbnb className='icon'/> </a>    
                         </div>  
 
                     </Col>
@@ -49,11 +49,11 @@ const Footer = () => {
                     <Col lg md={6} className='centre-right-footer inner-footer mb-4'>
                         <h6>Links</h6>
                         <ul>
-                            <li><a href=""> Bookings </a></li>
-                            <li><a href=""> About Us </a></li>
+                            <li><a href="/Booking"> Bookings </a></li>
+                            <li><a href="/About"> About Us </a></li>
                             <li><a href=""> FAQs </a></li>
-                            <li><a href=""> Our Rooms </a></li>
-                            <li><a href=""> Blog </a></li>
+                            <li><a href="/Rooms"> Our Rooms </a></li>
+                            <li><a href="/Blog"> Blog </a></li>
                             <li><a href=""> Properties </a></li>
                         </ul>
                     </Col>
