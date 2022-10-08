@@ -75,40 +75,80 @@ const Roomcomponent = () => {
                         </div>
 
                     </Col>
-                    <Col md={3} lg={3} className='check-form px-3 py-4'>
-                        <h4>Check Availability</h4>
+                    <Col md={4} lg={3} className='px-0'>
+                        <div className='check-form px-3 py-4'>
 
-                        <Form action="#" method="POST">
-                            <Row className='form'>
-                                <Col className="form-sect my-3" lg={12} md={12}>
-                                    <Form.Control className="form-items py-3" type="date" name="checkin"/>
-                                </Col>
-                                <Col className="form-sect my-3" lg={12} md={12}>
-                                    <Form.Control className="form-items py-3" type="date" name="checkout"/>
-                                </Col>
-                                <Col className="form-sect my-3" lg={12} md={12}>
-                                    <Form.Select className="form-items py-3" aria-label="Default select example">
-                                        <option>Adult</option>
-                                        <option value="1">2</option>
-                                        <option value="2">3</option>
-                                        <option value="3">4</option>
-                                    </Form.Select>
-                                </Col>
-                                <Col className="form-sect my-3" lg={12} md={12}>
-                                    <Form.Select className="form-items py-3" aria-label="Default select example">
-                                        <option>Children</option>
-                                        <option value="1">2</option>
-                                        <option value="2">3</option>
-                                        <option value="3">4</option>
-                                    </Form.Select>
-                                </Col>
-                                <Col className="form-btn my-2" lg={12} md={12}>
-                                    <button className="cssbuttons-io">
-                                        <span> Check Availability </span>
-                                    </button>
-                                </Col>
-                            </Row>
-                        </Form>
+                            <h4 className='header-text pb-2'>Check Availability</h4>
+
+                            <Form action="#" method="POST">
+                                <Row className='form'>
+                                    <Col className="form-sect my-3" lg={12} md={12}>
+                                        <Form.Control className="form-items py-3" type="date" name="checkin"/>
+                                    </Col>
+                                    <Col className="form-sect my-3" lg={12} md={12}>
+                                        <Form.Control className="form-items py-3" type="date" name="checkout"/>
+                                    </Col>
+                                    <Col className="form-sect my-3" lg={12} md={12}>
+                                        <Form.Select className="form-items py-3" aria-label="Default select example">
+                                            <option>Adult</option>
+                                            <option value="1">2</option>
+                                            <option value="2">3</option>
+                                            <option value="3">4</option>
+                                        </Form.Select>
+                                    </Col>
+                                    <Col className="form-sect my-3" lg={12} md={12}>
+                                        <Form.Select className="form-items py-3" aria-label="Default select example">
+                                            <option>Children</option>
+                                            <option value="1">2</option>
+                                            <option value="2">3</option>
+                                            <option value="3">4</option>
+                                        </Form.Select>
+                                    </Col>
+                                    <Col className="form-btn my-2" lg={12} md={12}>
+                                        <button className="cssbuttons-io">
+                                            <span> Check Availability </span>
+                                        </button>
+                                    </Col>
+                                </Row>
+                            </Form>
+                        </div>
+                        
+                    </Col>
+                </Row>
+
+                <Row className='my-5'>
+                    <Col className='ammenities-container py-4'></Col>
+                    <Col md={4} lg={3} className='discover-container py-4 px-0'>
+                        <h4 className='header-text pb-2'>Discover Our Rooms</h4>
+                        <Row className='img-grid-container'>
+                            <Col className='img-grid' lg={6}>
+                                <a href="">
+                                    <img fluid src={GreenRoom} width="100%" alt=""/>
+                                </a>
+                            </Col> 
+                            <Col className='img-grid' lg={6}>
+                                <a href="">
+                                    <img src={GreenRoom} width="100%" alt=""/>
+                                </a>
+                            </Col>
+                            <Col className='img-grid' lg={6}>
+                                <a href="">
+                                    <img src={GreenRoom} width="100%" alt=""/>
+                                </a>
+                            </Col>
+                            <Col className='img-grid' lg={6}>
+                                <a href="">
+                                    <img src={GreenRoom} width="100%" alt=""/>
+                                </a>
+                            </Col>
+                        </Row>
+                    </Col>
+                </Row>
+
+                <Row className='my-5'>
+                    <Col className='room-services-container py-4'></Col>
+                    <Col md={3} lg={3} className='help-container py-4'>
+                        <h4>Need Help</h4>
                     </Col>
                 </Row>
             </Container>
