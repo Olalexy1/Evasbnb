@@ -1,0 +1,83 @@
+.slick-slide > div {
+    margin: 0 5px;
+    overflow: hidden;
+    height: 400px;
+    border-radius: 0.8em;
+    // border: 2px solid red;
+    position: relative;
+       
+}
+
+.slick-slide > div:hover {
+    img {
+        transform: scale(1.2);
+        transition: transform .5s ease;
+       }
+
+}
+
+
+.slick-list {
+    margin: 0 -5px;
+}
+
+.slick-carousel {
+    display: flex;
+    flex-direction: column;
+
+    img {
+    height: 100% !important;
+    width: 100%;
+    position: absolute;
+    transition: transform .3s ease-in-out;
+    z-index: 2;
+    border-top-left-radius: 0.8em;
+    border-top-right-radius: 0.8em;
+    }
+
+    img:hover {
+        transform: scale(1.2);
+        transition: transform .5s ease;
+    }
+
+}
+
+
+// .zoom-it {
+//     border: red solid 5px;
+//     position: relative;
+//     z-index: 9999;
+// }
+
+
+// .zoom-it.scaled {
+//     transform: scale(2);
+//     position: absolute;
+// }
+
+
+/* 
+##Device = Tablets, Ipads (landscape)
+##Screen = B/w 768px to 1024px
+*/
+
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+    
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+    
+    
+}
+  
+  /* 
+    ##Device = Most of the Smartphones Mobiles (Portrait)
+    ##Screen = B/w 320px to 479px
+  */
+  
+@media (min-width: 320px) and (max-width: 480px) {
+   
+
+
+}
+

@@ -3,7 +3,7 @@ import React from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Form from 'react-bootstrap/Form'
+import Form from 'react-bootstrap/Form';
 import Carousel from 'react-bootstrap/Carousel';
 
 import slider1 from '../../images/arthur-hickinbotham.jpg'
