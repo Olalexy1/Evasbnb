@@ -117,26 +117,39 @@ const Roomcomponent = () => {
                 </Row>
 
                 <Row className='my-5'>
-                    <Col className='ammenities-container py-4'></Col>
+                    <Col className='amenities-container py-4'>
+                        <Row>
+                            <Col lg={5} className='mb-3'>
+                                <div className='amenities-list-container'>
+                                <img fluid src={GreenRoom} width="100%" alt=""/>
+                                </div>
+                            </Col>
+                            <Col lg={7} className='mb-3'>
+                                <div className='amenities-img'>
+                                    <img fluid src={GreenRoom} width="100%" alt="" />
+                                </div>
+                            </Col>
+                        </Row>
+                    </Col>
                     <Col md={4} lg={3} className='discover-container py-4 px-0'>
                         <h4 className='header-text pb-2'>Discover Our Rooms</h4>
-                        <Row className='img-grid-container'>
-                            <Col className='img-grid' lg={6}>
-                                <a href="">
+                        <Row className='img-grid-container px-0 my-3'>
+                            <Col className='img-grid mb-3' lg={6}>
+                                <a href="" >
                                     <img fluid src={GreenRoom} width="100%" alt=""/>
                                 </a>
                             </Col> 
-                            <Col className='img-grid' lg={6}>
+                            <Col className='img-grid mb-3' lg={6}>
                                 <a href="">
                                     <img src={GreenRoom} width="100%" alt=""/>
                                 </a>
                             </Col>
-                            <Col className='img-grid' lg={6}>
+                            <Col className='img-grid mb-3' lg={6}>
                                 <a href="">
                                     <img src={GreenRoom} width="100%" alt=""/>
                                 </a>
                             </Col>
-                            <Col className='img-grid' lg={6}>
+                            <Col className='img-grid mb-3' lg={6}>
                                 <a href="">
                                     <img src={GreenRoom} width="100%" alt=""/>
                                 </a>
