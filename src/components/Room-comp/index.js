@@ -37,7 +37,7 @@ const Roomcomponent = () => {
                 </Col>
                 <Col sm md={3} lg={3} className='price-container py-4'>
                     <div>
-                        <span className='price'> Price</span> <span className='amt'>ZAR 250</span> <span className='night'> / Night</span>
+                        <span className='price'>Price</span> <span className='amt'>ZAR 250</span> <span className='night'> / Night</span>
                     </div>
                 </Col>
             </Row>
@@ -126,22 +126,22 @@ const Roomcomponent = () => {
                                     <h4 className='amenities-text-header pb-3'>Amenities</h4>
                                     <ul>
                                         <li>
-                                            <span><FaCheck className='amenities-icon'/></span>
+                                            <span className='span-icon-container'><FaCheck className='amenities-icon'/></span><span>Kitchen</span>
                                         </li>
                                         <li>
-                                            <span><FaCheck className='amenities-icon'/></span>
+                                            <span className='span-icon-container'><FaCheck className='amenities-icon'/></span><span>Washing Machine</span>
                                         </li>
                                         <li>
-                                            <span><FaCheck className='amenities-icon'/></span>
+                                            <span className='span-icon-container'><FaCheck className='amenities-icon'/></span><span>Private Bathroom</span>
                                         </li>
                                         <li>
-                                            <span><FaCheck className='amenities-icon'/></span>
+                                            <span className='span-icon-container'><FaCheck className='amenities-icon'/></span><span>BBQ Facilities</span>
                                         </li>
                                         <li>
-                                            <span><FaCheck className='amenities-icon'/></span>
+                                            <span className='span-icon-container'><FaCheck className='amenities-icon'/></span><span>Parking Area</span>
                                         </li>
                                         <li>
-                                            <span><FaCheck className='amenities-icon'/></span>
+                                            <span className='span-icon-container'><FaCheck className='amenities-icon'/></span><span>Shared Lounge</span>
                                         </li>
                                         
                                     </ul>
@@ -226,22 +226,22 @@ const Roomcomponent = () => {
                                     <h4 className='services-text-header pb-3'>Services</h4>
                                     <ul>
                                         <li>
-                                            <span><FaCheck className='services-icon'/></span>
+                                            <span className='span-icon-container'><FaCheck className='services-icon'/></span><span> Daily Cleaning</span>
                                         </li>
                                         <li>
-                                            <span><FaCheck className='services-icon'/></span>
+                                            <span className='span-icon-container'><FaCheck className='services-icon'/></span><span>Inhouse Cook</span>
                                         </li>
                                         <li>
-                                            <span><FaCheck className='services-icon'/></span>
+                                            <span className='span-icon-container'><FaCheck className='services-icon'/></span><span>Laundry</span>
                                         </li>
                                         <li>
-                                            <span><FaCheck className='services-icon'/></span>
+                                            <span className='span-icon-container'><FaCheck className='services-icon'/></span><span>Entertainment Services</span>
                                         </li>
                                         <li>
-                                            <span><FaCheck className='services-icon'/></span>
+                                            <span className='span-icon-container'><FaCheck className='services-icon'/></span><span>Swimming Pool</span>
                                         </li>
                                         <li>
-                                            <span><FaCheck className='services-icon'/></span>
+                                            <span className='span-icon-container'><FaCheck className='services-icon'/></span><span>Free Wifi</span>
                                         </li>
                                         
                                     </ul>
@@ -251,12 +251,16 @@ const Roomcomponent = () => {
                     </Col>
                     <Col md={4} lg={3} className='help-container py-4 px-0'>
                         <div className='help-card'>
-                            <h4>How Can We Help You?</h4>
+                            <h4>How Can We <br/> Help You?</h4>
                             <p>
                                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
                                 numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
                                 optio, eaque rerum!
                             </p>
+
+                            <button className="cssbuttons-io">
+                                <span> Contact Us </span>
+                            </button>
                         </div>
                         
                     </Col>
