@@ -4,6 +4,12 @@ import Col from 'react-bootstrap/Col';
 
 import './style.scss'
 
+import { Subform } from '../../components/Forms';
+
+// import BiMap from 'react-icons/bi'
+
+import { FaPhone, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa'
+
 const Contact = () => {
     return ( 
         <Container fluid className='contact-container px-0'>
@@ -16,6 +22,48 @@ const Contact = () => {
                         </ul>
                     </div>
                 </Col>
+                <Container>
+                    <Row className='my-5'>
+                        <Col lg={4} className='mb-3'>
+                            <div className='contact-card py-3'>
+                                <div className='icon-container mb-2'>
+                                    <FaMapMarkerAlt/>
+                                </div>
+                                <h4>Address</h4>
+                                <p>
+                                    41 Good Hope Street, <br/> 2101 Johannesburg, <br/> South Africa
+                                </p>
+                            </div>
+                        </Col>
+                        <Col className='mb-3'>
+                            <div className='contact-card'>
+
+                            </div>
+                        </Col>
+                        <Col className='mb-3'>
+                            <div className='contact-card'>
+
+                            </div>
+                        </Col>
+                    </Row>
+                    <Col className='question-container' lg={12}>
+                        <h4>Have Any Questions?</h4>
+                        <p>Kindly fill the form below</p>
+                    </Col>
+                </Container>
+                <Col>
+
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3579.9570172903254!2d28.079581414530285!3d-26.198076470085557!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1e950e717262f7ef%3A0xc233b719612869ef!2s41%20Good%20Hope%20St%2C%20Kensington%2C%20Johannesburg%2C%202101%2C%20South%20Africa!5e0!3m2!1sen!2sng!4v1665378387493!5m2!1sen!2sng" 
+                            width="100%" 
+                            height="450" 
+                            style={{ border:0 }}
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                </Col>
+                <Subform/>
         </Container>
      );
 }
