@@ -45,7 +45,7 @@ const Roomcomponent = () => {
             <Container className='room-desc-container'>
                 <Row className='my-5'>
                     <Col className='inner-desc-container py-4'>
-                        <h3>Room Description</h3>
+                        <h3 className='room-desc-text-head pb-1'>Room Description</h3>
                         <div className='desc-text pt-4'>
                             <p>
                                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
@@ -80,7 +80,7 @@ const Roomcomponent = () => {
                     <Col md={4} lg={3} className='px-0'>
                         <div className='check-form px-3 py-4'>
 
-                            <h4 className='header-text pb-2'>Check Availability</h4>
+                            <h4 className='header-text pb-3'>Check Availability</h4>
 
                             <Form action="#" method="POST">
                                 <Row className='form'>
@@ -155,7 +155,7 @@ const Roomcomponent = () => {
                         </Row>
                     </Col>
                     <Col md={4} lg={3} className='discover-container py-4 px-0'>
-                        <h4 className='header-text pb-2'>Discover Our Rooms</h4>
+                        <h4 className='header-text pb-3'>Discover Our Rooms</h4>
                         <Row className='img-grid-container px-0 my-3'>
                             <Col className='img-grid mb-3' lg={6}>
                                 <a href="" >
@@ -177,6 +177,38 @@ const Roomcomponent = () => {
                                     <img src={GreenRoom} width="100%" alt=""/>
                                 </a>
                             </Col>
+                            <Col className='img-grid mb-3' lg={6}>
+                                <a href="">
+                                    <img src={GreenRoom} width="100%" alt=""/>
+                                </a>
+                            </Col>
+                            <Col className='img-grid mb-3' lg={6}>
+                                <a href="">
+                                    <img src={GreenRoom} width="100%" alt=""/>
+                                </a>
+                            </Col>
+
+                            <div class="grid-img-container">
+                                <div class="grid-item">
+                                    <a href="">
+                                        <img src={GreenRoom} width="100%" alt=""/>
+                                    </a>
+                                </div>
+                                <div class="grid-item">
+                                    <a href="">
+                                        <img src={GreenRoom} width="100%" alt=""/>
+                                    </a>
+                                </div>
+                                <div class="grid-item">
+                                    <a href="">
+                                        <img src={GreenRoom} width="100%" alt=""/>
+                                    </a></div>  
+                                <div class="grid-item">
+                                    <a href="">
+                                        <img src={GreenRoom} width="100%" alt=""/>
+                                    </a>
+                                </div>
+                            </div>
                         </Row>
                     </Col>
                 </Row>
@@ -217,8 +249,16 @@ const Roomcomponent = () => {
                             </Col>
                         </Row>
                     </Col>
-                    <Col md={4} lg={3} className='help-container py-4'>
-                        <h4>Need Help</h4>
+                    <Col md={4} lg={3} className='help-container py-4 px-0'>
+                        <div className='help-card'>
+                            <h4>How Can We Help You?</h4>
+                            <p>
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
+                                numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
+                                optio, eaque rerum!
+                            </p>
+                        </div>
+                        
                     </Col>
                 </Row>
             </Container>

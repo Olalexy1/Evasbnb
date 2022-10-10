@@ -12,7 +12,7 @@ const Room = () => {
         <Container fluid className='room-container px-0'>
                 <Col lg={12} className='background-image px-0'>
                     <div className='text-container px-0'>
-                        <h3>Red Room</h3>
+                        <h3>Green Room</h3>
                         <ul>
                             <li><a href='/'>Home</a></li>
                             <li><span>/Room</span></li>
