@@ -9,7 +9,9 @@ import RedRoom from '../../images/redroom.jpeg';
 import PurpleRoom from '../../images/purpleroom.jpeg';
 import GreenRoom from '../../images/greenroom.jpeg';
 
-import Slickcarousel from '../image-gallery-carousel'; 
+import Slickcarousel from '../image-gallery-carousel';
+
+import { FaCheck } from 'react-icons/fa';
 
 import './style.scss';
 
@@ -119,14 +121,35 @@ const Roomcomponent = () => {
                 <Row className='my-5'>
                     <Col className='amenities-container py-4'>
                         <Row>
-                            <Col lg={5} className='mb-3'>
-                                <div className='amenities-list-container'>
-                                <img fluid src={GreenRoom} width="100%" alt=""/>
+                            <Col lg={5} id='amenities-left' className='mb-3'>
+                                <div className='amenities-list-container p-3'>
+                                    <h4 className='amenities-text-header pb-3'>Amenities</h4>
+                                    <ul>
+                                        <li>
+                                            <span><FaCheck className='amenities-icon'/></span>
+                                        </li>
+                                        <li>
+                                            <span><FaCheck className='amenities-icon'/></span>
+                                        </li>
+                                        <li>
+                                            <span><FaCheck className='amenities-icon'/></span>
+                                        </li>
+                                        <li>
+                                            <span><FaCheck className='amenities-icon'/></span>
+                                        </li>
+                                        <li>
+                                            <span><FaCheck className='amenities-icon'/></span>
+                                        </li>
+                                        <li>
+                                            <span><FaCheck className='amenities-icon'/></span>
+                                        </li>
+                                        
+                                    </ul>
                                 </div>
                             </Col>
                             <Col lg={7} className='mb-3'>
                                 <div className='amenities-img'>
-                                    <img fluid src={GreenRoom} width="100%" alt="" />
+                                    <img fluid src={GreenRoom} width="100%" height="420px" alt="" />
                                 </div>
                             </Col>
                         </Row>
@@ -159,8 +182,42 @@ const Roomcomponent = () => {
                 </Row>
 
                 <Row className='my-5'>
-                    <Col className='room-services-container py-4'></Col>
-                    <Col md={3} lg={3} className='help-container py-4'>
+                    <Col className='room-services-container py-4'>
+                    <Row>
+                            <Col lg={7} className='mb-3'>
+                                <div className='room-services-img'>
+                                    <img fluid src={GreenRoom} width="100%" height="420px" alt="" />
+                                </div>
+                            </Col>
+                            <Col lg={5} id='services-right' className='mb-3'>
+                                <div className='services-list-container p-3'>
+                                    <h4 className='services-text-header pb-3'>Services</h4>
+                                    <ul>
+                                        <li>
+                                            <span><FaCheck className='services-icon'/></span>
+                                        </li>
+                                        <li>
+                                            <span><FaCheck className='services-icon'/></span>
+                                        </li>
+                                        <li>
+                                            <span><FaCheck className='services-icon'/></span>
+                                        </li>
+                                        <li>
+                                            <span><FaCheck className='services-icon'/></span>
+                                        </li>
+                                        <li>
+                                            <span><FaCheck className='services-icon'/></span>
+                                        </li>
+                                        <li>
+                                            <span><FaCheck className='services-icon'/></span>
+                                        </li>
+                                        
+                                    </ul>
+                                </div>
+                            </Col>
+                        </Row>
+                    </Col>
+                    <Col md={4} lg={3} className='help-container py-4'>
                         <h4>Need Help</h4>
                     </Col>
                 </Row>
