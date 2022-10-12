@@ -76,6 +76,7 @@
         align-items: center;
         box-shadow: 0 1px 13.5px 1.5px rgba(0,0,0,0.2);
         height: 320px;
+        border-radius: 16px;
 
         .icon-container {
             text-align: center;
@@ -130,9 +131,10 @@
         z-index: 99;
         background-color: #fff;
         position: relative;
+        border-radius: 16px !important;
 
         .form-items {
-            border-radius: 0px !important;
+            border-radius: 16px !important;
         }
 
         #text-area {
@@ -151,6 +153,7 @@
             color: ghostwhite;
             overflow: hidden;
             width: 100% !important;
+            border-radius: 16px !important;
         }
        
        .cssbuttons-io span {
