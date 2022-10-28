@@ -119,7 +119,7 @@ const Roomcomponent = () => {
                 </Row>
 
                 <Row className='my-5'>
-                    <Col xs={{order:1}} md={{ span:8, order: 1}} lg={9} xl={9} xxl={9} className='amenities-container py-4'>
+                    <Col xs={{order:1}} md={{ span:8, order: 1}} lg={9} xl={9} xxl={9} className='amenities-container mb-3'>
                         <Row>
                             <Col lg={5} id='amenities-left' className='mb-3'>
                                 <div className='amenities-list-container p-3'>
@@ -154,7 +154,7 @@ const Roomcomponent = () => {
                             </Col>
                         </Row>
                     </Col>
-                    <Col xs={{order:3}} md={{ span:4, order: 2}} lg={3} xl={3} xxl={3} className='discover-container py-4 px-0'>
+                    <Col xs={{order:3}} md={{ span:4, order: 2}} lg={3} xl={3} xxl={3} className='discover-container mb-3 px-0'>
                         <h4 className='header-text pb-3'>Discover Our Rooms</h4>
                         <Row className='img-grid-container px-0 my-3'>
                             <Col className='img-grid mb-3' lg={6}>
@@ -212,14 +212,14 @@ const Roomcomponent = () => {
                         </Row>
                     </Col>
                     
-                    <Col xs={{order:2}} md={{ span:8, order: 3}} lg={9} xl={9} xxl={9} className='room-services-container py-4'>
+                    <Col xs={{order:2}} md={{ span:8, order: 3}} lg={9} xl={9} xxl={9} className='room-services-container mb-3'>
                     <Row>
-                            <Col lg={7} className='mb-3'>
+                            <Col lg={{ span:7, order: 1}} xs={{ span:12, order: 2}} md={{ order: 2}} className='mb-3'>
                                 <div className='room-services-img'>
                                     <img fluid src={GreenRoom} width="100%" height="420px" alt="" />
                                 </div>
                             </Col>
-                            <Col lg={5} id='services-right' className='mb-3'>
+                            <Col lg={{ span:5, order: 2}} xs={{ span:12, order: 1}} md={{ order: 1}} id='services-right' className='mb-3'>
                                 <div className='services-list-container p-3'>
                                     <h4 className='services-text-header pb-3'>Services</h4>
                                     <ul>
@@ -247,7 +247,7 @@ const Roomcomponent = () => {
                             </Col>
                         </Row>
                     </Col>
-                    <Col xs={{order:4}} md={{ span:4, order: 4}} lg={3} xl={3} xxl={3} className='help-container py-4 px-0'>
+                    <Col xs={{order:4}} md={{ span:4, order: 4}} lg={3} xl={3} xxl={3} className='help-container mb-3 px-0'>
                         <div className='help-card'>
                             <h4>How Can We <br/> Help You?</h4>
                             <p>

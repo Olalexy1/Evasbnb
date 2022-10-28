@@ -20,7 +20,7 @@ const Allrooms = () => {
         <Container fluid className='bg-container pt-5'>
             <Container className='allrooms py-5'>
                 <Row className='mx-2 pt-3'>
-                    <Col lg={4} md={4} sm={12} className='rooms px-0 mb-4 pe-3'>
+                    <Col lg={4} md={6} sm={12} className='rooms px-0 mb-4 pe-3'>
                         <div className="card">
                             <img src={RedRoom} alt="Avatar" className='img'/>
                         </div>
@@ -34,7 +34,7 @@ const Allrooms = () => {
                                 <span className='amt'>ZAR 250</span> <span className='night'> / Night</span>
                         </div>
                     </Col>
-                    <Col lg={4} md={4} sm={12} className='rooms px-0 mb-4 pe-3'>
+                    <Col lg={4} md={6} sm={12} className='rooms px-0 mb-4 pe-3'>
                         <div className="card">
                             <img src={PurpleRoom} alt="Avatar" className='img'/>
                         </div>
@@ -48,7 +48,7 @@ const Allrooms = () => {
                                 <span className='amt'>ZAR 250</span> <span className='night'> / Night</span>
                         </div>
                     </Col>
-                    <Col lg={4} md={4} sm={12} className='rooms px-0 mb-4 pe-3'>
+                    <Col lg={4} md={6} sm={12} className='rooms px-0 mb-4 pe-3'>
                         <div className="card">
                             <img src={GreenRoom} alt="Avatar" className='img'/>
                         </div>
@@ -63,7 +63,7 @@ const Allrooms = () => {
                         </div>
                     </Col>
 
-                    <Col lg={4} md={4} sm={12} className='rooms px-0 mb-4 pe-3'>
+                    <Col lg={4} md={6} sm={12} className='rooms px-0 mb-4 pe-3'>
                         <div className="card">
                             <img src={RedRoom} alt="Avatar" className='img'/>
                         </div>
@@ -77,7 +77,7 @@ const Allrooms = () => {
                                 <span className='amt'>ZAR 250</span> <span className='night'> / Night</span>
                         </div>
                     </Col>
-                    <Col lg={4} md={4} sm={12} className='rooms px-0 mb-4 pe-3'>
+                    <Col lg={4} md={6} sm={12} className='rooms px-0 mb-4 pe-3'>
                         <div className="card">
                             <img src={PurpleRoom} alt="Avatar" className='img'/>
                         </div>
@@ -91,7 +91,7 @@ const Allrooms = () => {
                                 <span className='amt'>ZAR 250</span> <span className='night'> / Night</span>
                         </div>
                     </Col>
-                    <Col lg={4} md={4} sm={12} className='rooms px-0 mb-4 pe-3'>
+                    <Col lg={4} md={6} sm={12} className='rooms px-0 mb-4 pe-3'>
                         <div className="card">
                             <img src={GreenRoom} alt="Avatar" className='img'/>
                         </div>

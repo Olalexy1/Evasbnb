@@ -29,7 +29,7 @@ const MidSection = () => {
                 <h3>Our Popular Rooms</h3>
                 <p>Lorem ipsum dolor sit amet. Quo voluptatem officiis aut totam mollitia sit tempore autem <br/> quo architecto laborum qui sequi sint id accusamus tempore.</p>
                 <Row className='mx-2 pt-3'>
-                    <Col lg={4} md={4} sm={12} className='rooms px-0 mb-4 pe-3'>
+                    <Col lg={4} md={6} sm={12} className='rooms px-0 mb-4 pe-3'>
                         <div className="card">
                             <img src={RedRoom} alt="Avatar" className='img'/>
                         </div>
@@ -43,7 +43,7 @@ const MidSection = () => {
                                 <span className='amt'>ZAR 250</span> <span className='night'> / Night</span>
                         </div>
                     </Col>
-                    <Col lg={4} md={4} sm={12} className='rooms px-0 mb-4 pe-3'>
+                    <Col lg={4} md={6} sm={12} className='rooms px-0 mb-4 pe-3'>
                         <div className="card">
                             <img src={PurpleRoom} alt="Avatar" className='img'/>
                         </div>
@@ -57,7 +57,7 @@ const MidSection = () => {
                                 <span className='amt'>ZAR 250</span> <span className='night'> / Night</span>
                         </div>
                     </Col>
-                    <Col lg={4} md={4} sm={12} className='rooms px-0 mb-4 pe-3'>
+                    <Col lg={4} md={6} sm={12} className='rooms px-0 mb-4 pe-3'>
                         <div className="card">
                             <img src={GreenRoom} alt="Avatar" className='img'/>
                         </div>

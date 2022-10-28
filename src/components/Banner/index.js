@@ -66,41 +66,39 @@ const Banner = () => {
             <Container className='form-container my-5'>
                 <Form action="#" method="POST">
                     <Row className='form mx-2'>
-                        <Col className="form-sect mb-3 mt-3" lg md={3}>
+                        <Col className="form-sect mb-3 mt-3" lg md={6}>
                             <Form.Label className='label'><FaCalendarDay className='form-icons'/> Check-In</Form.Label>
-                            <Form.Control type="date" name="checkin"/>
+                            <Form.Control type="date" name="checkin" required/>
                         </Col>
-                        <Col className="form-sect mb-3 mt-3" lg md={3}>
+                        <Col className="form-sect mb-3 mt-3" lg md={6}>
                             <Form.Label className='label'><FaCalendarDay className='form-icons'/> Check-Out</Form.Label>
-                            <Form.Control type="date" name="checkout"/>
+                            <Form.Control type="date" name="checkout" required/>
                         </Col>
-                        <Col className="form-sect mb-3 mt-3" lg={4} md={3}>
+                        <Col className="form-sect mb-3 mt-3" lg={5} md={9}>
                             <Row className='px-0'>
                                 <Col className='mb-3' lg md={4} sm={4}>
                                     <Form.Label className='label'><FaUser className='form-icons'/> Adult</Form.Label>
                                     <Form.Select aria-label="Default select example">
-                                        <option>1</option>
-                                        <option value="1">2</option>
-                                        <option value="2">3</option>
-                                        <option value="3">4</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
                                     </Form.Select>
                                 </Col>
                                 <Col className='mb-3' lg md={4} sm={4}>
                                     <Form.Label className='label'><FaChild className='form-icons'/> Children</Form.Label>
                                     <Form.Select aria-label="Default select example">
-                                        <option>1</option>
-                                        <option value="1">2</option>
-                                        <option value="2">3</option>
-                                        <option value="3">4</option>
+                                        <option>0</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
                                     </Form.Select>
                                 </Col>
-                                <Col className='' lg md={4} sm={4}>
+                                <Col className='mb-3' lg md={4} sm={4}>
                                     <Form.Label className='label'><IoBed className='form-icons'/> Rooms</Form.Label>
                                     <Form.Select aria-label="Default select example">
-                                        <option>1</option>
-                                        <option value="1">2</option>
-                                        <option value="2">3</option>
-                                        <option value="3">4</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
                                     </Form.Select>
                                 </Col>
                             </Row>
