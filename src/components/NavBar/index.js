@@ -5,7 +5,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 
 
-import logo from '../../images/Evas.png';
+import logo from '../../images/logo.png';
 import SAFlag from '../../images/South-Africa.svg';
 
 import './style.scss';

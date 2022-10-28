@@ -394,7 +394,7 @@
 ##Screen = B/w 768px to 1024px
 */
 
-@media (min-width: 768px) and (max-width: 800px) and (orientation: landscape) {
+@media (min-width: 768px) and (max-width: 768px) {
 
     .amenities-list-container {
         margin-right: 30px !important;
@@ -413,7 +413,7 @@
         box-shadow: 0 1px 13.5px 1.5px rgba(0,0,0,0.2);
     }
 
-    .img-grid:nth-child(n+4) {
+    .img-grid:nth-child(n+5) {
         display: none !important;
     }
 

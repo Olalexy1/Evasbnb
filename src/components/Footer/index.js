@@ -4,7 +4,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-import logo from '../../images/Evas.png'
+import logo from '../../images/logo.png'
 
 import { FaFacebook, FaTwitter, FaAirbnb, FaInstagram, FaLocationArrow, FaMapPin, FaPhone, FaPaperPlane } from 'react-icons/fa';
 
