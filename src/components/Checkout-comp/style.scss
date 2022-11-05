@@ -1,0 +1,35 @@
+* {
+    box-sizing: border-box;
+}
+
+.checkout-comp-container {
+
+    .checkout-cards {
+        display: flex;
+        flex-direction: column;
+        // justify-content: center;
+        align-items: center;
+        box-shadow: 0 1px 13.5px 1.5px rgba(0,0,0,0.2);
+        min-height: 320px;
+        // border-radius: 16px;
+
+        h4{
+            font-size: 1.35rem;
+            font-weight: 700;
+        }
+
+        p {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: #615E5E;
+            text-align: center;
+        }
+    }
+
+    .accordion {
+        width: 100% !important;
+        // border: 1px solid red;
+    }
+    
+
+}
