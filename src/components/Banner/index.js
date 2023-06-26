@@ -64,7 +64,7 @@ const Banner = () => {
                 </Carousel.Item>
             </Carousel>
             <Container className='form-container my-5'>
-                <Form action="#" method="POST">
+                <Form action="/Search-Results" method="POST">
                     <Row className='form mx-2'>
                         <Col className="form-sect mb-3 mt-3" lg md={6}>
                             <Form.Label className='label'><FaCalendarDay className='form-icons'/> Check-In</Form.Label>
@@ -105,7 +105,7 @@ const Banner = () => {
                         </Col>
                         <Col className="form-btn pt-3 mb-3 mt-3" lg md={3}>
                             <button className="cssbuttons-io">
-                                <span> Search </span>
+                                <a href="/Search-Results"> <span> Search </span> </a> 
                             </button>
                         </Col>
                     </Row>
