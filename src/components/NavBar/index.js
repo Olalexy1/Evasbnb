@@ -12,7 +12,7 @@ import './style.scss';
 
 function NavBar() {
   return (
-    <Navbar fluid className="navigation-container" bg="light" expand="lg" sticky="top">
+    <Navbar fluid={true} className="navigation-container" bg="light" expand="lg" sticky="top">
       <Container fluid className='navigation'>
       <Navbar.Brand className="brand" href="/">
             <img

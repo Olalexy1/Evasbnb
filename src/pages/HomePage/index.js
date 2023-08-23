@@ -7,16 +7,16 @@ import Blogcards from '../../components/Blog-cards';
 import { Subform, Inqiuryform } from '../../components/Forms';
 
 const Homepage = () => {
-    return ( 
+    return (
         <Container fluid className='px-0 mx-0'>
-            <Banner/>
-            <MidSection/>
-            <Slickcarousel/>
-            <BottomSection/>
-            <Blogcards/>
-            <Subform/>
+            <Banner />
+            <MidSection />
+            <Slickcarousel />
+            <BottomSection />
+            <Blogcards />
+            <Subform />
         </Container>
-     );
+    );
 }
- 
+
 export default Homepage;
