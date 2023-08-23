@@ -69,14 +69,17 @@ const Banner = () => {
 
     // console.log(hotelsInfo, 'HotelsInfo')
 
-    console.log(combinedOptions, 'combinedOptions')
+    // console.log(combinedOptions, 'combinedOptions')
 
     const Autocomplete = () => {
         const [inputValue, setInputValue] = useState('');
+        const [inputId, setInputId] = useState('');
         const [inputType, setInputType] = useState('');
+        const [selectedInfo, setSelectedInfo] = useState(null); // To store selected suggestion info
         const [suggestions, setSuggestions] = useState([]);
         const suggestionsContainerRef = useRef(null);
         const [visibleSuggestions, setVisibleSuggestions] = useState([]);
+
 
         const BATCH_SIZE = 5; // Number of suggestions to load at a time
 
@@ -98,20 +101,22 @@ const Banner = () => {
                 suggestion.name.toLowerCase().includes(value.toLowerCase())
             );
 
-            console.log(filteredSuggestions, 'filteredSuggestions')
 
             setSuggestions(filteredSuggestions);
             setVisibleSuggestions([]);
         };
 
-        const handleSuggestionClick = (selectedId, selectedType) => {
-            setInputValue(selectedId.toString()); // selectedId
+        const handleSuggestionClick = (selectedId, selectedName, selectedType) => {
+            setInputValue(selectedName.toString()); // selectedName
+            setInputId(selectedId.toString()); //selectedId
             setInputType(selectedType.toString()); //selectedType
+            setSelectedInfo({ id: selectedId, name: selectedName, type: selectedType }); // Store selected info
             setSuggestions([]); // Clear suggestions after selecting one
             setVisibleSuggestions([]); // Close the suggestions list
         };
 
-        console.log(visibleSuggestions, 'visibleSuggestions')
+        // console.log(selectedInfo, 'selected Item')
+        console.log(inputValue, inputId, inputType, 'selected info......')
 
         // Close the suggestions list when clicking outside of it
         useEffect(() => {
@@ -139,11 +144,14 @@ const Banner = () => {
                 />
                 {visibleSuggestions.length > 0 && (
                     <ul ref={suggestionsContainerRef} className="suggestions-list">
-                        {visibleSuggestions.map((suggestion) => (
+                        {visibleSuggestions.map((suggestion, index) => (
                             <li
                                 key={suggestion.id}
                                 className="suggestion"
-                                onClick={() => handleSuggestionClick(suggestion)}
+                                onClick={() => handleSuggestionClick(suggestion.id, suggestion.name, suggestion.type)}
+                                style={{
+                                    borderBottom: index !== visibleSuggestions.length - 1 ? '1px solid #ccc' : 'none',
+                                }}
                             >
                                 {suggestion.name}
                             </li>
