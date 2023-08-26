@@ -5,6 +5,8 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Carousel from 'react-bootstrap/Carousel';
+import Spinner from 'react-bootstrap/Spinner';
+import Stack from 'react-bootstrap/Stack';
 
 import slider1 from '../../images/arthur-hickinbotham.jpg'
 import slider2 from '../../images/cara-grobbelaar.jpg'
@@ -19,7 +21,7 @@ import { useGetCitiesInNgQuery, useGetListOfDistrictsQuery, useGetListOfHotelsQu
 
 const Banner = () => {
     const today = new Date().toISOString().split('T')[0];
-    const [formData, setFormData] = useState({ checkInDate: today, checkOutDate: today, adults: '', children: '', rooms: '', locationDetails: null });
+    const [formData, setFormData] = useState({ checkInDate: today, checkOutDate: '', adults: '', children: '', rooms: '', locationDetails: null });
     const [location, setLocation] = useState('');
     const [inputId, setInputId] = useState('');
     const [inputType, setInputType] = useState('');
@@ -69,7 +71,13 @@ const Banner = () => {
     }, []);
 
 
-    if (isLoading) return <p>loading....</p>;
+    if (isLoading) return (
+        <Stack direction='row' style={{alignItems: 'center'}}>
+            <Spinner animation="border" role="status">
+                <span className="visually-hidden">Loading...</span>
+            </Spinner>
+        </Stack>
+    )
 
     const cities = cityList?.result || [];
     const districts = districtList?.result || [];
@@ -82,14 +90,14 @@ const Banner = () => {
     const cityInfo = filteredCities?.map(city => ({
         id: city.city_id,
         name: city.name,
-        // number_hotels: city.nr_hotels,
+        number_hotels: city.nr_hotels,
         type: 'city',
     }));
 
     const districtInfo = districts?.map(district => ({
         id: district.district_id,
         name: district.name,
-        // number_hotels: district.nr_hotels,
+        number_hotels: district.nr_hotels,
         type: 'district',
     }))
 
@@ -107,6 +115,7 @@ const Banner = () => {
     const handleInputChangeTwo = (event) => {
         const value = event.target.value;
         setLocation(value);
+        setErrors(prevErrors => ({ ...prevErrors, location: '' }));
 
         const filteredSuggestions = combinedOptions?.filter(suggestion =>
             suggestion.name.toLowerCase().includes(value.toLowerCase())
@@ -128,8 +137,7 @@ const Banner = () => {
     const handleChangeInput = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
-
-        console.log(checkInDate, 'newCheckInDate')
+        setErrors(prevErrors => ({ ...prevErrors, [name]: '' }));
 
         if (checkInDate > checkOutDate) {
             setFormData({ ...formData, checkOutDate: checkInDate })
@@ -141,7 +149,7 @@ const Banner = () => {
 
     const validateInputs = () => {
         let validationPassed = true;
-        const newErrors = { location: '', checkInDate: '', checkOutDate: '', adults: '', rooms };
+        const newErrors = { location: '', checkInDate: '', checkOutDate: '', adults: '', rooms: '' };
 
         if (!location.trim()) {
             newErrors.location = 'Location is required';
@@ -267,7 +275,7 @@ const Banner = () => {
                                                     borderBottom: index !== visibleSuggestions.length - 1 ? '1px solid #ccc' : 'none',
                                                 }}
                                             >
-                                                {suggestion.type === 'hotel' ? <IoBed/> : <FaMapMarkerAlt/>}&nbsp;{suggestion.name}
+                                                {suggestion.type === 'hotel' ? <IoBed /> : <FaMapMarkerAlt />}&nbsp;{suggestion.name}
                                             </li>
                                         ))}
                                     </ul>
@@ -284,8 +292,34 @@ const Banner = () => {
                             <Form.Control type="date" name="checkOutDate" required onChange={handleChangeInput} value={checkOutDate} min={checkInDate} />
                             {errors.checkOutDate && <p className="error-message">{errors.checkOutDate}</p>}
                         </Col>
-                        <Col className="mb-3 mt-3" lg={3} md={9}>
-                            <Row className='px-0'>
+                        <Col className="select-container mb-3 mt-3" lg={3} md={9}>
+                            <div>
+                                <Form.Label className='label'><FaUser className='form-icons' /> Adult</Form.Label>
+                                <Form.Select aria-label="Default select example" name='adults' required onChange={handleChangeInput} value={adults}>
+                                    {Array.from({ length: 21 }, (_, index) => (
+                                        <option key={index} value={index}>{index}</option>
+                                    ))}
+                                </Form.Select>
+                                {errors.adults && <p className="error-message">{errors.adults}</p>}
+                            </div>
+                            <div>
+                                <Form.Label className='label'><FaChild className='form-icons' /> Kids</Form.Label>
+                                <Form.Select aria-label="Default select example" name='children' required onChange={handleChangeInput} value={children}>
+                                    {Array.from({ length: 11 }, (_, index) => (
+                                        <option key={index} value={index}>{index}</option>
+                                    ))}
+                                </Form.Select>
+                            </div>
+                            <div>
+                                <Form.Label className='label'><IoBed className='form-icons' /> Room</Form.Label>
+                                <Form.Select aria-label="Default select example" name='rooms' required onChange={handleChangeInput} value={rooms}>
+                                    {Array.from({ length: 21 }, (_, index) => (
+                                        <option key={index} value={index}>{index}</option>
+                                    ))}
+                                </Form.Select>
+                                {errors.rooms && <p className="error-message">{errors.rooms}</p>}
+                            </div>
+                            {/* <Row className='px-0'>
                                 <Col className='form-sect mb-3' lg md={4} sm={4}>
                                     <Form.Label className='label'><FaUser className='form-icons' /> Adult</Form.Label>
                                     <Form.Select aria-label="Default select example" name='adults' required onChange={handleChangeInput} value={adults}>
@@ -312,7 +346,7 @@ const Banner = () => {
                                     </Form.Select>
                                     {errors.rooms && <p className="error-message">{errors.rooms}</p>}
                                 </Col>
-                            </Row>
+                            </Row> */}
                         </Col>
                         <Col className="form-btn pt-3 mb-3 mt-3" lg md={3}>
                             <button className="cssbuttons-io" onClick={handleSubmit} type='submit'>
