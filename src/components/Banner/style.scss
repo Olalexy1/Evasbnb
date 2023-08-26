@@ -18,7 +18,7 @@
     /* Autocomplete container */
     .autocomplete-container {
         position: relative;
-        width: 300px;
+        // width: 300px;
         // margin-bottom: 20px auto;
 
         /* Autocomplete input */
@@ -36,9 +36,10 @@
             position: absolute;
             top: 100%;
             left: 0;
-            width: 100%;
+            width: calc(100% + 100px);
             // max-height: 200px;
-            // overflow-y: auto;
+            overflow-x: hidden;
+            overflow-y: auto;
             overflow-y: visible;
             background-color: white;
             border: 1px solid #ccc;
@@ -71,6 +72,7 @@
         z-index: 5 !important;
         position: relative;
         background-color: #fff;
+        width: 100%;
 
         // .form-sect {
         //     border: 1px dashed black;
@@ -92,6 +94,12 @@
             color: #222222;
             justify-self: center;
         }
+
+        .error-message {
+            color: red;
+            font-weight: 500;
+            font-size: 0.8em;
+        }
     }
 
     .cssbuttons-io {
@@ -109,7 +117,7 @@
 
     }
 
-    .cssbuttons-io a {
+    .cssbuttons-io span {
         position: relative;
         z-index: 10;
         transition: color 0.4s;
@@ -193,6 +201,42 @@
 */
 
 @media (min-width: 320px) and (max-width: 480px) {
+    .autocomplete-container {
+        position: relative;
+
+        /* Suggestions list */
+        .suggestions-list {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100% !important;
+            // max-height: 200px;
+            overflow-x: auto;
+            overflow-y: auto;
+            overflow-y: visible;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 2;
+            list-style: none;
+            margin: 0px;
+            padding: 0px;
+            margin-top: 10px;
+        }
+
+        /* Individual suggestion */
+        .suggestion {
+            padding: 10px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .suggestion:hover {
+            background-color: #f5f5f5;
+        }
+    }
+
     .form-container {
 
         .form {
