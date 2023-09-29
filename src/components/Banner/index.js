@@ -17,7 +17,8 @@ import slider4 from '../../images/vije-vijendranath.jpg'
 import { FaChevronCircleRight, FaChevronCircleLeft, FaUser, FaChild, FaCalendarDay, FaMapMarkerAlt } from 'react-icons/fa';
 import { IoBed } from 'react-icons/io5';
 import './style.scss'
-import { useGetCitiesInNgQuery, useGetListOfDistrictsQuery, useGetListOfHotelsQuery, useGetHotelDetailsQuery, useGetHotelsSearchQuery } from '../../services/bookingApi';
+import { useGetCitiesInNgQuery, useGetListOfDistrictsQuery, useGetListOfHotelsQuery, useGetHotelDetailsQuery, useGetHotelsSearchQuery, useGetHotelsInNIgeriaQuery } from '../../services/bookingApi';
+import axios from 'axios';
 
 const Banner = () => {
     const today = new Date().toISOString().split('T')[0];
@@ -34,6 +35,15 @@ const Banner = () => {
     const { data: cityList, isFetching, isLoading, isSuccess, isError, error } = useGetCitiesInNgQuery();
     const { data: districtList } = useGetListOfDistrictsQuery();
     const { data: hotelsList } = useGetListOfHotelsQuery();
+
+    const searchParams = {
+        country: 'ng',
+        city_id: '-2010458',
+    };
+
+    // const { data: hotelsInNigeriaList, error: hotelListError, isLoading: hotelListLoading } = useGetHotelsInNIgeriaQuery(searchParams);
+
+    // console.log(hotelsInNigeriaList, hotelListError, 'hotelsResult new')
 
     const [errors, setErrors] = useState({
         location: '',
@@ -72,7 +82,7 @@ const Banner = () => {
 
 
     if (isLoading) return (
-        <Stack direction='row' style={{alignItems: 'center'}}>
+        <Stack direction='row' style={{ alignItems: 'center' }}>
             <Spinner animation="border" role="status">
                 <span className="visually-hidden">Loading...</span>
             </Spinner>
@@ -164,8 +174,6 @@ const Banner = () => {
             validationPassed = false;
         }
 
-        console.log(adults, 'adults')
-
         if (Number(adults) < 1) {
             newErrors.adults = 'Field is required';
             validationPassed = false;
@@ -186,21 +194,27 @@ const Banner = () => {
 
         if (validateInputs()) {
             isCheckOutValid()
+
+            console.log('proceed')
+
+            const searchData = {
+                checkInDate: formData.checkInDate,
+                checkOutDate: formData.checkOutDate,
+                adults: formData.adults,
+                children: formData.children,
+                rooms: formData.rooms,
+                location: location,
+                locationDetails: selectedInfo,
+            };
+
+            console.log(searchData, 'search Data')
         }
 
-        const searchData = {
-            checkInDate: formData.checkInDate,
-            checkOutDate: formData.checkOutDate,
-            adults: formData.adults,
-            children: formData.children,
-            rooms: formData.rooms,
-            locationDetails: selectedInfo,
-        };
-
-        console.log(searchData, 'search Data')
+        else {
+            console.log('cannot proceed without filling search')
+        }
 
     }
-
 
     return (
         <Container fluid className='banner px-0'>
@@ -262,6 +276,7 @@ const Banner = () => {
                                     name='location'
                                     onChange={handleInputChangeTwo}
                                     required
+                                    style={errors.location ? { border: "2px solid red" } : {}}
                                 />
                                 {errors.location && <p className="error-message">{errors.location}</p>}
                                 {visibleSuggestions.length > 0 && (
@@ -284,18 +299,18 @@ const Banner = () => {
                         </Col>
                         <Col className="form-sect mb-3 mt-3" lg md={6}>
                             <Form.Label className='label'><FaCalendarDay className='form-icons' /> Check-In</Form.Label>
-                            <Form.Control type="date" name="checkInDate" required onChange={handleChangeInput} value={checkInDate} min={today} />
+                            <Form.Control type="date" name="checkInDate" required onChange={handleChangeInput} value={checkInDate} min={today} style={errors.checkInDate ? { border: "2px solid red" } : {}}/>
                             {errors.checkInDate && <p className="error-message">{errors.checkInDate}</p>}
                         </Col>
                         <Col className="form-sect mb-3 mt-3" lg md={6}>
                             <Form.Label className='label'><FaCalendarDay className='form-icons' /> Check-Out</Form.Label>
-                            <Form.Control type="date" name="checkOutDate" required onChange={handleChangeInput} value={checkOutDate} min={checkInDate} />
+                            <Form.Control type="date" name="checkOutDate" required onChange={handleChangeInput} value={checkOutDate} min={checkInDate} style={errors.checkOutDate ? { border: "2px solid red" } : {}}/>
                             {errors.checkOutDate && <p className="error-message">{errors.checkOutDate}</p>}
                         </Col>
                         <Col className="select-container mb-3 mt-3" lg={3} md={9}>
                             <div>
                                 <Form.Label className='label'><FaUser className='form-icons' /> Adult</Form.Label>
-                                <Form.Select aria-label="Default select example" name='adults' required onChange={handleChangeInput} value={adults}>
+                                <Form.Select aria-label="Default select example" name='adults' required onChange={handleChangeInput} value={adults} style={errors.adults ? { border: "2px solid red" } : {}}>
                                     {Array.from({ length: 21 }, (_, index) => (
                                         <option key={index} value={index}>{index}</option>
                                     ))}
@@ -312,41 +327,13 @@ const Banner = () => {
                             </div>
                             <div>
                                 <Form.Label className='label'><IoBed className='form-icons' /> Room</Form.Label>
-                                <Form.Select aria-label="Default select example" name='rooms' required onChange={handleChangeInput} value={rooms}>
+                                <Form.Select aria-label="Default select example" name='rooms' required onChange={handleChangeInput} value={rooms} style={errors.rooms ? { border: "2px solid red" } : {}}>
                                     {Array.from({ length: 21 }, (_, index) => (
                                         <option key={index} value={index}>{index}</option>
                                     ))}
                                 </Form.Select>
                                 {errors.rooms && <p className="error-message">{errors.rooms}</p>}
                             </div>
-                            {/* <Row className='px-0'>
-                                <Col className='form-sect mb-3' lg md={4} sm={4}>
-                                    <Form.Label className='label'><FaUser className='form-icons' /> Adult</Form.Label>
-                                    <Form.Select aria-label="Default select example" name='adults' required onChange={handleChangeInput} value={adults}>
-                                        {Array.from({ length: 21 }, (_, index) => (
-                                            <option key={index} value={index}>{index}</option>
-                                        ))}
-                                    </Form.Select>
-                                    {errors.adults && <p className="error-message">{errors.adults}</p>}
-                                </Col>
-                                <Col className='form-sect mb-3' lg md={4} sm={4}>
-                                    <Form.Label className='label'><FaChild className='form-icons' /> Children</Form.Label>
-                                    <Form.Select aria-label="Default select example" name='children' required onChange={handleChangeInput} value={children}>
-                                        {Array.from({ length: 11 }, (_, index) => (
-                                            <option key={index} value={index}>{index}</option>
-                                        ))}
-                                    </Form.Select>
-                                </Col>
-                                <Col className='form-sect mb-3' lg md={4} sm={4}>
-                                    <Form.Label className='label'><IoBed className='form-icons' /> Room</Form.Label>
-                                    <Form.Select aria-label="Default select example" name='rooms' required onChange={handleChangeInput} value={rooms}>
-                                        {Array.from({ length: 21 }, (_, index) => (
-                                            <option key={index} value={index}>{index}</option>
-                                        ))}
-                                    </Form.Select>
-                                    {errors.rooms && <p className="error-message">{errors.rooms}</p>}
-                                </Col>
-                            </Row> */}
                         </Col>
                         <Col className="form-btn pt-3 mb-3 mt-3" lg md={3}>
                             <button className="cssbuttons-io" onClick={handleSubmit} type='submit'>

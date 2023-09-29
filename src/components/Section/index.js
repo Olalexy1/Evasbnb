@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Spinner from 'react-bootstrap/Spinner';
+import Stack from 'react-bootstrap/Stack';
 
 import RedRoom from '../../images/redroom.jpeg';
 import PurpleRoom from '../../images/purpleroom.jpeg';
@@ -20,65 +22,123 @@ import slider2 from '../../images/cara-grobbelaar.jpg';
 import slider3 from '../../images/harry-cunningham.jpg';
 import slider4 from '../../images/vije-vijendranath.jpg';
 
-import './style.scss'
+import { useGetHotelsByCoordinatesQuery } from '../../services/bookingApi';
 
-const MidSection = () => {
-    return ( 
+import './style.scss';
+
+const PopularHotels = () => {
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
+    const todayISO = new Date().toISOString().split('T')[0];
+    const tomorrowISO = tomorrow.toISOString().split('T')[0];
+    const [latitude, setLatitude] = useState('');
+    const [longitude, setLongitude] = useState('');
+    const [position, setPosition] = useState('');
+
+
+
+    useEffect(() => {
+        navigator.geolocation.getCurrentPosition((position) => {
+            setPosition(position)
+            setLatitude(position.coords.latitude)
+            setLongitude(position.coords.longitude)
+        })
+    }, [latitude, longitude]);
+
+
+    const hotelsListParams = {
+        units: 'metric',
+        room_number: '1',
+        longitude: longitude,
+        latitude: latitude,
+        filter_by_currency: 'AED',
+        order_by: 'popularity',
+        locale: 'en-gb', //make dynamic later
+        checkout_date: tomorrowISO,
+        adults_number: '2',
+        checkin_date: todayISO,
+        include_adjacency: 'true',
+        categories_filter_ids: 'class::2,class::4,free_cancellation::1'
+    }
+
+    const { data: HotelsList, error, isLoading } = useGetHotelsByCoordinatesQuery(hotelsListParams);
+
+    console.log(position, latitude, longitude, 'lat-long');
+    console.log(HotelsList, 'Hotel List');
+    // console.log(todayISO, tomorrowISO, 'dateIso')
+
+    if (isLoading) return (
+        <Stack direction='row' style={{ alignItems: 'center' }}>
+            <Spinner animation="border" role="status">
+                <span className="visually-hidden">Loading...</span>
+            </Spinner>
+        </Stack>
+    )
+
+    const hotels = HotelsList?.result || [];
+
+    // Filter the data based on the condition cc_required === 0
+    const filteredHotels = hotels?.filter(hotel => hotel.cc_required === 1);
+
+    // console.log(filteredHotels, 'Filtered Hotels')
+
+    return (
         <Container fluid className='mt-5'>
             <Container className='midsection py-5'>
-                <h3>Our Popular Rooms</h3>
-                <p>Lorem ipsum dolor sit amet. Quo voluptatem officiis aut totam mollitia sit tempore autem <br/> quo architecto laborum qui sequi sint id accusamus tempore.</p>
+                <h3>Hotels In Your City</h3>
+                <p>Available Hotels in Your City Today</p>
                 <Row className='mx-2 pt-3'>
                     <Col lg={4} md={6} sm={12} className='rooms px-0 mb-4 pe-3'>
                         <div className="card">
-                            <img src={RedRoom} alt="Avatar" className='img'/>
+                            <img src={RedRoom} alt="Avatar" className='img' />
                         </div>
                         <div className="text-container py-2">
-                                <a href='/Room'><b>Red Room</b></a>
-                                <ul>
-                                    <li><IoBed className='icon'/> Double Bed</li>
-                                    <li><FaBath className='icon'/> 1 Bathroom</li>
-                                    <li><FaWifi className='icon'/> Wifi </li>
-                                </ul>
-                                <span className='amt'>ZAR 250</span> <span className='night'> / Night</span>
+                            <a href='/Room'><b>Red Room</b></a>
+                            <ul>
+                                <li><IoBed className='icon' /> Double Bed</li>
+                                <li><FaBath className='icon' /> 1 Bathroom</li>
+                                <li><FaWifi className='icon' /> Wifi </li>
+                            </ul>
+                            <span className='amt'>ZAR 250</span> <span className='night'> / Night</span>
                         </div>
                     </Col>
                     <Col lg={4} md={6} sm={12} className='rooms px-0 mb-4 pe-3'>
                         <div className="card">
-                            <img src={PurpleRoom} alt="Avatar" className='img'/>
+                            <img src={PurpleRoom} alt="Avatar" className='img' />
                         </div>
                         <div className="text-container py-2">
-                                <a href='/Room'><b>Purple Room</b></a>
-                                <ul>
-                                    <li><IoBed className='icon'/> Double Bed</li>
-                                    <li><FaBath className='icon'/> 1 Bathroom</li>
-                                    <li><FaWifi className='icon'/> Wifi </li>
-                                </ul>
-                                <span className='amt'>ZAR 250</span> <span className='night'> / Night</span>
+                            <a href='/Room'><b>Purple Room</b></a>
+                            <ul>
+                                <li><IoBed className='icon' /> Double Bed</li>
+                                <li><FaBath className='icon' /> 1 Bathroom</li>
+                                <li><FaWifi className='icon' /> Wifi </li>
+                            </ul>
+                            <span className='amt'>ZAR 250</span> <span className='night'> / Night</span>
                         </div>
                     </Col>
                     <Col lg={4} md={6} sm={12} className='rooms px-0 mb-4 pe-3'>
                         <div className="card">
-                            <img src={GreenRoom} alt="Avatar" className='img'/>
+                            <img src={GreenRoom} alt="Avatar" className='img' />
                         </div>
                         <div className="text-container py-2">
-                                <a href='/Room'><b>Green Room</b></a>
-                                <ul>
-                                    <li><IoBed className='icon'/> Double Bed</li>
-                                    <li><FaBath className='icon'/> 1 Bathroom</li>
-                                    <li><FaWifi className='icon'/> Wifi </li>
-                                </ul>
-                                <span className='amt'>ZAR 250</span> <span className='night'> / Night</span>
+                            <a href='/Room'><b>Green Room</b></a>
+                            <ul>
+                                <li><IoBed className='icon' /> Double Bed</li>
+                                <li><FaBath className='icon' /> 1 Bathroom</li>
+                                <li><FaWifi className='icon' /> Wifi </li>
+                            </ul>
+                            <span className='amt'>ZAR 250</span> <span className='night'> / Night</span>
                         </div>
                     </Col>
                 </Row>
             </Container>
         </Container>
-     );
+    );
 }
 
 const BottomSection = () => {
-    return ( 
+    return (
         <Container fluid className='pt-5'>
             <Container className='services-container px-5 my-5'>
                 <Row className='px-0'>
@@ -89,42 +149,42 @@ const BottomSection = () => {
                     <Col lg={8} md={12}>
                         <Row className='px-0'>
                             <Col className='service-icon-container pt-3 px-0' lg={3} md={4} sm={6}>
-                                <GiMeal/>
+                                <GiMeal />
                                 <p>Delicious Meals</p>
                             </Col>
                             <Col className='service-icon-container pt-3 px-0' lg={3} md={4} sm={6}>
-                                <FaParking/>
+                                <FaParking />
                                 <p>Parking Area</p>
                             </Col>
                             <Col className='service-icon-container pt-3 px-0' lg={3} md={4} sm={6}>
-                                <FaWifi/>
+                                <FaWifi />
                                 <p>Free Wifi</p>
                             </Col>
                             <Col className='service-icon-container pt-3 px-0' lg={3} md={4} sm={6}>
-                                <MdOutlineLocalLaundryService/>
+                                <MdOutlineLocalLaundryService />
                                 <p>Laundry services</p>
                             </Col>
                             <Col className='service-icon-container pt-3 px-0' lg={3} md={4} sm={6}>
-                                <FaSwimmer/>
+                                <FaSwimmer />
                                 <p>Swimming</p>
                             </Col>
                             <Col className='service-icon-container pt-3 px-0' lg={3} md={4} sm={6}>
-                                <MdPets/>
+                                <MdPets />
                                 <p>Pets Allowed</p>
                             </Col>
                             <Col className='service-icon-container pt-3 px-0' lg={3} md={4} sm={6}>
-                                <GiVacuumCleaner/>
+                                <GiVacuumCleaner />
                                 <p>Cleaning Services</p>
                             </Col>
                             <Col className='service-icon-container pt-3 px-0' lg={3} md={4} sm={6}>
-                                <MdKitchen/>
+                                <MdKitchen />
                                 <p>Kitchen Area</p>
                             </Col>
                         </Row>
                     </Col>
                 </Row>
             </Container>
-        </Container> 
+        </Container>
     );
 }
 
@@ -132,29 +192,29 @@ const BottomSection = () => {
 const Gallery = () => {
     return (
         <Container fluid className='px-0 mx-0 mb-5'>
-                <Carousel containerStyle={{padding: '0px'}} cols={3} rows={1} gap={10} loop autoplay={3500} scrollSnap={true}>
+            <Carousel containerStyle={{ padding: '0px' }} cols={3} rows={1} gap={10} loop autoplay={3500} scrollSnap={true}>
                 <Carousel.Item>
-                <img width="100%" src={slider1} />
+                    <img width="100%" src={slider1} />
                 </Carousel.Item>
                 <Carousel.Item>
-                <img width="100%" src={slider4} />
+                    <img width="100%" src={slider4} />
                 </Carousel.Item>
                 <Carousel.Item>
-                <img width="100%" src={slider2} />
+                    <img width="100%" src={slider2} />
                 </Carousel.Item>
                 <Carousel.Item>
-                <img width="100%" src={slider3} />
+                    <img width="100%" src={slider3} />
                 </Carousel.Item>
                 <Carousel.Item>
-                <img width="100%" src={slider1} />
+                    <img width="100%" src={slider1} />
                 </Carousel.Item>
                 <Carousel.Item>
-                <img width="100%" src={slider4} />
+                    <img width="100%" src={slider4} />
                 </Carousel.Item>
             </Carousel>
-      </Container>
+        </Container>
     )
 }
 
- 
-export { MidSection, BottomSection, Gallery };
+
+export { PopularHotels, BottomSection, Gallery };
