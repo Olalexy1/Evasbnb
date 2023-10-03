@@ -390,11 +390,11 @@
 }
 
 /* 
-##Device = Tablets, Ipads (landscape)
-##Screen = B/w 768px to 1024px
+##Device = Tablets, Ipads
+##Screen = B/w 768px to 992px
 */
 
-@media (min-width: 768px) and (max-width: 768px) {
+@media (min-width: 768px) and (max-width: 992px) {
 
     .amenities-list-container {
         margin-right: 30px !important;

@@ -18,6 +18,8 @@ import Blog from './pages/Blog';
 import Services from './pages/Services-page';
 import Properties from './pages/Properties';
 import Room from './pages/Room';
+import Checkout from './pages/Checkout';
+import SearchResults from './components/Search-result';
 
 
 function App() {
@@ -35,6 +37,8 @@ function App() {
             <Route exact path="/Services" element={<Services />} />
             <Route exact path="/Properties" element={<Properties />} />
             <Route exact path="/Room" element={<Room />} />
+            <Route exact path="/Checkout" element={<Checkout />} />
+            <Route exact path="/Search-Results" element={<SearchResults />} />
           </Routes>
         <Footer/>
       </Container>

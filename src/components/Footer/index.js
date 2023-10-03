@@ -18,7 +18,7 @@ const Footer = () => {
                     <Col lg={4} md={6} className='left-footer inner-footer mb-4'>
                         <div className='left-footer-inner'>
                             <a href="/"> <img src={logo} width="50px" alt="Eva's Logo" className='me-3' /></a>
-                            <h6>Eva's Bed and Breakfast</h6>
+                            <h6>Book My Stay</h6>
                         </div>
 
                         <div>
@@ -36,34 +36,33 @@ const Footer = () => {
 
                     </Col>
                     <Col lg md={6} className='centre-left-footer inner-footer mb-4'>
-                        <h6>Services</h6>
+                        <h6>Links</h6>
                         <ul>
-                            <li>Parking Area</li>
-                            <li>Entertainment</li>
-                            <li>WIFI</li>
-                            <li>Laundry Services</li>
-                            <li>Kitchen</li>
-                            <li><a href="/Services">See More...</a></li>
+                            <li>Countries</li>
+                            <li>Regions</li>
+                            <li>Hotels</li>
+                            <li>Cities</li>
+                            <li>Districts</li>
+                            <li><a href="#">See More...</a></li>
                         </ul>
                     </Col>
                     <Col lg md={6} className='centre-right-footer inner-footer mb-4'>
-                        <h6>Links</h6>
+                        <h6>Company</h6>
                         <ul>
-                            <li><a href="/Booking"> Bookings </a></li>
-                            <li><a href="/About"> About Us </a></li>
-                            <li><a href=""> FAQs </a></li>
-                            <li><a href="/Rooms"> Our Rooms </a></li>
-                            <li><a href="/Blog"> Blog </a></li>
-                            <li><a href="/Properties"> Properties </a></li>
+                            <li><a href="#"> My Booking </a></li>
+                            <li><a href="#"> About Us </a></li>
+                            <li><a href="#"> FAQs </a></li>
+                            <li><a href="#"> Our </a></li>
+                            <li><a href="#"> Blog </a></li>
+                            <li><a href="#"> Terms of Service </a></li>
                         </ul>
                     </Col>
                     <Col lg md={6} className='right-footer inner-footer mb-4'>
                         <h6>Contact Us</h6>
                         <ul>
-                            <li><FaLocationArrow className='icon'/> 41 Good Hope Street, 2101 Johannesburg, South Africa</li>
-                            <li><FaPhone className='icon'/> 08058198545</li>
-                            <li><FaPaperPlane className='icon'/> evasbnb@gmail.com</li>
-                            
+                            <li><FaLocationArrow className='icon'/> Cole street, Surulere, Lagos</li>
+                            <li><FaPhone className='icon'/> 08188394639</li>
+                            <li><FaPaperPlane className='icon'/> bms@gmail.com</li>
                         </ul>
                     </Col>
                 </Row>
