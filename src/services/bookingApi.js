@@ -21,12 +21,11 @@ export const bookingApi = createApi({
         }),
 
         getHotelsByLocation: builder.query({
-            query: () => ({
+            query: (params) => ({
                 method: 'GET',
                 url: '/v1/hotels/locations', //url of API endpoint
                 params: {
-                    page: '0',
-                    country: 'ng',
+                   ...params
                 },
                 headers: {
                     'X-RapidAPI-Key': ApiKey,
@@ -118,26 +117,29 @@ export const bookingApi = createApi({
 
 
         getHotelsSearch: builder.query({
-            query: () => ({
+            query: (params) => ({
                 method: 'GET',
-                url: '/v2/hotels/search', //url of API endpoint
+                url: '/v1/hotels/search', //url of API endpoint
                 params: {
-                    order_by: 'popularity',
-                    adults_number: '2',
-                    checkin_date: '2023-09-27',
-                    filter_by_currency: 'AED',
-                    dest_id: '11380',
-                    locale: 'en-gb',
-                    checkout_date: '2023-09-28',
-                    units: 'metric',
-                    room_number: '1',
-                    dest_type: 'district',
-                    include_adjacency: 'true',
-                    children_number: '2',
-                    page_number: '0',
-                    children_ages: '5,0',
-                    categories_filter_ids: 'class::2,class::4,free_cancellation::1'
+                    ...params
                 },
+                // params: {
+                //     checkin_date: '2023-09-27',
+                //     dest_type: 'hotel',
+                //     units: 'metric',
+                //     checkout_date: '2023-09-28',
+                //     adults_number: '2',
+                //     order_by: 'popularity',
+                //     dest_id: '-553173',
+                //     filter_by_currency: 'AED',
+                //     locale: 'en-gb',
+                //     room_number: '1',
+                //     children_number: '2',
+                //     children_ages: '5,0',
+                //     categories_filter_ids: 'class::2,class::4,free_cancellation::1',
+                //     page_number: '0',
+                //     include_adjacency: 'true'
+                // },
                 headers: {
                     'X-RapidAPI-Key': ApiKey,
                     'X-RapidAPI-Host': 'booking-com.p.rapidapi.com',

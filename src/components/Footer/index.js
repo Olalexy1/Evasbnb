@@ -30,8 +30,7 @@ const Footer = () => {
                         <div className='social-media-container mt-3'>
                             <a href=""> <FaFacebook className='icon'/> </a>
                             <a href=""> <FaInstagram className='icon'/> </a>
-                            <a href=""> <FaTwitter className='icon'/> </a>
-                            <a href="https://www.airbnb.co.uk/users/show/406076701" target='_blank'> <FaAirbnb className='icon'/> </a>    
+                            <a href=""> <FaTwitter className='icon'/> </a>    
                         </div>  
 
                     </Col>

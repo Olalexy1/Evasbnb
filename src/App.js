@@ -20,6 +20,7 @@ import Properties from './pages/Properties';
 import Room from './pages/Room';
 import Checkout from './pages/Checkout';
 import SearchResults from './components/Search-result';
+import NewPage from './pages/NewPage';
 
 
 function App() {
@@ -29,16 +30,17 @@ function App() {
         <NavBar/>
           <Routes>
             <Route exact path="/" element={<Homepage />} />
-            <Route exact path="/Rooms" element={<Rooms />} />
-            <Route exact path="/About" element={<Aboutus />} />
-            <Route exact path="/Booking" element={<Booking />} />
-            <Route exact path="/Contact" element={<Contact />} />
-            <Route exact path="/Blog" element={<Blog />} />
-            <Route exact path="/Services" element={<Services />} />
-            <Route exact path="/Properties" element={<Properties />} />
-            <Route exact path="/Room" element={<Room />} />
-            <Route exact path="/Checkout" element={<Checkout />} />
-            <Route exact path="/Search-Results" element={<SearchResults />} />
+            <Route exact path="/rooms" element={<Rooms />} />
+            <Route exact path="/about" element={<Aboutus />} />
+            <Route exact path="/booking" element={<Booking />} />
+            <Route exact path="/contact" element={<Contact />} />
+            <Route exact path="/blog" element={<Blog />} />
+            <Route exact path="/services" element={<Services />} />
+            <Route exact path="/properties" element={<Properties />} />
+            <Route exact path="/room" element={<Room />} />
+            <Route exact path="/checkout" element={<Checkout />} />
+            <Route exact path="/searchresults" element={<SearchResults />} />
+            <Route path="/newpage" element={<NewPage />} />
           </Routes>
         <Footer/>
       </Container>

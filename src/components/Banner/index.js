@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -16,9 +17,8 @@ import slider4 from '../../images/vije-vijendranath.jpg'
 // import { DateRangePicker } from '@mui/x-date-pickers-pro/DateRangePicker';
 import { FaChevronCircleRight, FaChevronCircleLeft, FaUser, FaChild, FaCalendarDay, FaMapMarkerAlt } from 'react-icons/fa';
 import { IoBed } from 'react-icons/io5';
-import './style.scss'
-import { useGetCitiesInNgQuery, useGetListOfDistrictsQuery, useGetListOfHotelsQuery, useGetHotelDetailsQuery, useGetHotelsSearchQuery, useGetHotelsInNIgeriaQuery } from '../../services/bookingApi';
-import axios from 'axios';
+import './style.scss';
+import { useGetCitiesInNgQuery, useGetListOfDistrictsQuery, useGetListOfHotelsQuery, useGetHotelDetailsQuery, useGetHotelsSearchQuery, useGetHotelsByLocationQuery } from '../../services/bookingApi';
 
 const Banner = () => {
     const today = new Date().toISOString().split('T')[0];
@@ -30,20 +30,11 @@ const Banner = () => {
     const [suggestions, setSuggestions] = useState([]);
     const suggestionsContainerRef = useRef(null);
     const [visibleSuggestions, setVisibleSuggestions] = useState([]);
-    const [isFormSubmitted, setIsFormSubmitted] = useState(false);
-    const [loading, setLoading] = useState(false);
+    const [searchParams, setSearchParams] = useState(null);
     const { data: cityList, isFetching, isLoading, isSuccess, isError, error } = useGetCitiesInNgQuery();
     const { data: districtList } = useGetListOfDistrictsQuery();
     const { data: hotelsList } = useGetListOfHotelsQuery();
-
-    const searchParams = {
-        country: 'ng',
-        city_id: '-2010458',
-    };
-
-    // const { data: hotelsInNigeriaList, error: hotelListError, isLoading: hotelListLoading } = useGetHotelsInNIgeriaQuery(searchParams);
-
-    // console.log(hotelsInNigeriaList, hotelListError, 'hotelsResult new')
+    const navigate = useNavigate();
 
     const [errors, setErrors] = useState({
         location: '',
@@ -80,6 +71,18 @@ const Banner = () => {
         };
     }, []);
 
+    const locationParams = {
+        name: location,
+        locale: 'en-gb'
+    };
+
+    const { data: locationData } = useGetHotelsByLocationQuery(locationParams)
+
+    const destId = locationData?.[0].dest_id;
+
+    // const { data: searchResult } = useGetHotelsSearchQuery(searchParams);
+
+    // console.log(searchParams, 'search Params Result BANNER')
 
     if (isLoading) return (
         <Stack direction='row' style={{ alignItems: 'center' }}>
@@ -155,7 +158,7 @@ const Banner = () => {
 
     };
 
-    const isCheckOutValid = () => checkOutDate >= checkInDate;
+    const isCheckOutValid = () => checkOutDate > checkInDate;
 
     const validateInputs = () => {
         let validationPassed = true;
@@ -170,7 +173,7 @@ const Banner = () => {
             newErrors.checkOutDate = 'Check Out Date is required';
             validationPassed = false;
         } else if (!isCheckOutValid()) {
-            newErrors.checkOutDate = 'Check out date cannot be before check in date';
+            newErrors.checkOutDate = 'Check out date cannot be before or same as check in date';
             validationPassed = false;
         }
 
@@ -195,7 +198,7 @@ const Banner = () => {
         if (validateInputs()) {
             isCheckOutValid()
 
-            console.log('proceed')
+            console.log('proceed', location)
 
             const searchData = {
                 checkInDate: formData.checkInDate,
@@ -207,7 +210,38 @@ const Banner = () => {
                 locationDetails: selectedInfo,
             };
 
-            console.log(searchData, 'search Data')
+            const baseParams = {
+                checkin_date: formData.checkInDate,
+                dest_type: selectedInfo.type,
+                units: 'metric',
+                checkout_date: formData.checkOutDate,
+                adults_number: formData.adults,
+                order_by: 'popularity',
+                dest_id: destId,
+                filter_by_currency: 'AED',
+                locale: 'en-gb',
+                room_number: formData.rooms,
+                categories_filter_ids: 'class::2,class::4,free_cancellation::1',
+                page_number: '0',
+                include_adjacency: 'true',
+            };
+
+            if (formData.children) {
+                baseParams.children_number = formData.children;
+                baseParams.children_ages = '5,0';
+            };
+
+            setSearchParams(baseParams);
+
+            const resultType = selectedInfo.type
+
+            console.log(searchParams, resultType, 'search Params')
+
+            navigate(`/newpage?searchResult=${JSON.stringify(searchParams)}`, {
+                state: {
+                    searchFormData: searchData
+                }
+            })
         }
 
         else {
@@ -299,12 +333,12 @@ const Banner = () => {
                         </Col>
                         <Col className="form-sect mb-3 mt-3" lg md={6}>
                             <Form.Label className='label'><FaCalendarDay className='form-icons' /> Check-In</Form.Label>
-                            <Form.Control type="date" name="checkInDate" required onChange={handleChangeInput} value={checkInDate} min={today} style={errors.checkInDate ? { border: "2px solid red" } : {}}/>
+                            <Form.Control type="date" name="checkInDate" required onChange={handleChangeInput} value={checkInDate} min={today} style={errors.checkInDate ? { border: "2px solid red" } : {}} />
                             {errors.checkInDate && <p className="error-message">{errors.checkInDate}</p>}
                         </Col>
                         <Col className="form-sect mb-3 mt-3" lg md={6}>
                             <Form.Label className='label'><FaCalendarDay className='form-icons' /> Check-Out</Form.Label>
-                            <Form.Control type="date" name="checkOutDate" required onChange={handleChangeInput} value={checkOutDate} min={checkInDate} style={errors.checkOutDate ? { border: "2px solid red" } : {}}/>
+                            <Form.Control type="date" name="checkOutDate" required onChange={handleChangeInput} value={checkOutDate} min={checkInDate} style={errors.checkOutDate ? { border: "2px solid red" } : {}} />
                             {errors.checkOutDate && <p className="error-message">{errors.checkOutDate}</p>}
                         </Col>
                         <Col className="select-container mb-3 mt-3" lg={3} md={9}>
