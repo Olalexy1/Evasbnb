@@ -20,7 +20,7 @@ import Properties from './pages/Properties';
 import Room from './pages/Room';
 import Checkout from './pages/Checkout';
 import SearchResults from './components/Search-result';
-import NewPage from './pages/NewPage';
+import HotelsSearch from './pages/HotelsSearch';
 
 
 function App() {
@@ -40,7 +40,7 @@ function App() {
             <Route exact path="/room" element={<Room />} />
             <Route exact path="/checkout" element={<Checkout />} />
             <Route exact path="/searchresults" element={<SearchResults />} />
-            <Route path="/newpage" element={<NewPage />} />
+            <Route path="/hotelssearch" element={<HotelsSearch />} />
           </Routes>
         <Footer/>
       </Container>

@@ -7,12 +7,15 @@ export const bookingApi = createApi({
     baseQuery: fetchBaseQuery({ baseUrl: 'https://booking-com.p.rapidapi.com' }),
     endpoints: (builder) => ({
         getCitiesInNg: builder.query({
-            query: () => ({
+            query: (params) => ({
                 method: 'GET',
                 url: '/v1/static/cities', //url of API endpoint
                 params: {
-                    country: 'ng',
+                    ...params
                 },
+                // params: {
+                //     country: 'ng',
+                // },
                 headers: {
                     'X-RapidAPI-Key': ApiKey,
                     'X-RapidAPI-Host': 'booking-com.p.rapidapi.com',
@@ -148,16 +151,19 @@ export const bookingApi = createApi({
         }),
 
         getHotelDetails: builder.query({
-            query: () => ({
+            query: (params) => ({
                 method: 'GET',
                 url: '/v2/hotels/details', //url of API endpoint
                 params: {
-                    hotel_id: '8981002',
-                    currency: 'NGN',
-                    locale: 'en-gb',
-                    checkout_date: '2023-09-28',
-                    checkin_date: '2023-09-27'
+                    ...params
                 },
+                // params: {
+                //     hotel_id: '8981002',
+                //     currency: 'NGN',
+                //     locale: 'en-gb',
+                //     checkout_date: '2023-09-28',
+                //     checkin_date: '2023-09-27'
+                // },
                 headers: {
                     'X-RapidAPI-Key': ApiKey,
                     'X-RapidAPI-Host': 'booking-com.p.rapidapi.com',
@@ -166,13 +172,16 @@ export const bookingApi = createApi({
         }),
 
         getHotelOnTheMap: builder.query({
-            query: () => ({
+            query: (params) => ({
                 method: 'GET',
                 url: '/v1/hotels/map-markers', //url of API endpoint
                 params: {
-                    hotel_id: '1676161',
-                    locale: 'en-gb'
+                    ...params
                 },
+                // params: {
+                //     hotel_id: '1676161',
+                //     locale: 'en-gb'
+                // },
                 headers: {
                     'X-RapidAPI-Key': ApiKey,
                     'X-RapidAPI-Host': 'booking-com.p.rapidapi.com',
@@ -181,13 +190,16 @@ export const bookingApi = createApi({
         }),
 
         getHotelDescription: builder.query({
-            query: () => ({
+            query: (params) => ({
                 method: 'GET',
                 url: '/v2/hotels/description', //url of API endpoint
                 params: {
-                    hotel_id: '1676161',
-                    locale: 'en-gb'
+                    ...params
                 },
+                // params: {
+                //     hotel_id: '1676161',
+                //     locale: 'en-gb'
+                // },
                 headers: {
                     'X-RapidAPI-Key': ApiKey,
                     'X-RapidAPI-Host': 'booking-com.p.rapidapi.com',
@@ -196,13 +208,16 @@ export const bookingApi = createApi({
         }),
 
         getHotelData: builder.query({
-            query: () => ({
+            query: (params) => ({
                 method: 'GET',
                 url: '/v1/hotels/data', //url of API endpoint
                 params: {
-                    hotel_id: '1676161',
-                    locale: 'en-gb'
+                    ...params
                 },
+                // params: {
+                //     hotel_id: '1676161',
+                //     locale: 'en-gb'
+                // },
                 headers: {
                     'X-RapidAPI-Key': ApiKey,
                     'X-RapidAPI-Host': 'booking-com.p.rapidapi.com',
@@ -211,13 +226,16 @@ export const bookingApi = createApi({
         }),
 
         getHotelPhotos: builder.query({
-            query: () => ({
+            query: (params) => ({
                 method: 'GET',
                 url: '/v1/hotels/photos', //url of API endpoint
                 params: {
-                    hotel_id: '1676161',
-                    locale: 'en-gb'
+                    ...params
                 },
+                // params: {
+                //     hotel_id: '1676161',
+                //     locale: 'en-gb'
+                // },
                 headers: {
                     'X-RapidAPI-Key': ApiKey,
                     'X-RapidAPI-Host': 'booking-com.p.rapidapi.com',
@@ -226,13 +244,16 @@ export const bookingApi = createApi({
         }),
 
         getHotelNearbyPlaces: builder.query({
-            query: () => ({
+            query: (params) => ({
                 method: 'GET',
                 url: '/v1/hotels/nearby-places', //url of API endpoint
                 params: {
-                    hotel_id: '1676161',
-                    locale: 'en-gb'
+                    ...params
                 },
+                // params: {
+                //     hotel_id: '1676161',
+                //     locale: 'en-gb'
+                // },
                 headers: {
                     'X-RapidAPI-Key': ApiKey,
                     'X-RapidAPI-Host': 'booking-com.p.rapidapi.com',
@@ -241,13 +262,16 @@ export const bookingApi = createApi({
         }),
 
         getLocationHighlightOfHotel: builder.query({
-            query: () => ({
+            query: (params) => ({
                 method: 'GET',
                 url: '/v1/hotels/location-highlights', //url of API endpoint
                 params: {
-                    hotel_id: '1676161',
-                    locale: 'en-gb'
+                    ...params
                 },
+                // params: {
+                //     hotel_id: '1676161',
+                //     locale: 'en-gb'
+                // },
                 headers: {
                     'X-RapidAPI-Key': ApiKey,
                     'X-RapidAPI-Host': 'booking-com.p.rapidapi.com',
@@ -256,13 +280,16 @@ export const bookingApi = createApi({
         }),
 
         getHotelFacilities: builder.query({
-            query: () => ({
+            query: (params) => ({
                 method: 'GET',
                 url: '/v1/hotels/facilities', //url of API endpoint
                 params: {
-                    hotel_id: '1676161',
-                    locale: 'en-gb'
+                    ...params
                 },
+                // params: {
+                //     hotel_id: '1676161',
+                //     locale: 'en-gb'
+                // },
                 headers: {
                     'X-RapidAPI-Key': ApiKey,
                     'X-RapidAPI-Host': 'booking-com.p.rapidapi.com',
@@ -271,20 +298,23 @@ export const bookingApi = createApi({
         }),
 
         getRoomListOfHotel: builder.query({
-            query: () => ({
+            query: (params) => ({
                 method: 'GET',
                 url: '/v1/hotels/room-list', //url of API endpoint
                 params: {
-                    hotel_id: '1676161',
-                    currency: 'NGN',
-                    checkout_date: '2023-09-28',
-                    locale: 'en-gb',
-                    checkin_date: '2023-09-27',
-                    adults_number_by_rooms: '3,1',
-                    units: 'metric',
-                    children_ages: '5,0,9',
-                    children_number_by_rooms: '2,1'
+                    ...params
                 },
+                // params: {
+                //     hotel_id: '1676161',
+                //     currency: 'NGN',
+                //     checkout_date: '2023-09-28',
+                //     locale: 'en-gb',
+                //     checkin_date: '2023-09-27',
+                //     adults_number_by_rooms: '3,1',
+                //     units: 'metric',
+                //     children_ages: '5,0,9',
+                //     children_number_by_rooms: '2,1'
+                // },
                 headers: {
                     'X-RapidAPI-Key': ApiKey,
                     'X-RapidAPI-Host': 'booking-com.p.rapidapi.com',
@@ -293,13 +323,16 @@ export const bookingApi = createApi({
         }),
 
         getReviewMetaDataOfHotel: builder.query({
-            query: () => ({
+            query: (params) => ({
                 method: 'GET',
                 url: '/v1/hotels/reviews-filter-metadata', //url of API endpoint
                 params: {
-                    hotel_id: '1676161',
-                    locale: 'en-gb'
+                    ...params
                 },
+                // params: {
+                //     hotel_id: '1676161',
+                //     locale: 'en-gb'
+                // },
                 headers: {
                     'X-RapidAPI-Key': ApiKey,
                     'X-RapidAPI-Host': 'booking-com.p.rapidapi.com',
@@ -308,13 +341,16 @@ export const bookingApi = createApi({
         }),
 
         getExchangeRates: builder.query({
-            query: () => ({
+            query: (params) => ({
                 method: 'GET',
                 url: '/v1/metadata/exchange-rates', //url of API endpoint
                 params: {
-                    currency: 'NGN',
-                    locale: 'en-gb'
+                    ...params
                 },
+                // params: {
+                //     currency: 'NGN',
+                //     locale: 'en-gb'
+                // },
                 headers: {
                     'X-RapidAPI-Key': ApiKey,
                     'X-RapidAPI-Host': 'booking-com.p.rapidapi.com',
@@ -351,13 +387,16 @@ export const bookingApi = createApi({
         }),
 
         getHotelsSearchLocations: builder.query({
-            query: () => ({
+            query: (params) => ({
                 method: 'GET',
                 url: '/v1/hotels/locations', //url of API endpoint
                 params: {
-                    name: 'Lekki',
-                    locale: 'en-gb'
+                    ...params
                 },
+                // params: {
+                //     name: 'Lekki',
+                //     locale: 'en-gb'
+                // },
                 headers: {
                     'X-RapidAPI-Key': ApiKey,
                     'X-RapidAPI-Host': 'booking-com.p.rapidapi.com',

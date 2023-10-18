@@ -96,19 +96,16 @@ const Slickcarousel = ({ hotelsList }) => {
               <img src={item.max_photo_url} alt="Hotel-Img" />
               <div className="text-container py-2">
                 <a href='/Room' style={{ whiteSpace: 'nowrap', display: 'inline-block', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '100%' }}><b>{item.hotel_name}</b></a>
-                <p>{item.district || item.city_name_en}</p>
+                <h6 style={{ textTransform: "capitalize"}}>{item.district ? item.district : item.city_name_en}</h6>
                 <ul>
                   {
                     item.review_score && (
                       <li><FaStar className='icon' /> {item.review_score.toLocaleString('en-US', { minimumFractionDigits: 1 })}</li>
                     )
                   }
-                  <li><MdFreeBreakfast className='icon' /> {item.ribbon_text || 'Breakfast excluded'}</li>
+                  <li style={{ textTransform: "capitalize"}}><MdFreeBreakfast className='icon' /> {item.ribbon_text || 'Breakfast Excluded'}</li>
                 </ul>
-                {/* <ul>
-                  <li><FaUser className='icon' /> 2 Adults</li>
-                </ul> */}
-                <span className='amt'>{Math.floor(item.composite_price_breakdown.all_inclusive_amount.value).toLocaleString('en-US', { style: 'currency', currency: item.composite_price_breakdown.all_inclusive_amount.currency })} </span> <span className='night'> / Night</span>
+                <span className='amt'>{Math.floor(item.composite_price_breakdown.all_inclusive_amount.value).toLocaleString('en-US', { style: 'currency', currency: item.composite_price_breakdown.all_inclusive_amount.currency }).replace(/\.00$/, '')} </span> <span className='night'> / Night</span>
               </div>
             </div>
           ))}

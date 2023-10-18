@@ -80,7 +80,7 @@ const Banner = () => {
 
     const destId = locationData?.[0].dest_id;
 
-    // const { data: searchResult } = useGetHotelsSearchQuery(searchParams);
+    const { data: searchResult } = useGetHotelsSearchQuery(searchParams);
 
     // console.log(searchParams, 'search Params Result BANNER')
 
@@ -152,9 +152,9 @@ const Banner = () => {
         setFormData({ ...formData, [name]: value });
         setErrors(prevErrors => ({ ...prevErrors, [name]: '' }));
 
-        if (checkInDate > checkOutDate) {
-            setFormData({ ...formData, checkOutDate: checkInDate })
-        }
+        // if (checkInDate > checkOutDate) {
+        //     setFormData({ ...formData, checkOutDate: checkOutDate })
+        // }
 
     };
 
@@ -198,8 +198,6 @@ const Banner = () => {
         if (validateInputs()) {
             isCheckOutValid()
 
-            console.log('proceed', location)
-
             const searchData = {
                 checkInDate: formData.checkInDate,
                 checkOutDate: formData.checkOutDate,
@@ -235,13 +233,26 @@ const Banner = () => {
 
             const resultType = selectedInfo.type
 
-            console.log(searchParams, resultType, 'search Params')
+            console.log(searchParams, searchResult, searchData, 'search Page')
 
-            navigate(`/newpage?searchResult=${JSON.stringify(searchParams)}`, {
-                state: {
-                    searchFormData: searchData
-                }
-            })
+            if (searchResult !== undefined) {
+                navigate(`/hotelssearch?searchResult=${JSON.stringify(searchData)}`, {
+                    state: {
+                        searchFormData: searchData,
+                        searchResult: searchResult
+                    }
+                });
+
+            } else {
+                console.log('searchResult is undefined, cannot proceed without it');
+            }
+
+            // navigate(`/newpage?searchResult=${JSON.stringify(searchData)}`, {
+            //     state: {
+            //         searchFormData: searchData,
+            //         searchResult: searchResult
+            //     }
+            // });
         }
 
         else {
@@ -297,7 +308,7 @@ const Banner = () => {
                 </Carousel.Item>
             </Carousel>
             <Container className='form-container my-5'>
-                <Form onSubmit={handleSubmit} className='px-0'>
+                <Form className='px-0'>
                     <Row className='form mx-1 px-2'>
                         <Col className="form-sect mb-3 mt-3 destination-container" lg md={6} >
                             <Form.Label className='label'><FaMapMarkerAlt className='form-icons' /> Location</Form.Label>
