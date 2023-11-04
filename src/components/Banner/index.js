@@ -21,8 +21,11 @@ import './style.scss';
 import { useGetCitiesInNgQuery, useGetListOfDistrictsQuery, useGetListOfHotelsQuery, useGetHotelDetailsQuery, useGetHotelsSearchQuery, useGetHotelsByLocationQuery } from '../../services/bookingApi';
 
 const Banner = () => {
-    const today = new Date().toISOString().split('T')[0];
-    const [formData, setFormData] = useState({ checkInDate: today, checkOutDate: '', adults: '', children: '', rooms: '', locationDetails: null });
+    // const today = new Date().toISOString().split('T')[0];
+    const today = new Date();
+    today.setDate(today.getDate() + 1); // Add 1 day to the current date
+    const tomorrow = today.toISOString().split('T')[0];
+    const [formData, setFormData] = useState({ checkInDate: tomorrow, checkOutDate: '', adults: '', children: '', rooms: '', locationDetails: null });
     const [location, setLocation] = useState('');
     const [inputId, setInputId] = useState('');
     const [inputType, setInputType] = useState('');
@@ -344,7 +347,7 @@ const Banner = () => {
                         </Col>
                         <Col className="form-sect mb-3 mt-3" lg md={6}>
                             <Form.Label className='label'><FaCalendarDay className='form-icons' /> Check-In</Form.Label>
-                            <Form.Control type="date" name="checkInDate" required onChange={handleChangeInput} value={checkInDate} min={today} style={errors.checkInDate ? { border: "2px solid red" } : {}} />
+                            <Form.Control type="date" name="checkInDate" required onChange={handleChangeInput} value={checkInDate} min={tomorrow} style={errors.checkInDate ? { border: "2px solid red" } : {}} />
                             {errors.checkInDate && <p className="error-message">{errors.checkInDate}</p>}
                         </Col>
                         <Col className="form-sect mb-3 mt-3" lg md={6}>

@@ -15,9 +15,12 @@ import { useGetHotelsByCoordinatesQuery } from '../../services/bookingApi';
 const Homepage = () => {
     const today = new Date();
     const tomorrow = new Date(today);
+    const nextTomorrow = new Date(today)
     tomorrow.setDate(today.getDate() + 1);
+    nextTomorrow.setDate(today.getDate() + 2);
     const todayISO = new Date().toISOString().split('T')[0];
     const tomorrowISO = tomorrow.toISOString().split('T')[0];
+    const nextTomorrowISO = nextTomorrow.toISOString().split('T')[0];
     const [latitude, setLatitude] = useState('');
     const [longitude, setLongitude] = useState('');
     const [position, setPosition] = useState('');
@@ -41,9 +44,9 @@ const Homepage = () => {
         filter_by_currency: 'AED',
         order_by: 'popularity',
         locale: 'en-gb', //make dynamic later
-        checkout_date: tomorrowISO,
+        checkout_date: nextTomorrowISO,
         adults_number: '1',
-        checkin_date: todayISO,
+        checkin_date: tomorrowISO,
         include_adjacency: 'true',
         categories_filter_ids: 'class::2,class::4,free_cancellation::1'
     }

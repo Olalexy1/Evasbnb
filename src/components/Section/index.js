@@ -26,7 +26,7 @@ const PopularHotels = ({randomHotels}) => {
         <Container fluid className='mt-5'>
             <Container className='midsection py-5'>
                 <h3>The Best Hotels In Your City</h3>
-                <p>Available in Your City Today</p>
+                <p>Available in Your City</p>
                 <Row className='mx-2 pt-3'>
                     {randomHotels?.map((item) => (
                         <Col lg={4} md={6} sm={12} className='rooms px-0 mb-4 pe-3'>
