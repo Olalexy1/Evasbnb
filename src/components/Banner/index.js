@@ -14,11 +14,13 @@ import slider2 from '../../images/cara-grobbelaar.jpg'
 import slider3 from '../../images/harry-cunningham.jpg'
 import slider4 from '../../images/vije-vijendranath.jpg'
 
+import { useCountry } from '../../context/countryContext';
+
 // import { DateRangePicker } from '@mui/x-date-pickers-pro/DateRangePicker';
 import { FaChevronCircleRight, FaChevronCircleLeft, FaUser, FaChild, FaCalendarDay, FaMapMarkerAlt } from 'react-icons/fa';
 import { IoBed } from 'react-icons/io5';
 import './style.scss';
-import { useGetCitiesInNgQuery, useGetListOfDistrictsQuery, useGetListOfHotelsQuery, useGetHotelDetailsQuery, useGetHotelsSearchQuery, useGetHotelsByLocationQuery } from '../../services/bookingApi';
+import { useGetCitiesInNgQuery, useGetListOfDistrictsQuery, useGetListOfHotelsQuery, useGetHotelDetailsQuery, useGetHotelsBySearchQuery, useGetHotelsByLocationQuery } from '../../services/bookingApi';
 
 const Banner = () => {
     // const today = new Date().toISOString().split('T')[0];
@@ -83,7 +85,7 @@ const Banner = () => {
 
     const destId = locationData?.[0].dest_id;
 
-    const { data: searchResult } = useGetHotelsSearchQuery(searchParams);
+    const { data: searchResult } = useGetHotelsBySearchQuery(searchParams);
 
     // console.log(searchParams, 'search Params Result BANNER')
 
@@ -238,17 +240,17 @@ const Banner = () => {
 
             console.log(searchParams, searchResult, searchData, 'search Page')
 
-            if (searchResult !== undefined) {
-                navigate(`/hotelssearch?searchResult=${JSON.stringify(searchData)}`, {
-                    state: {
-                        searchFormData: searchData,
-                        searchResult: searchResult
-                    }
-                });
+            // if (searchResult !== undefined) {
+            //     navigate(`/hotelssearch?searchResult=${JSON.stringify(searchData)}`, {
+            //         state: {
+            //             searchFormData: searchData,
+            //             searchResult: searchResult
+            //         }
+            //     });
 
-            } else {
-                console.log('searchResult is undefined, cannot proceed without it');
-            }
+            // } else {
+            //     console.log('searchResult is undefined, cannot proceed without it');
+            // }
 
             // navigate(`/newpage?searchResult=${JSON.stringify(searchData)}`, {
             //     state: {

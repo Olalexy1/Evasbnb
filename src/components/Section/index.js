@@ -28,8 +28,8 @@ const PopularHotels = ({randomHotels}) => {
                 <h3>The Best Hotels In Your City</h3>
                 <p>Available in Your City</p>
                 <Row className='mx-2 pt-3'>
-                    {randomHotels?.map((item) => (
-                        <Col lg={4} md={6} sm={12} className='rooms px-0 mb-4 pe-3'>
+                    {randomHotels?.map((item, index) => (
+                        <Col lg={4} md={6} sm={12} key={index} className='rooms px-0 mb-4 pe-3'>
                             <div className="card">
                                 <img src={item.max_photo_url} alt="Avatar" className='img' />
                             </div>

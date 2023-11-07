@@ -8,7 +8,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import { useSearchParams, useLocation } from 'react-router-dom';
 import SearchForm from '../../components/SearchForm';
 import HotelCard from '../../components/HotelCard';
-import { useGetCitiesInNgQuery, useGetListOfDistrictsQuery, useGetListOfHotelsQuery, useGetHotelDetailsQuery, useGetHotelsSearchQuery, useGetHotelsByLocationQuery } from '../../services/bookingApi';
+import { useGetCitiesInNgQuery, useGetListOfDistrictsQuery, useGetListOfHotelsQuery,  useGetHotelsByLocationQuery } from '../../services/bookingApi';
 import './style.scss';
 import { BsFilter } from 'react-icons/bs';
 import Pagination from '../../components/Pagination/Pagination';
@@ -49,6 +49,7 @@ const HotelsSearch = () => {
     const { data: cityList, isLoading, isSuccess, isError, error } = useGetCitiesInNgQuery();
     const { data: districtList } = useGetListOfDistrictsQuery();
     const { data: hotelsList } = useGetListOfHotelsQuery();
+    // const { data: facilitiesList } = useGetHotelFacilitiesTypesQuery();
 
     const BATCH_SIZE = 5; // Number of suggestions to load at a time
 
@@ -318,23 +319,22 @@ const HotelsSearch = () => {
                             </div>
                         </div>
                     </Col>
-                    <Col lg md={8}>
+                    {<Col lg md={8}>
                         <div className='hotels-container'>
                             <h5>{formLocation}: {SearchResultHotelList.length} properties found</h5>
                             {currentSearchResultData.map((hotel, index) => (
-                                <HotelCard key={index} hotel={hotel} />
+                                <HotelCard key={index} hotel={hotel}/>
                             ))}
                         </div>
-
-                        <Pagination
-                            className="pagination-bar"
-                            currentPage={currentPage}
-                            totalCount={SearchResultHotelList.length}
-                            pageSize={PageSize}
-                            onPageChange={page => setCurrentPage(page)}
-                        />
-                    </Col>
+                    </Col>}
                 </Row>
+                <Pagination
+                    className="pagination-bar"
+                    currentPage={currentPage}
+                    totalCount={SearchResultHotelList.length}
+                    pageSize={PageSize}
+                    onPageChange={page => setCurrentPage(page)}
+                />
             </Container>
         </Container>
     );

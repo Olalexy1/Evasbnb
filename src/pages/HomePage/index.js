@@ -12,6 +12,8 @@ import { Subform, Inqiuryform } from '../../components/Forms';
 
 import { useGetHotelsByCoordinatesQuery } from '../../services/bookingApi';
 
+import { useCountry } from '../../context/countryContext'; 
+
 const Homepage = () => {
     const today = new Date();
     const tomorrow = new Date(today);
@@ -24,8 +26,9 @@ const Homepage = () => {
     const [latitude, setLatitude] = useState('');
     const [longitude, setLongitude] = useState('');
     const [position, setPosition] = useState('');
+    const { country, setCountry } = useCountry('');
 
-
+    const googleApiKey = process.env.REACT_APP_GOOGLE_API_KEY
 
     useEffect(() => {
         navigator.geolocation.getCurrentPosition((position) => {
@@ -34,6 +37,37 @@ const Homepage = () => {
             setLongitude(position.coords.longitude)
         })
     }, [latitude, longitude]);
+
+    useEffect(() => {
+        if (latitude !== null && longitude !== null) {
+            const fetchCountryFromCoordinates = async () => {
+                try {
+                    const response = await fetch(
+                        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${googleApiKey}`
+                    );
+
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch data');
+                    }
+
+                    const data = await response.json();
+
+                    const result = data.results[0];
+                    const countryComponent = result.address_components.find(
+                        (component) => component.types.includes('country')
+                    );
+
+                    if (countryComponent) {
+                        setCountry(countryComponent.long_name);
+                    }
+                } catch (error) {
+                    console.error('Error fetching country:', error);
+                }
+            };
+
+            fetchCountryFromCoordinates();
+        }
+    }, [latitude, longitude, setCountry]);
 
 
     const hotelsListParams = {
