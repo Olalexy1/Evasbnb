@@ -15,12 +15,15 @@ import slider3 from '../../images/harry-cunningham.jpg'
 import slider4 from '../../images/vije-vijendranath.jpg'
 
 import { useCountry } from '../../context/countryContext';
+import countries from '../../utils/Countries'
 
 // import { DateRangePicker } from '@mui/x-date-pickers-pro/DateRangePicker';
 import { FaChevronCircleRight, FaChevronCircleLeft, FaUser, FaChild, FaCalendarDay, FaMapMarkerAlt } from 'react-icons/fa';
 import { IoBed } from 'react-icons/io5';
 import './style.scss';
 import { useGetCitiesInNgQuery, useGetListOfDistrictsQuery, useGetListOfHotelsQuery, useGetHotelDetailsQuery, useGetHotelsBySearchQuery, useGetHotelsByLocationQuery } from '../../services/bookingApi';
+
+import { useGetCurrencyRatesQuery } from '../../services/currencyApi';
 
 const Banner = () => {
     // const today = new Date().toISOString().split('T')[0];
@@ -36,10 +39,32 @@ const Banner = () => {
     const suggestionsContainerRef = useRef(null);
     const [visibleSuggestions, setVisibleSuggestions] = useState([]);
     const [searchParams, setSearchParams] = useState(null);
-    const { data: cityList, isFetching, isLoading, isSuccess, isError, error } = useGetCitiesInNgQuery();
-    const { data: districtList } = useGetListOfDistrictsQuery();
-    const { data: hotelsList } = useGetListOfHotelsQuery();
+    const { country } = useCountry();
+
+    const countryCode = countries.result.find((item) => item.name === country);
+
+    const districtsParams = {
+        country: countryCode.country,
+    };
+
+    const citiesParams = {
+        country: countryCode.country,
+    };
+
+    const hotelsParams = {
+        country: countryCode.country,
+    };
+
+    const currencyParams = {
+        output: 'JSON',
+        base: 'USD'
+    }
+
+    const { data: cityList, isFetching, isLoading, isSuccess, isError, error } = useGetCitiesInNgQuery(citiesParams);
+    const { data: districtList } = useGetListOfDistrictsQuery(districtsParams);
+    const { data: hotelsList } = useGetListOfHotelsQuery(hotelsParams);
     const navigate = useNavigate();
+    const { data: currencyData } = useGetCurrencyRatesQuery(currencyParams);
 
     const [errors, setErrors] = useState({
         location: '',
@@ -87,7 +112,7 @@ const Banner = () => {
 
     const { data: searchResult } = useGetHotelsBySearchQuery(searchParams);
 
-    // console.log(searchParams, 'search Params Result BANNER')
+    console.log(searchParams, 'search Params Result BANNER')
 
     if (isLoading) return (
         <Stack direction='row' style={{ alignItems: 'center' }}>
@@ -221,7 +246,7 @@ const Banner = () => {
                 adults_number: formData.adults,
                 order_by: 'popularity',
                 dest_id: destId,
-                filter_by_currency: 'AED',
+                filter_by_currency: 'USD',
                 locale: 'en-gb',
                 room_number: formData.rooms,
                 categories_filter_ids: 'class::2,class::4,free_cancellation::1',
@@ -240,17 +265,17 @@ const Banner = () => {
 
             console.log(searchParams, searchResult, searchData, 'search Page')
 
-            // if (searchResult !== undefined) {
-            //     navigate(`/hotelssearch?searchResult=${JSON.stringify(searchData)}`, {
-            //         state: {
-            //             searchFormData: searchData,
-            //             searchResult: searchResult
-            //         }
-            //     });
+            if (searchResult !== undefined) {
+                navigate(`/hotelssearch?searchResult=${JSON.stringify(searchData)}`, {
+                    state: {
+                        searchFormData: searchData,
+                        searchResult: searchResult
+                    }
+                });
 
-            // } else {
-            //     console.log('searchResult is undefined, cannot proceed without it');
-            // }
+            } else {
+                console.log('searchResult is undefined, cannot proceed without it');
+            }
 
             // navigate(`/newpage?searchResult=${JSON.stringify(searchData)}`, {
             //     state: {

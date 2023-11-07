@@ -26,7 +26,11 @@ const Homepage = () => {
     const [latitude, setLatitude] = useState('');
     const [longitude, setLongitude] = useState('');
     const [position, setPosition] = useState('');
-    const { country, setCountry } = useCountry('');
+    const { country, setCountry } = useCountry();
+
+    console.log(country, 'see country')
+
+    const GOOGLE_MAPS_API_KEY = 'AIzaSyD5lUokXK7izSWBI_mfTClS5jYaMLr6YK8';
 
     const googleApiKey = process.env.REACT_APP_GOOGLE_API_KEY
 
@@ -43,7 +47,7 @@ const Homepage = () => {
             const fetchCountryFromCoordinates = async () => {
                 try {
                     const response = await fetch(
-                        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${googleApiKey}`
+                        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${GOOGLE_MAPS_API_KEY}`
                     );
 
                     if (!response.ok) {
@@ -58,7 +62,7 @@ const Homepage = () => {
                     );
 
                     if (countryComponent) {
-                        setCountry(countryComponent.long_name);
+                        setCountry(countryComponent.long_name || 'Nigeria');
                     }
                 } catch (error) {
                     console.error('Error fetching country:', error);
@@ -75,7 +79,7 @@ const Homepage = () => {
         room_number: '1',
         longitude: longitude,
         latitude: latitude,
-        filter_by_currency: 'AED',
+        filter_by_currency: 'USD',
         order_by: 'popularity',
         locale: 'en-gb', //make dynamic later
         checkout_date: nextTomorrowISO,

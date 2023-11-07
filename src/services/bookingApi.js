@@ -27,21 +27,28 @@ export const bookingApi = createApi({
         }),
 
         getHotelsByLocation: builder.query({
-            query: (params) => ({
-                method: 'GET',
-                url: '/v1/hotels/locations', //url of API endpoint
-                params: {
-                    ...params
-                },
-                // params: {
-                //     name: 'Lagos',
-                //     locale: 'en-gb'
-                // },
-                headers: {
-                    'X-RapidAPI-Key': ApiKey,
-                    'X-RapidAPI-Host': 'booking-com.p.rapidapi.com',
-                },
-            })
+            query: (params) => {
+                if (!params) {
+                    // If params are not defined, return an empty object
+                    return {};
+                }
+
+                return {
+                    method: 'GET',
+                    url: '/v1/hotels/locations', //url of API endpoint
+                    params: {
+                        ...params
+                    },
+                    // params: {
+                    //     name: 'Lagos',
+                    //     locale: 'en-gb'
+                    // },
+                    headers: {
+                        'X-RapidAPI-Key': ApiKey,
+                        'X-RapidAPI-Host': 'booking-com.p.rapidapi.com',
+                    },
+                };
+            },
         }),
 
         getHotelFacilitiesTypes: builder.query({
@@ -56,12 +63,15 @@ export const bookingApi = createApi({
         }),
 
         getHotelTypes: builder.query({
-            query: () => ({
+            query: (params) => ({
                 method: 'GET',
                 url: '/v1/static/hotel-types', //url of API endpoint
                 params: {
-                    hotel_id: '8981002',
+                    ...params
                 },
+                // params: {
+                //     hotel_id: '8981002',
+                // },
                 headers: {
                     'X-RapidAPI-Key': ApiKey,
                     'X-RapidAPI-Host': 'booking-com.p.rapidapi.com',
@@ -81,9 +91,12 @@ export const bookingApi = createApi({
         }),
 
         getListOfDistricts: builder.query({
-            query: () => ({
+            query: (params) => ({
                 method: 'GET',
                 url: '/v1/static/districts', //url of API endpoint
+                params: {
+                    ...params
+                },
                 // params: {
                 //     name: 'DD',
                 //     country: 'ng',
@@ -126,34 +139,41 @@ export const bookingApi = createApi({
 
 
         getHotelsBySearch: builder.query({
-            query: (params) => ({
-                method: 'GET',
-                url: '/v2/hotels/search', //url of API endpoint
-                params: {
-                    ...params
-                },
-                // params: {
-                //     order_by: 'popularity',
-                // adults_number: '2',
-                // checkin_date: '2023-09-27',
-                // filter_by_currency: 'AED',
-                // dest_id: '-553173',
-                // locale: 'en-gb',
-                // checkout_date: '2023-09-28',
-                // units: 'metric',
-                // room_number: '1',
-                // dest_type: 'city',
-                // include_adjacency: 'true',
-                // children_number: '2',
-                // page_number: '0',
-                // children_ages: '5,0',
-                // categories_filter_ids: 'class::2,class::4,free_cancellation::1'
-                // },
-                headers: {
-                    'X-RapidAPI-Key': ApiKey,
-                    'X-RapidAPI-Host': 'booking-com.p.rapidapi.com',
-                },
-            })
+            query: (params) => {
+                if (!params) {
+                    // If params are not defined, return an empty object
+                    return {};
+                }
+
+                return {
+                    method: 'GET',
+                    url: '/v1/hotels/search', //url of API endpoint
+                    params: {
+                        ...params
+                    },
+                    // params: {
+                    //     order_by: 'popularity',
+                    // adults_number: '2',
+                    // checkin_date: '2023-09-27',
+                    // filter_by_currency: 'AED',
+                    // dest_id: '-553173',
+                    // locale: 'en-gb',
+                    // checkout_date: '2023-09-28',
+                    // units: 'metric',
+                    // room_number: '1',
+                    // dest_type: 'city',
+                    // include_adjacency: 'true',
+                    // children_number: '2',
+                    // page_number: '0',
+                    // children_ages: '5,0',
+                    // categories_filter_ids: 'class::2,class::4,free_cancellation::1'
+                    // },
+                    headers: {
+                        'X-RapidAPI-Key': ApiKey,
+                        'X-RapidAPI-Host': 'booking-com.p.rapidapi.com',
+                    },
+                };
+            },
         }),
 
         getHotelDetails: builder.query({

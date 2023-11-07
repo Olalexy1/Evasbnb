@@ -7,24 +7,31 @@ export const currencyApi = createApi({
     baseQuery: fetchBaseQuery({ baseUrl: 'https://currencyapi-net.p.rapidapi.com' }),
     endpoints: (builder) => ({
         getCurrencyRates: builder.query({
-            query: (params) => ({
-                method: 'GET',
-                url: '/rates', //url of API endpoint
-                params: {
-                    ...params
-                },
-                // params: {
-                //     output: 'JSON',
-                //     base: 'USD'
-                // },
-                headers: {
-                    'X-RapidAPI-Key': currencyApiKey,
-                    'X-RapidAPI-Host': 'currencyapi-net.p.rapidapi.com',
-                },
-            })
+            query: (params) => {
+                if (!params) {
+                    // If params are not defined, return an empty object
+                    return {};
+                }
+
+                return {
+                    method: 'GET',
+                    url: '/rates',
+                    params: {
+                        ...params
+                    },
+                    // params: {
+                    //     output: 'JSON',
+                    //     base: 'USD'
+                    // },
+                    headers: {
+                        'X-RapidAPI-Key': currencyApiKey,
+                        'X-RapidAPI-Host': 'currencyapi-net.p.rapidapi.com',
+                    },
+                };
+            },
         }),
     }),
-})
+});
 
 export const {
     useGetCurrencyRatesQuery
