@@ -7,7 +7,7 @@ export function useCountry() {
 }
 
 export function CountryProvider({ children }) {
-    const [country, setCountry] = useState(null);
+    const [country, setCountry] = useState('');
 
     return (
         <CountryContext.Provider value={{ country, setCountry }}>

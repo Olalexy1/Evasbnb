@@ -21,7 +21,7 @@ import countries from '../../utils/Countries'
 import { FaChevronCircleRight, FaChevronCircleLeft, FaUser, FaChild, FaCalendarDay, FaMapMarkerAlt } from 'react-icons/fa';
 import { IoBed } from 'react-icons/io5';
 import './style.scss';
-import { useGetCitiesInNgQuery, useGetListOfDistrictsQuery, useGetListOfHotelsQuery, useGetHotelDetailsQuery, useGetHotelsBySearchQuery, useGetHotelsByLocationQuery } from '../../services/bookingApi';
+import { useGetListOfCitiesQuery, useGetListOfDistrictsQuery, useGetListOfHotelsQuery, useGetHotelDetailsQuery, useGetHotelsBySearchQuery, useGetHotelsByLocationQuery } from '../../services/bookingApi';
 
 import { useGetCurrencyRatesQuery } from '../../services/currencyApi';
 
@@ -44,15 +44,15 @@ const Banner = () => {
     const countryCode = countries.result.find((item) => item.name === country);
 
     const districtsParams = {
-        country: countryCode.country,
+        country: countryCode?.country || 'Nigeria',
     };
 
     const citiesParams = {
-        country: countryCode.country,
+        country: countryCode?.country || 'Nigeria',
     };
 
     const hotelsParams = {
-        country: countryCode.country,
+        country: countryCode?.country || 'Nigeria',
     };
 
     const currencyParams = {
@@ -60,7 +60,7 @@ const Banner = () => {
         base: 'USD'
     }
 
-    const { data: cityList, isFetching, isLoading, isSuccess, isError, error } = useGetCitiesInNgQuery(citiesParams);
+    const { data: cityList, isFetching, isLoading, isSuccess, isError, error } = useGetListOfCitiesQuery(citiesParams);
     const { data: districtList } = useGetListOfDistrictsQuery(districtsParams);
     const { data: hotelsList } = useGetListOfHotelsQuery(hotelsParams);
     const navigate = useNavigate();
@@ -111,8 +111,6 @@ const Banner = () => {
     const destId = locationData?.[0].dest_id;
 
     const { data: searchResult } = useGetHotelsBySearchQuery(searchParams);
-
-    console.log(searchParams, 'search Params Result BANNER')
 
     if (isLoading) return (
         <Stack direction='row' style={{ alignItems: 'center' }}>
@@ -236,6 +234,7 @@ const Banner = () => {
                 rooms: formData.rooms,
                 location: location,
                 locationDetails: selectedInfo,
+                countryCode: countryCode.country
             };
 
             const baseParams = {
@@ -269,7 +268,8 @@ const Banner = () => {
                 navigate(`/hotelssearch?searchResult=${JSON.stringify(searchData)}`, {
                     state: {
                         searchFormData: searchData,
-                        searchResult: searchResult
+                        searchResult: searchResult,
+                        suggestions: combinedOptions
                     }
                 });
 

@@ -6,7 +6,7 @@ import Form from 'react-bootstrap/Form';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaUser, FaChild, FaCalendarDay, FaMapMarkerAlt } from 'react-icons/fa';
 import { IoBed } from 'react-icons/io5';
-import { useGetCitiesInNgQuery, useGetListOfDistrictsQuery, useGetListOfHotelsQuery, useGetHotelDetailsQuery, useGetHotelsSearchQuery, useGetHotelsByLocationQuery } from '../../services/bookingApi';
+import { useGetListOfCitiesQuery, useGetListOfDistrictsQuery, useGetListOfHotelsQuery, useGetHotelDetailsQuery, useGetHotelsSearchQuery, useGetHotelsByLocationQuery } from '../../services/bookingApi';
 import './style.scss';
 
 const SearchForm = ({
@@ -42,7 +42,7 @@ const SearchForm = ({
     // const suggestionsContainerRef = useRef(null);
     // const [visibleSuggestions, setVisibleSuggestions] = useState([]);
     const [searchParams, setSearchParams] = useState(null);
-    const { data: cityList, isFetching, isLoading, isSuccess, isError, error } = useGetCitiesInNgQuery();
+    const { data: cityList, isFetching, isLoading, isSuccess, isError, error } = useGetListOfCitiesQuery();
     const { data: districtList } = useGetListOfDistrictsQuery();
     const { data: hotelsList } = useGetListOfHotelsQuery();
     const navigate = useNavigate();

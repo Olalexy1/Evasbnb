@@ -27,7 +27,7 @@ const HotelCard = ({
     // Get the names of the facility IDs in arrayFacility
     const facilityNames = hotelFacilitiesData.map(id => facilityMap[id]);
 
-    console.log(facilityNames, 'see facilities map')
+    // console.log(facilityNames, 'see facilities map')
 
     return (
         <Card>

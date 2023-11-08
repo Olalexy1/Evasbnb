@@ -8,10 +8,12 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import { useSearchParams, useLocation } from 'react-router-dom';
 import SearchForm from '../../components/SearchForm';
 import HotelCard from '../../components/HotelCard';
-import { useGetCitiesInNgQuery, useGetListOfDistrictsQuery, useGetListOfHotelsQuery,  useGetHotelsByLocationQuery } from '../../services/bookingApi';
+import { useGetListOfCitiesQuery, useGetListOfDistrictsQuery, useGetListOfHotelsQuery, useGetHotelsByLocationQuery, useGetHotelsBySearchQuery} from '../../services/bookingApi';
 import './style.scss';
 import { BsFilter } from 'react-icons/bs';
 import Pagination from '../../components/Pagination/Pagination';
+import Spinner from 'react-bootstrap/Spinner';
+import Stack from 'react-bootstrap/Stack';
 
 const HotelsSearch = () => {
     const location = useLocation();
@@ -24,6 +26,8 @@ const HotelsSearch = () => {
 
     const searchResult = location.state.searchResult;
 
+    const suggestionsList = location.state.suggestions
+
     const SearchResultHotelList = searchResult?.result || [];
 
     const searchData = JSON.parse(searchParams.get('searchResult'));
@@ -32,10 +36,10 @@ const HotelsSearch = () => {
     const [formLocation, setFormLocation] = useState(searchDetails?.location);
     const [inputId, setInputId] = useState('');
     const [inputType, setInputType] = useState('');
-    const [selectedInfo, setSelectedInfo] = useState(null);
+    const [selectedInfo, setSelectedInfo] = useState(searchDetails?.locationDetails);
 
     const [errors, setErrors] = useState({
-        location: '',
+        formLocation: '',
         checkInDate: '',
         checkOutDate: '',
         adults: '',
@@ -46,10 +50,18 @@ const HotelsSearch = () => {
     const suggestionsContainerRef = useRef(null);
     const [visibleSuggestions, setVisibleSuggestions] = useState([]);
     const [newSearchParams, setNewSearchParams] = useState(null);
-    const { data: cityList, isLoading, isSuccess, isError, error } = useGetCitiesInNgQuery();
-    const { data: districtList } = useGetListOfDistrictsQuery();
-    const { data: hotelsList } = useGetListOfHotelsQuery();
-    // const { data: facilitiesList } = useGetHotelFacilitiesTypesQuery();
+
+    console.log(suggestionsList, 'see new suggestions')
+
+
+    // const params = {
+    //     country: searchDetails?.country,
+    // };
+
+
+    // const { data: cityList } = useGetListOfCitiesQuery(params);
+    // const { data: districtList } = useGetListOfDistrictsQuery(params);
+    // const { data: hotelsList } = useGetListOfHotelsQuery(params);
 
     const BATCH_SIZE = 5; // Number of suggestions to load at a time
 
@@ -87,47 +99,49 @@ const HotelsSearch = () => {
 
     const destId = locationData?.[0].dest_id;
 
-    // const { data: searchResult, isFetching } = useGetHotelsSearchQuery(newSearchParams);
+    const { data: newSearchResult, isFetching, isLoading, isSuccess, isError, error, refetch } = useGetHotelsBySearchQuery(newSearchParams);
 
-    const cities = cityList?.result || [];
-    const districts = districtList?.result || [];
-    const hotels = hotelsList?.result || [];
+    const newSearchResultHotelList = newSearchResult?.result || [];
 
-    // Filter the data based on the condition nr_hotels !== 0
-    const filteredCities = cities?.filter(city => city.nr_hotels !== 0);
-    const cityIdsWithHotels = filteredCities?.map(city => city.city_id);
+    // const cities = cityList?.result || [];
+    // const districts = districtList?.result || [];
+    // const hotels = hotelsList?.result || [];
 
-    const cityInfo = filteredCities?.map(city => ({
-        id: city.city_id,
-        name: city.name,
-        number_hotels: city.nr_hotels,
-        type: 'city',
-    }));
+    // // Filter the data based on the condition nr_hotels !== 0
+    // const filteredCities = cities?.filter(city => city.nr_hotels !== 0);
+    // const cityIdsWithHotels = filteredCities?.map(city => city.city_id);
 
-    const districtInfo = districts?.map(district => ({
-        id: district.district_id,
-        name: district.name,
-        number_hotels: district.nr_hotels,
-        type: 'district',
-    }))
+    // const cityInfo = filteredCities?.map(city => ({
+    //     id: city.city_id,
+    //     name: city.name,
+    //     number_hotels: city.nr_hotels,
+    //     type: 'city',
+    // }));
 
-    // Filter hotels data based on city_ids present in cityInfo
-    const hotelsInfo = hotels?.filter(hotel => cityIdsWithHotels.includes(hotel.city_id))?.map(hotel => ({
-        id: hotel.hotel_id,
-        name: hotel.name,
-        type: 'hotel',
-    }));
+    // const districtInfo = districts?.map(district => ({
+    //     id: district.district_id,
+    //     name: district.name,
+    //     number_hotels: district.nr_hotels,
+    //     type: 'district',
+    // }))
 
-    const combinedOptions = [...cityInfo, ...districtInfo, ...hotelsInfo]
+    // // Filter hotels data based on city_ids present in cityInfo
+    // const hotelsInfo = hotels?.filter(hotel => cityIdsWithHotels.includes(hotel.city_id))?.map(hotel => ({
+    //     id: hotel.hotel_id,
+    //     name: hotel.name,
+    //     type: 'hotel',
+    // }));
+
+    // const combinedOptions = [...cityInfo, ...districtInfo, ...hotelsInfo]
 
     const { checkInDate, checkOutDate, adults, children, rooms, locationDetails } = formData
 
     const handleInputChangeTwo = (event) => {
         const value = event.target.value;
         setFormLocation(value);
-        setErrors(prevErrors => ({ ...prevErrors, location: '' }));
+        setErrors(prevErrors => ({ ...prevErrors, formLocation: '' }));
 
-        const filteredSuggestions = combinedOptions?.filter(suggestion =>
+        const filteredSuggestions = suggestionsList?.filter(suggestion =>
             suggestion.name.toLowerCase().includes(value.toLowerCase())
         );
 
@@ -154,10 +168,10 @@ const HotelsSearch = () => {
 
     const validateInputs = () => {
         let validationPassed = true;
-        const newErrors = { location: '', checkInDate: '', checkOutDate: '', adults: '', rooms: '' };
+        const newErrors = { formLocation: '', checkInDate: '', checkOutDate: '', adults: '', rooms: '' };
 
-        if (!location.trim()) {
-            newErrors.location = 'Location is required';
+        if (!formLocation.trim()) {
+            newErrors.formLocation = 'Location is required';
             validationPassed = false;
         }
 
@@ -196,7 +210,7 @@ const HotelsSearch = () => {
                 adults: formData.adults,
                 children: formData.children,
                 rooms: formData.rooms,
-                location: location,
+                location: formLocation,
                 locationDetails: selectedInfo,
             };
 
@@ -223,7 +237,11 @@ const HotelsSearch = () => {
 
             setNewSearchParams(baseParams);
 
-            const resultType = selectedInfo.type
+            refetch()
+
+            // const resultType = selectedInfo.type
+
+            console.log(suggestionsList, newSearchParams, 'see new search params')
         }
 
         else {
@@ -234,13 +252,28 @@ const HotelsSearch = () => {
 
     let PageSize = 10;
 
-    const currentSearchResultData = useMemo(() => {
-        const firstPageIndex = (currentPage - 1) * PageSize;
-        const lastPageIndex = firstPageIndex + PageSize;
-        return SearchResultHotelList.slice(firstPageIndex, lastPageIndex);
-    }, [currentPage]);
+    // const currentSearchResultData = useMemo(() => {
+    //     const firstPageIndex = (currentPage - 1) * PageSize;
+    //     const lastPageIndex = firstPageIndex + PageSize;
+    //     return SearchResultHotelList.slice(firstPageIndex, lastPageIndex);
+    // }, [currentPage]);
 
-    console.log(searchData, searchDetails, searchResult, 'New Page')
+    const currentSearchResultData = useMemo(() => {
+        if (isFetching && isSuccess) {
+            // If isFetching is true, use SearchResultHotelList
+            const firstPageIndex = (currentPage - 1) * PageSize;
+            const lastPageIndex = firstPageIndex + PageSize;
+            return newSearchResultHotelList.slice(firstPageIndex, lastPageIndex);
+        } else {
+            // If isFetching is false, use newSearchResultHotelList
+            const firstPageIndex = (currentPage - 1) * PageSize;
+            const lastPageIndex = firstPageIndex + PageSize;
+            return SearchResultHotelList.slice(firstPageIndex, lastPageIndex);
+        }
+    }, [currentPage, isFetching, isLoading, SearchResultHotelList, newSearchResultHotelList]);
+
+
+    console.log(searchResult, 'See search result')
 
     return (
         <Container fluid className='py-5'>
@@ -320,18 +353,32 @@ const HotelsSearch = () => {
                         </div>
                     </Col>
                     {<Col lg md={8}>
-                        <div className='hotels-container'>
+                        { isFetching && isSuccess ? (
+                            <Stack direction='row' style={{ alignItems: 'center' }}>
+                                <Spinner animation="border" role="status">
+                                    <span className="visually-hidden">Loading...</span>
+                                </Spinner>
+                            </Stack>
+                        ) : (
+                            <div className='hotels-container'>
+                                <h5>{ isFetching && isSuccess ? formLocation : searchDetails?.location } : { isFetching && isSuccess ? newSearchResultHotelList.length : SearchResultHotelList.length} properties found</h5>
+                                {currentSearchResultData.map((hotel, index) => (
+                                    <HotelCard key={index} hotel={hotel} />
+                                ))}
+                            </div>
+                        )}
+                        {/* <div className='hotels-container'>
                             <h5>{formLocation}: {SearchResultHotelList.length} properties found</h5>
                             {currentSearchResultData.map((hotel, index) => (
-                                <HotelCard key={index} hotel={hotel}/>
+                                <HotelCard key={index} hotel={hotel} />
                             ))}
-                        </div>
+                        </div> */}
                     </Col>}
                 </Row>
                 <Pagination
                     className="pagination-bar"
                     currentPage={currentPage}
-                    totalCount={SearchResultHotelList.length}
+                    totalCount={isFetching && isSuccess ? newSearchResultHotelList.length : SearchResultHotelList.length}
                     pageSize={PageSize}
                     onPageChange={page => setCurrentPage(page)}
                 />

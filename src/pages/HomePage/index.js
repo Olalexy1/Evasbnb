@@ -30,8 +30,6 @@ const Homepage = () => {
 
     console.log(country, 'see country')
 
-    const GOOGLE_MAPS_API_KEY = 'AIzaSyD5lUokXK7izSWBI_mfTClS5jYaMLr6YK8';
-
     const googleApiKey = process.env.REACT_APP_GOOGLE_API_KEY
 
     useEffect(() => {
@@ -47,7 +45,7 @@ const Homepage = () => {
             const fetchCountryFromCoordinates = async () => {
                 try {
                     const response = await fetch(
-                        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${GOOGLE_MAPS_API_KEY}`
+                        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${googleApiKey}`
                     );
 
                     if (!response.ok) {

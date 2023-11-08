@@ -6,24 +6,31 @@ export const bookingApi = createApi({
     reducerPath: 'bookingApi',
     baseQuery: fetchBaseQuery({ baseUrl: 'https://booking-com.p.rapidapi.com' }),
     endpoints: (builder) => ({
-        getCitiesInNg: builder.query({
-            query: (params) => ({
-                method: 'GET',
-                url: '/v1/static/cities', //url of API endpoint
-                params: {
-                    ...params
-                },
-                // params: {
-                //     page: '0',
-                //     latitude: '3333',
-                //     longitude: '3333',
-                //     country: 'it'
-                // },
-                headers: {
-                    'X-RapidAPI-Key': ApiKey,
-                    'X-RapidAPI-Host': 'booking-com.p.rapidapi.com',
-                },
-            })
+        getListOfCities: builder.query({
+            query: (params) => {
+                if (!params) {
+                    // If params are not defined, return an empty object
+                    return {};
+                }
+
+                return {
+                    method: 'GET',
+                    url: '/v1/static/cities', //url of API endpoint
+                    params: {
+                        ...params
+                    },
+                    // params: {
+                    //     page: '0',
+                    //     latitude: '3333',
+                    //     longitude: '3333',
+                    //     country: 'it'
+                    // },
+                    headers: {
+                        'X-RapidAPI-Key': ApiKey,
+                        'X-RapidAPI-Host': 'booking-com.p.rapidapi.com',
+                    },
+                };
+            }
         }),
 
         getHotelsByLocation: builder.query({
@@ -91,50 +98,64 @@ export const bookingApi = createApi({
         }),
 
         getListOfDistricts: builder.query({
-            query: (params) => ({
-                method: 'GET',
-                url: '/v1/static/districts', //url of API endpoint
-                params: {
-                    ...params
-                },
-                // params: {
-                //     name: 'DD',
-                //     country: 'ng',
-                //     city_id: '455',
-                //     district_id: '55',
-                //     page: '0'
-                // },
-                headers: {
-                    'X-RapidAPI-Key': ApiKey,
-                    'X-RapidAPI-Host': 'booking-com.p.rapidapi.com',
-                },
-            })
+            query: (params) => {
+                if (!params) {
+                    // If params are not defined, return an empty object
+                    return {};
+                }
+
+                return {
+                    method: 'GET',
+                    url: '/v1/static/districts', //url of API endpoint
+                    params: {
+                        ...params
+                    },
+                    // params: {
+                    //     name: 'DD',
+                    //     country: 'ng',
+                    //     city_id: '455',
+                    //     district_id: '55',
+                    //     page: '0'
+                    // },
+                    headers: {
+                        'X-RapidAPI-Key': ApiKey,
+                        'X-RapidAPI-Host': 'booking-com.p.rapidapi.com',
+                    },
+                };
+            }
         }),
 
         getListOfHotels: builder.query({
-            query: (params) => ({
-                method: 'GET',
-                url: '/v1/static/hotels', //url of API endpoint
-                params: {
-                    ...params
-                },
-                // params: {
-                //     page: '0',
-                //     city_id: '9',
-                //     region_id: '2',
-                //     country: 'ng',
-                //     exact_class: '4',
-                //     hotel_id: '5434',
-                //     zip_code: '10001',
-                //     hotel_type_id: '2',
-                //     district_id: '3',
-                //     name: 'sher'
-                // },
-                headers: {
-                    'X-RapidAPI-Key': ApiKey,
-                    'X-RapidAPI-Host': 'booking-com.p.rapidapi.com',
-                },
-            })
+            query: (params) => {
+                if (!params) {
+                    // If params are not defined, return an empty object
+                    return {};
+                }
+                
+                return {
+                    method: 'GET',
+                    url: '/v1/static/hotels', //url of API endpoint
+                    params: {
+                        ...params
+                    },
+                    // params: {
+                    //     page: '0',
+                    //     city_id: '9',
+                    //     region_id: '2',
+                    //     country: 'ng',
+                    //     exact_class: '4',
+                    //     hotel_id: '5434',
+                    //     zip_code: '10001',
+                    //     hotel_type_id: '2',
+                    //     district_id: '3',
+                    //     name: 'sher'
+                    // },
+                    headers: {
+                        'X-RapidAPI-Key': ApiKey,
+                        'X-RapidAPI-Host': 'booking-com.p.rapidapi.com',
+                    },
+                };
+            }
         }),
 
 
@@ -434,7 +455,7 @@ export const bookingApi = createApi({
 })
 
 export const {
-    useGetCitiesInNgQuery,
+    useGetListOfCitiesQuery,
     useGetHotelsByLocationQuery,
     useGetHotelFacilitiesTypesQuery,
     useGetRoomFacilityTypesQuery,
