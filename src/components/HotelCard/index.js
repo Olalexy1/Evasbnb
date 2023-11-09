@@ -29,14 +29,14 @@ const HotelCard = ({
     // Get the names of the facility IDs in arrayFacility
     const facilityNames = hotelFacilitiesData.map(id => facilityMap[id]);
 
-    console.log(facilityNames, 'see facilities map')
+    // console.log(facilityNames, 'see facilities map')
 
     const hasWiFi = facilityNames?.includes("WiFi");
     const hasSwimmingPool = facilityNames?.includes("Swimming pool");
     const hasParking = facilityNames?.includes("Parking");
     const hasRestaurant = facilityNames?.includes("Restaurant");
 
-    console.log(hotel, 'see hotel')
+    // console.log(hotel, 'see hotel')
 
     const capitalizeText = (text) =>
         text
@@ -67,8 +67,8 @@ const HotelCard = ({
                     </div>
                     <div className="hotel-desc-container">
                         <Card.Title style={{ textTransform: "Capitalize" }}>{capitalizeText(hotel.hotel_name)}</Card.Title>
-                        <p>{hotel.address_trans}.</p>
-                        <p>{hotel.district || hotel.city_trans }</p>
+                        <p style={{ textTransform: "Capitalize" }}>{hotel.address_trans || hotel.address}, {hotel.district || hotel.city_trans }, {hotel.country_trans}.</p>
+                        {/* <p>{hotel.district || hotel.city_trans }, {hotel.country_trans}.</p> */}
                         {
                             hotel.review_score && (
                                 <p className='review'><FaStar className='icon' /> {hotel.review_score.toLocaleString('en-US', { minimumFractionDigits: 1 })}</p>
@@ -76,7 +76,7 @@ const HotelCard = ({
                         }
                         <p>Price: {Math.floor(hotel.min_total_price).toLocaleString('en-US', { style: 'currency', currency: hotel.currency_code }).replace(/\.00$/, '')}</p>
                         <div className='button-container'>
-                            <Stack direction="horizontal" gap={3}>
+                            <Stack direction="horizontal" gap={2}>
                                 {hasWiFi && <FaWifi/>}
                                 {hasSwimmingPool && <MdPool/>}
                                 {hasParking && <FaParking/>}

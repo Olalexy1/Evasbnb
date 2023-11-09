@@ -35,6 +35,7 @@ const HotelsSearch = () => {
 
     const [formData, setFormData] = useState({ checkInDate: searchDetails?.checkInDate, checkOutDate: searchDetails?.checkOutDate, adults: searchDetails?.adults, children: searchDetails?.children, rooms: searchDetails?.rooms, locationDetails: searchDetails?.locationDetails });
     const [formLocation, setFormLocation] = useState(searchDetails?.location);
+    const [searchedLocation, setSearchedLocation] = useState(formLocation);
     const [inputId, setInputId] = useState('');
     const [inputType, setInputType] = useState('');
     const [selectedInfo, setSelectedInfo] = useState(searchDetails?.locationDetails);
@@ -101,6 +102,8 @@ const HotelsSearch = () => {
     const { data: locationData } = useGetHotelsByLocationQuery(locationParams)
 
     const destId = locationData?.[0].dest_id;
+
+    const locationName = locationData?.[0].city_name;
 
     const { data: newSearchResult, isFetching, isLoading, isSuccess, isError, error, refetch } = useGetHotelsBySearchQuery(newSearchParams);
 
@@ -207,7 +210,7 @@ const HotelsSearch = () => {
         if (validateInputs()) {
             isCheckOutValid()
 
-            const searchData = {
+            const searchDataCurrent = {
                 checkInDate: formData.checkInDate,
                 checkOutDate: formData.checkOutDate,
                 adults: formData.adults,
@@ -244,7 +247,7 @@ const HotelsSearch = () => {
 
             // const resultType = selectedInfo.type
 
-            console.log(newSearchParams, 'see new search params')
+            setSearchedLocation(formLocation)
         }
 
         else {
@@ -262,7 +265,7 @@ const HotelsSearch = () => {
     // }, [currentPage]);
 
     const currentSearchResultData = useMemo(() => {
-        if (isFetching && isSuccess) {
+        if (isSuccess) {
             // If isFetching is true, use SearchResultHotelList
             const firstPageIndex = (currentPage - 1) * PageSize;
             const lastPageIndex = firstPageIndex + PageSize;
@@ -275,11 +278,11 @@ const HotelsSearch = () => {
         }
     }, [currentPage, isFetching, isLoading, SearchResultHotelList, newSearchResultHotelList]);
 
-    console.log(formLocation, newSearchResultHotelList, 'see new search result list')
+    // console.log( locationName, newSearchResult, 'see new search result list')
 
-    console.log(SearchResultHotelList, 'see old search result')
+    // console.log(SearchResultHotelList, 'see old search result')
 
-    console.log(currentSearchResultData, 'see current search result data')
+    // console.log(currentSearchResultData, 'see current search result data')
 
     return (
         <Container fluid className='py-5'>
@@ -311,11 +314,6 @@ const HotelsSearch = () => {
                                             <FormControlLabel key={item.hotel_type_id} control={<Checkbox />} label={item.name} />
                                         ))
                                     }
-                                    {/* <FormControlLabel control={<Checkbox />} label="hotel" />
-                                    <FormControlLabel control={<Checkbox />} label="apartment" />
-                                    <FormControlLabel control={<Checkbox />} label="resort" />
-                                    <FormControlLabel control={<Checkbox />} label="villa" />
-                                    <FormControlLabel control={<Checkbox />} label="hostel" /> */}
                                 </FormGroup>
                             </div>
                             <div className='divider' />
@@ -326,17 +324,6 @@ const HotelsSearch = () => {
                                     <FormControlLabel control={<Checkbox />} label="Very Good: 8+" />
                                     <FormControlLabel control={<Checkbox />} label="Good: 7+" />
                                     <FormControlLabel control={<Checkbox />} label="Pleasant: 6+" />
-                                </FormGroup>
-                            </div>
-                            <div className='divider' />
-                            <div className='filter-wrappers'>
-                                <p>Room facilities</p>
-                                <FormGroup>
-                                    <FormControlLabel control={<Checkbox />} label="hotel" />
-                                    <FormControlLabel control={<Checkbox />} label="apartment" />
-                                    <FormControlLabel control={<Checkbox />} label="resort" />
-                                    <FormControlLabel control={<Checkbox />} label="villa" />
-                                    <FormControlLabel control={<Checkbox />} label="hostel" />
                                 </FormGroup>
                             </div>
                             <div className='divider' />
@@ -354,11 +341,11 @@ const HotelsSearch = () => {
                             <div className='filter-wrappers'>
                                 <p>Property Amenities</p>
                                 <FormGroup>
-                                    <FormControlLabel control={<Checkbox />} label="hotel" />
-                                    <FormControlLabel control={<Checkbox />} label="apartment" />
-                                    <FormControlLabel control={<Checkbox />} label="resort" />
-                                    <FormControlLabel control={<Checkbox />} label="villa" />
-                                    <FormControlLabel control={<Checkbox />} label="hostel" />
+                                    <FormControlLabel control={<Checkbox />} label="Parking" />
+                                    <FormControlLabel control={<Checkbox />} label="Restaurant" />
+                                    <FormControlLabel control={<Checkbox />} label="Pets Allowed" />
+                                    <FormControlLabel control={<Checkbox />} label="Room Service" />
+                                    <FormControlLabel control={<Checkbox />} label="Bar" />
                                 </FormGroup>
                             </div>
                         </div>
@@ -372,8 +359,18 @@ const HotelsSearch = () => {
                             </Stack>
                         ) : (
                             <div className='hotels-container'>
-                                <h5 style={{ textTransform: "capitalize"}}>{isFetching && isSuccess ? formLocation : searchDetails?.location} : {isFetching && isSuccess ? newSearchResultHotelList.length : SearchResultHotelList.length} properties found
+                                <h5 style={{ textTransform: "capitalize" }}>
+                                    {isSuccess &&
+                                        (selectedInfo.type === "district" ||
+                                            selectedInfo.type === "city" ||
+                                            selectedInfo.type === "region" ||
+                                            selectedInfo.type === "country")
+                                        ? searchedLocation
+                                        : isSuccess && selectedInfo.type === "hotel"
+                                            ? locationName
+                                            : searchDetails?.location} : {isSuccess ? newSearchResultHotelList.length : SearchResultHotelList.length} properties found
                                 </h5>
+
                                 {currentSearchResultData.map((hotel, index) => (
                                     <HotelCard key={index} hotel={hotel} />
                                 ))}
@@ -390,7 +387,7 @@ const HotelsSearch = () => {
                 <Pagination
                     className="pagination-bar"
                     currentPage={currentPage}
-                    totalCount={isFetching && isSuccess ? newSearchResultHotelList.length : SearchResultHotelList.length}
+                    totalCount={isSuccess ? newSearchResultHotelList.length : SearchResultHotelList.length}
                     pageSize={PageSize}
                     onPageChange={page => setCurrentPage(page)}
                 />
