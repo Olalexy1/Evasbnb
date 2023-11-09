@@ -1,9 +1,11 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card';
-import Carousel from 'react-bootstrap/Carousel';
-import Button from 'react-bootstrap/Button';
+import Stack from 'react-bootstrap/Stack';
 import './style.scss';
-import { FaStar } from 'react-icons/fa';
+import { FaStar, FaWifi, FaParking } from 'react-icons/fa';
+import { MdRestaurantMenu, MdPool } from 'react-icons/md';
+import Button from '@mui/material/Button';
+
 import hotelFacilities from '../../utils/HotelFacilities';
 
 const HotelCard = ({
@@ -27,7 +29,21 @@ const HotelCard = ({
     // Get the names of the facility IDs in arrayFacility
     const facilityNames = hotelFacilitiesData.map(id => facilityMap[id]);
 
-    // console.log(facilityNames, 'see facilities map')
+    console.log(facilityNames, 'see facilities map')
+
+    const hasWiFi = facilityNames?.includes("WiFi");
+    const hasSwimmingPool = facilityNames?.includes("Swimming pool");
+    const hasParking = facilityNames?.includes("Parking");
+    const hasRestaurant = facilityNames?.includes("Restaurant");
+
+    console.log(hotel, 'see hotel')
+
+    const capitalizeText = (text) =>
+        text
+            .toLowerCase()
+            .split(' ')
+            .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(' ');
 
     return (
         <Card>
@@ -50,17 +66,23 @@ const HotelCard = ({
 
                     </div>
                     <div className="hotel-desc-container">
-                        <Card.Title>{hotel.hotel_name}</Card.Title>
-                        <p style={{ whiteSpace: 'wrap', overflow: 'hidden', textOverflow: 'ellipsis', }}>{hotel.address_trans}</p>
-                        <p>{hotel.district}</p>
+                        <Card.Title style={{ textTransform: "Capitalize" }}>{capitalizeText(hotel.hotel_name)}</Card.Title>
+                        <p>{hotel.address_trans}.</p>
+                        <p>{hotel.district || hotel.city_trans }</p>
                         {
                             hotel.review_score && (
-                                <p><FaStar className='icon' /> {hotel.review_score.toLocaleString('en-US', { minimumFractionDigits: 1 })}</p>
+                                <p className='review'><FaStar className='icon' /> {hotel.review_score.toLocaleString('en-US', { minimumFractionDigits: 1 })}</p>
                             )
                         }
                         <p>Price: {Math.floor(hotel.min_total_price).toLocaleString('en-US', { style: 'currency', currency: hotel.currency_code }).replace(/\.00$/, '')}</p>
                         <div className='button-container'>
-                            <a className='book-now-button' href={hotel.url} target="_blank" rel="noopener noreferrer">Book Now</a>
+                            <Stack direction="horizontal" gap={3}>
+                                {hasWiFi && <FaWifi/>}
+                                {hasSwimmingPool && <MdPool/>}
+                                {hasParking && <FaParking/>}
+                                {hasRestaurant && <MdRestaurantMenu/>}
+                            </Stack>
+                            <a className='button' href={hotel.url} target="_blank" rel="noopener noreferrer">Book Now</a>
                         </div>
                     </div>
                 </div>

@@ -8,12 +8,13 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import { useSearchParams, useLocation } from 'react-router-dom';
 import SearchForm from '../../components/SearchForm';
 import HotelCard from '../../components/HotelCard';
-import { useGetListOfCitiesQuery, useGetListOfDistrictsQuery, useGetListOfHotelsQuery, useGetHotelsByLocationQuery, useGetHotelsBySearchQuery} from '../../services/bookingApi';
+import { useGetListOfCitiesQuery, useGetListOfDistrictsQuery, useGetListOfHotelsQuery, useGetHotelsByLocationQuery, useGetHotelsBySearchQuery } from '../../services/bookingApi';
 import './style.scss';
 import { BsFilter } from 'react-icons/bs';
 import Pagination from '../../components/Pagination/Pagination';
 import Spinner from 'react-bootstrap/Spinner';
 import Stack from 'react-bootstrap/Stack';
+import hotelTypes from '../../utils/HotelTypes';
 
 const HotelsSearch = () => {
     const location = useLocation();
@@ -51,7 +52,9 @@ const HotelsSearch = () => {
     const [visibleSuggestions, setVisibleSuggestions] = useState([]);
     const [newSearchParams, setNewSearchParams] = useState(null);
 
-    console.log(suggestionsList, 'see new suggestions')
+    const allPropertyTypes = hotelTypes?.result || [];
+
+    // console.log(suggestionsList, 'see new suggestions')
 
 
     // const params = {
@@ -241,7 +244,7 @@ const HotelsSearch = () => {
 
             // const resultType = selectedInfo.type
 
-            console.log(suggestionsList, newSearchParams, 'see new search params')
+            console.log(newSearchParams, 'see new search params')
         }
 
         else {
@@ -272,8 +275,11 @@ const HotelsSearch = () => {
         }
     }, [currentPage, isFetching, isLoading, SearchResultHotelList, newSearchResultHotelList]);
 
+    console.log(formLocation, newSearchResultHotelList, 'see new search result list')
 
-    console.log(searchResult, 'See search result')
+    console.log(SearchResultHotelList, 'see old search result')
+
+    console.log(currentSearchResultData, 'see current search result data')
 
     return (
         <Container fluid className='py-5'>
@@ -300,11 +306,16 @@ const HotelsSearch = () => {
                             <div className='filter-wrappers'>
                                 <p>Property type</p>
                                 <FormGroup>
-                                    <FormControlLabel control={<Checkbox />} label="hotel" />
+                                    {
+                                        allPropertyTypes.map((item) => (
+                                            <FormControlLabel key={item.hotel_type_id} control={<Checkbox />} label={item.name} />
+                                        ))
+                                    }
+                                    {/* <FormControlLabel control={<Checkbox />} label="hotel" />
                                     <FormControlLabel control={<Checkbox />} label="apartment" />
                                     <FormControlLabel control={<Checkbox />} label="resort" />
                                     <FormControlLabel control={<Checkbox />} label="villa" />
-                                    <FormControlLabel control={<Checkbox />} label="hostel" />
+                                    <FormControlLabel control={<Checkbox />} label="hostel" /> */}
                                 </FormGroup>
                             </div>
                             <div className='divider' />
@@ -353,7 +364,7 @@ const HotelsSearch = () => {
                         </div>
                     </Col>
                     {<Col lg md={8}>
-                        { isFetching && isSuccess ? (
+                        {isFetching && isSuccess ? (
                             <Stack direction='row' style={{ alignItems: 'center' }}>
                                 <Spinner animation="border" role="status">
                                     <span className="visually-hidden">Loading...</span>
@@ -361,7 +372,8 @@ const HotelsSearch = () => {
                             </Stack>
                         ) : (
                             <div className='hotels-container'>
-                                <h5>{ isFetching && isSuccess ? formLocation : searchDetails?.location } : { isFetching && isSuccess ? newSearchResultHotelList.length : SearchResultHotelList.length} properties found</h5>
+                                <h5 style={{ textTransform: "capitalize"}}>{isFetching && isSuccess ? formLocation : searchDetails?.location} : {isFetching && isSuccess ? newSearchResultHotelList.length : SearchResultHotelList.length} properties found
+                                </h5>
                                 {currentSearchResultData.map((hotel, index) => (
                                     <HotelCard key={index} hotel={hotel} />
                                 ))}

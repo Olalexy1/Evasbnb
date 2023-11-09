@@ -24,6 +24,10 @@
             font-size: 15px;
             font-weight: 600;
         }
+
+        border: 1px solid red;
+        overflow-y: auto;
+        max-height: 320px;
     }
 
     .divider {

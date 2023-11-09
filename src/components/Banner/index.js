@@ -112,13 +112,13 @@ const Banner = () => {
 
     const { data: searchResult } = useGetHotelsBySearchQuery(searchParams);
 
-    if (isLoading) return (
-        <Stack direction='row' style={{ alignItems: 'center' }}>
-            <Spinner animation="border" role="status">
-                <span className="visually-hidden">Loading...</span>
-            </Spinner>
-        </Stack>
-    )
+    // if (isLoading) return (
+    //     <Stack direction='row' style={{ alignItems: 'center' }}>
+    //         <Spinner animation="border" role="status">
+    //             <span className="visually-hidden">Loading...</span>
+    //         </Spinner>
+    //     </Stack>
+    // )
 
     const cities = cityList?.result || [];
     const districts = districtList?.result || [];
@@ -262,7 +262,7 @@ const Banner = () => {
 
             const resultType = selectedInfo.type
 
-            console.log(searchParams, searchResult, searchData, 'search Page')
+            // console.log(searchParams, searchResult, searchData, 'search Page')
 
             if (searchResult !== undefined) {
                 navigate(`/hotelssearch?searchResult=${JSON.stringify(searchData)}`, {
