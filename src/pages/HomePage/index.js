@@ -60,7 +60,7 @@ const Homepage = () => {
                     );
 
                     if (countryComponent) {
-                        setCountry(countryComponent.long_name || 'Nigeria');
+                        setCountry(countryComponent.long_name);
                     }
                 } catch (error) {
                     console.error('Error fetching country:', error);
