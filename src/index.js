@@ -10,12 +10,15 @@ import "slick-carousel/slick/slick-theme.css";
 import { Provider } from 'react-redux';
 import store from './app/store';
 // import { ApiProvider } from '@reduxjs/toolkit/query/react';
+import { CountryProvider } from './context/countryContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <CountryProvider>
+        <App />
+      </CountryProvider>
     </Provider>
   </React.StrictMode>
 );

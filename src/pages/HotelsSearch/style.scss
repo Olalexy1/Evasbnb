@@ -1,0 +1,52 @@
+.filter-container {
+    border: 1px solid lightgrey;
+    border-radius: 8px;
+
+    .filter-header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        font-size: 20px;
+        font-weight: 600;
+        gap: 20px;
+        border-bottom: 1px solid lightgrey;
+        padding: 20px;
+    }
+
+    .filter-wrappers {
+        padding: 20px;
+
+        label {
+            text-transform: capitalize;
+        }
+
+        p {
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        // border: 1px solid red;
+        overflow-y: auto;
+        max-height: 320px;
+        scroll-behavior: smooth;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    .filter-wrappers::-webkit-scrollbar {
+        display: none;
+    }
+
+    .divider {
+        border-top: 1px solid lightgray;
+        margin-bottom: 10px;
+    }
+}
+
+.hotels-container {
+    // border: 1px solid red;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    scroll-behavior: smooth;
+}

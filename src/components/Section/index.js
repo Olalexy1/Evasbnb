@@ -6,13 +6,9 @@ import Col from 'react-bootstrap/Col';
 import Spinner from 'react-bootstrap/Spinner';
 import Stack from 'react-bootstrap/Stack';
 
-import RedRoom from '../../images/redroom.jpeg';
-import PurpleRoom from '../../images/purpleroom.jpeg';
-import GreenRoom from '../../images/greenroom.jpeg';
-
-import { FaBed, FaBath, FaWifi, FaParking, faSwimmer, FaSwimmer, } from 'react-icons/fa';
+import { FaBed, FaBath, FaWifi, FaParking, FaStar, FaSwimmer, } from 'react-icons/fa';
 import { GiMeal, GiVacuumCleaner } from 'react-icons/gi';
-import { MdOutlineLocalLaundryService, MdPets, MdKitchen } from 'react-icons/md';
+import { MdOutlineLocalLaundryService, MdPets, MdKitchen, MdFreeBreakfast } from 'react-icons/md';
 import { IoBed } from 'react-icons/io5';
 
 import Carousel from 'react-grid-carousel';
@@ -22,115 +18,38 @@ import slider2 from '../../images/cara-grobbelaar.jpg';
 import slider3 from '../../images/harry-cunningham.jpg';
 import slider4 from '../../images/vije-vijendranath.jpg';
 
-import { useGetHotelsByCoordinatesQuery } from '../../services/bookingApi';
-
 import './style.scss';
 
-const PopularHotels = () => {
-    const today = new Date();
-    const tomorrow = new Date(today);
-    tomorrow.setDate(today.getDate() + 1);
-    const todayISO = new Date().toISOString().split('T')[0];
-    const tomorrowISO = tomorrow.toISOString().split('T')[0];
-    const [latitude, setLatitude] = useState('');
-    const [longitude, setLongitude] = useState('');
-    const [position, setPosition] = useState('');
-
-
-
-    useEffect(() => {
-        navigator.geolocation.getCurrentPosition((position) => {
-            setPosition(position)
-            setLatitude(position.coords.latitude)
-            setLongitude(position.coords.longitude)
-        })
-    }, [latitude, longitude]);
-
-
-    const hotelsListParams = {
-        units: 'metric',
-        room_number: '1',
-        longitude: longitude,
-        latitude: latitude,
-        filter_by_currency: 'AED',
-        order_by: 'popularity',
-        locale: 'en-gb', //make dynamic later
-        checkout_date: tomorrowISO,
-        adults_number: '2',
-        checkin_date: todayISO,
-        include_adjacency: 'true',
-        categories_filter_ids: 'class::2,class::4,free_cancellation::1'
-    }
-
-    const { data: HotelsList, error, isLoading } = useGetHotelsByCoordinatesQuery(hotelsListParams);
-
-    console.log(position, latitude, longitude, 'lat-long');
-    console.log(HotelsList, 'Hotel List');
-    // console.log(todayISO, tomorrowISO, 'dateIso')
-
-    if (isLoading) return (
-        <Stack direction='row' style={{ alignItems: 'center' }}>
-            <Spinner animation="border" role="status">
-                <span className="visually-hidden">Loading...</span>
-            </Spinner>
-        </Stack>
-    )
-
-    const hotels = HotelsList?.result || [];
-
-    // Filter the data based on the condition cc_required === 0
-    const filteredHotels = hotels?.filter(hotel => hotel.cc_required === 1);
-
-    // console.log(filteredHotels, 'Filtered Hotels')
+const PopularHotels = ({randomHotels}) => {
 
     return (
         <Container fluid className='mt-5'>
             <Container className='midsection py-5'>
-                <h3>Hotels In Your City</h3>
-                <p>Available Hotels in Your City Today</p>
+                <h3>The Best Hotels In Your City</h3>
+                <p>Available in Your City</p>
                 <Row className='mx-2 pt-3'>
-                    <Col lg={4} md={6} sm={12} className='rooms px-0 mb-4 pe-3'>
-                        <div className="card">
-                            <img src={RedRoom} alt="Avatar" className='img' />
-                        </div>
-                        <div className="text-container py-2">
-                            <a href='/Room'><b>Red Room</b></a>
-                            <ul>
-                                <li><IoBed className='icon' /> Double Bed</li>
-                                <li><FaBath className='icon' /> 1 Bathroom</li>
-                                <li><FaWifi className='icon' /> Wifi </li>
-                            </ul>
-                            <span className='amt'>ZAR 250</span> <span className='night'> / Night</span>
-                        </div>
-                    </Col>
-                    <Col lg={4} md={6} sm={12} className='rooms px-0 mb-4 pe-3'>
-                        <div className="card">
-                            <img src={PurpleRoom} alt="Avatar" className='img' />
-                        </div>
-                        <div className="text-container py-2">
-                            <a href='/Room'><b>Purple Room</b></a>
-                            <ul>
-                                <li><IoBed className='icon' /> Double Bed</li>
-                                <li><FaBath className='icon' /> 1 Bathroom</li>
-                                <li><FaWifi className='icon' /> Wifi </li>
-                            </ul>
-                            <span className='amt'>ZAR 250</span> <span className='night'> / Night</span>
-                        </div>
-                    </Col>
-                    <Col lg={4} md={6} sm={12} className='rooms px-0 mb-4 pe-3'>
-                        <div className="card">
-                            <img src={GreenRoom} alt="Avatar" className='img' />
-                        </div>
-                        <div className="text-container py-2">
-                            <a href='/Room'><b>Green Room</b></a>
-                            <ul>
-                                <li><IoBed className='icon' /> Double Bed</li>
-                                <li><FaBath className='icon' /> 1 Bathroom</li>
-                                <li><FaWifi className='icon' /> Wifi </li>
-                            </ul>
-                            <span className='amt'>ZAR 250</span> <span className='night'> / Night</span>
-                        </div>
-                    </Col>
+                    {randomHotels?.map((item, index) => (
+                        <Col lg={4} md={6} sm={12} key={index} className='rooms px-0 mb-4 pe-3'>
+                            <div className="card">
+                                <img src={item.max_photo_url} alt="Avatar" className='img' />
+                            </div>
+                            <div className="text-container py-2">
+                                <a href='/Room' style={{ whiteSpace: 'nowrap', display: 'inline-block', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '100%' }}><b>{item.hotel_name}</b></a>
+                                <p style={{ textTransform: "capitalize"}}>{item.district || item.city_name_en}</p>
+                                <ul>
+                                    {
+                                        item.review_score && (
+                                           <li><FaStar className='icon' /> {item.review_score.toLocaleString('en-US', { minimumFractionDigits: 1 })}</li> 
+                                        )
+                                    }
+                                    <li style={{ textTransform: "capitalize"}}><MdFreeBreakfast className='icon' /> {item.ribbon_text || 'Breakfast Excluded'}</li>
+                                    {/* <li><FaWifi className='icon' /> Wifi </li> */}
+                                </ul>
+                                <span className='amt'>{Math.floor(item.composite_price_breakdown.all_inclusive_amount.value).toLocaleString('en-US', {style: 'currency', currency: item.composite_price_breakdown.all_inclusive_amount.currency}).replace(/\.00$/, '')} </span> <span className='night'> / Night</span>
+                            </div>
+                        </Col>
+                    ))}
+
                 </Row>
             </Container>
         </Container>
