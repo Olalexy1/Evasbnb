@@ -28,8 +28,6 @@ const Homepage = () => {
     const [position, setPosition] = useState('');
     const { country, setCountry } = useCountry();
 
-    console.log(country, 'see country')
-
     const googleApiKey = process.env.REACT_APP_GOOGLE_API_KEY
 
     useEffect(() => {

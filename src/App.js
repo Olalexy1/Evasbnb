@@ -22,27 +22,33 @@ import Checkout from './pages/Checkout';
 import SearchResults from './components/Search-result';
 import HotelsSearch from './pages/HotelsSearch';
 
+import { Helmet } from 'react-helmet-async';
+
 
 function App() {
   return (
     <Router>
+      <Helmet>
+        <title>Book My Stay</title>
+        {/* <link rel="" href="https://lorem.com/" /> */}
+      </Helmet>
       <Container fluid className='px-0 mx-0'>
-        <NavBar/>
-          <Routes>
-            <Route exact path="/" element={<Homepage />} />
-            <Route exact path="/rooms" element={<Rooms />} />
-            <Route exact path="/about" element={<Aboutus />} />
-            <Route exact path="/booking" element={<Booking />} />
-            <Route exact path="/contact" element={<Contact />} />
-            <Route exact path="/blog" element={<Blog />} />
-            <Route exact path="/services" element={<Services />} />
-            <Route exact path="/properties" element={<Properties />} />
-            <Route exact path="/room" element={<Room />} />
-            <Route exact path="/checkout" element={<Checkout />} />
-            <Route exact path="/searchresults" element={<SearchResults />} />
-            <Route path="/hotelssearch" element={<HotelsSearch />} />
-          </Routes>
-        <Footer/>
+        <NavBar />
+        <Routes>
+          <Route exact path="/" element={<Homepage />} />
+          <Route exact path="/rooms" element={<Rooms />} />
+          <Route exact path="/about" element={<Aboutus />} />
+          <Route exact path="/booking" element={<Booking />} />
+          <Route exact path="/contact" element={<Contact />} />
+          <Route exact path="/blog" element={<Blog />} />
+          <Route exact path="/services" element={<Services />} />
+          <Route exact path="/properties" element={<Properties />} />
+          <Route exact path="/room" element={<Room />} />
+          <Route exact path="/checkout" element={<Checkout />} />
+          <Route exact path="/searchresults" element={<SearchResults />} />
+          <Route path="/hotelssearch" element={<HotelsSearch />} />
+        </Routes>
+        <Footer />
       </Container>
     </Router>
   );

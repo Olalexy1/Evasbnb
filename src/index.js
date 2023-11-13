@@ -11,13 +11,16 @@ import { Provider } from 'react-redux';
 import store from './app/store';
 // import { ApiProvider } from '@reduxjs/toolkit/query/react';
 import { CountryProvider } from './context/countryContext';
+import { HelmetProvider } from 'react-helmet-async';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
       <CountryProvider>
-        <App />
+        <HelmetProvider>
+          <App />
+        </HelmetProvider>
       </CountryProvider>
     </Provider>
   </React.StrictMode>
