@@ -15,6 +15,8 @@ import Pagination from '../../components/Pagination/Pagination';
 import Spinner from 'react-bootstrap/Spinner';
 import Stack from 'react-bootstrap/Stack';
 import hotelTypes from '../../utils/HotelTypes';
+import { useCountry } from '../../context/countryContext';
+import countries from '../../utils/Countries'
 
 const HotelsSearch = () => {
     const location = useLocation();
@@ -23,15 +25,21 @@ const HotelsSearch = () => {
 
     const [currentPage, setCurrentPage] = useState(1);
 
-    const searchDetails = location.state.searchFormData;
+    // const searchDetails = location.state?.searchFormData;
 
-    const searchResult = location.state.searchResult;
+    const [searchDetails, setSearchDetails] = useState(location.state?.searchFormData);
 
-    const suggestionsList = location.state.suggestions
+    const searchResult = location.state?.searchResult;
+
+    const suggestionsList = location.state?.suggestions
 
     const SearchResultHotelList = searchResult?.result || [];
 
     const searchData = JSON.parse(searchParams.get('searchResult'));
+
+    const { country } = useCountry();
+
+    const countryCode = countries.result.find((item) => item.name === country);
 
     const [formData, setFormData] = useState({ checkInDate: searchDetails?.checkInDate, checkOutDate: searchDetails?.checkOutDate, adults: searchDetails?.adults, children: searchDetails?.children, rooms: searchDetails?.rooms, locationDetails: searchDetails?.locationDetails });
     const [formLocation, setFormLocation] = useState(searchDetails?.location);
@@ -218,6 +226,7 @@ const HotelsSearch = () => {
                 rooms: formData.rooms,
                 location: formLocation,
                 locationDetails: selectedInfo,
+                countryCode: countryCode.country
             };
 
             const baseParams = {
@@ -248,6 +257,9 @@ const HotelsSearch = () => {
             // const resultType = selectedInfo.type
 
             setSearchedLocation(formLocation)
+
+            setSearchDetails(searchDataCurrent)
+
         }
 
         else {
@@ -278,7 +290,7 @@ const HotelsSearch = () => {
         }
     }, [currentPage, isFetching, isLoading, SearchResultHotelList, newSearchResultHotelList]);
 
-    // console.log( locationName, newSearchResult, 'see new search result list')
+    console.log( newSearchResultHotelList, 'see new search results hotel list')
 
     // console.log(SearchResultHotelList, 'see old search result')
 
@@ -318,7 +330,7 @@ const HotelsSearch = () => {
                             </div>
                             <div className='divider' />
                             <div className='filter-wrappers'>
-                                <p>Property rating</p>
+                                <p>Property Rating</p>
                                 <FormGroup>
                                     <FormControlLabel control={<Checkbox />} label="Superb: 9+" />
                                     <FormControlLabel control={<Checkbox />} label="Very Good: 8+" />

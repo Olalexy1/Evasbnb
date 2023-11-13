@@ -264,9 +264,9 @@ const SearchForm = ({
                                 name='location'
                                 onChange={handleInputChangeTwo}
                                 required
-                                style={errors.location ? { border: "2px solid red" } : {}}
+                                style={errors.formLocation ? { border: "2px solid red" } : {}}
                             />
-                            {errors.location && <p className="error-message">{errors.location}</p>}
+                            {errors.formLocation && <p className="error-message">{errors.formLocation}</p>}
                             {visibleSuggestions.length > 0 && (
                                 <ul ref={suggestionsContainerRef} className="suggestions-list">
                                     {visibleSuggestions.map((suggestion, index) => (
