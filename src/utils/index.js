@@ -6,6 +6,7 @@ import hotelTypes from "./HotelTypes";
 import paymentTypes from "./PaymentTypes";
 import roomFacilities from "./RoomFacilities";
 import roomTypes from "./RoomTypes";
+import singularize from "./General";
 
 export {
     countries,
@@ -15,5 +16,6 @@ export {
     hotelTypes,
     paymentTypes,
     roomFacilities,
-    roomTypes
+    roomTypes,
+    singularize
 }
