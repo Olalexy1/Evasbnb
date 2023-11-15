@@ -12,7 +12,7 @@ import { Subform, Inqiuryform } from '../../components/Forms';
 
 import { useGetHotelsByCoordinatesQuery } from '../../services/bookingApi';
 
-import { useCountry } from '../../context/countryContext'; 
+import { useCountry } from '../../context/countryContext';
 
 const Homepage = () => {
     const today = new Date();
@@ -87,13 +87,13 @@ const Homepage = () => {
 
     const { data: HotelsList, error, isLoading } = useGetHotelsByCoordinatesQuery(hotelsListParams);
 
-    if (isLoading) return (
-        <Stack direction='row' style={{ alignItems: 'center' }}>
-            <Spinner animation="border" role="status">
-                <span className="visually-hidden">Loading...</span>
-            </Spinner>
-        </Stack>
-    )
+    // if (isLoading) return (
+    //     <Stack direction='row' style={{ alignItems: 'center' }}>
+    //         <Spinner animation="border" role="status">
+    //             <span className="visually-hidden">Loading...</span>
+    //         </Spinner>
+    //     </Stack>
+    // )
 
     const hotels = HotelsList?.result || [];
 

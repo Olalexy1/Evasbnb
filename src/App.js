@@ -30,7 +30,6 @@ function App() {
     <Router>
       <Helmet>
         <title>Book My Stay</title>
-        {/* <link rel="" href="https://lorem.com/" /> */}
       </Helmet>
       <Container fluid className='px-0 mx-0'>
         <NavBar />
@@ -45,8 +44,8 @@ function App() {
           <Route exact path="/properties" element={<Properties />} />
           <Route exact path="/room" element={<Room />} />
           <Route exact path="/checkout" element={<Checkout />} />
-          <Route exact path="/searchresults" element={<SearchResults />} />
-          <Route path="/hotelssearch" element={<HotelsSearch />} />
+          <Route exact path="/search-results" element={<SearchResults />} />
+          <Route path="/hotels-search" element={<HotelsSearch />} />
         </Routes>
         <Footer />
       </Container>

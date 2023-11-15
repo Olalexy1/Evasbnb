@@ -20,7 +20,7 @@
         }
 
         .ribbon-Text {
-            background-color: red;
+            background-color: #ff0000;
             position: absolute;
             top: 0px;
             left: 0px;
@@ -35,6 +35,14 @@
                 text-transform: capitalize;
             }
         }
+
+        .favorite-check {
+            position: absolute;
+            top: 0px;
+            right: 5px;
+        }
+
+
     }
 
     .hotel-desc-container {

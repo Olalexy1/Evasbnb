@@ -112,14 +112,6 @@ const Banner = () => {
 
     const { data: searchResult } = useGetHotelsBySearchQuery(searchParams);
 
-    // if (isLoading) return (
-    //     <Stack direction='row' style={{ alignItems: 'center' }}>
-    //         <Spinner animation="border" role="status">
-    //             <span className="visually-hidden">Loading...</span>
-    //         </Spinner>
-    //     </Stack>
-    // )
-
     const cities = cityList?.result || [];
     const districts = districtList?.result || [];
     const hotels = hotelsList?.result || [];
@@ -219,13 +211,11 @@ const Banner = () => {
         return validationPassed;
     };
 
-    const handleSubmit = (e) => {
-
+    const handleSubmit = async (e) => {
+        
         e.preventDefault();
 
-        if (validateInputs()) {
-            isCheckOutValid()
-
+        const handleValidSubmit = async () => {
             const searchData = {
                 checkInDate: formData.checkInDate,
                 checkOutDate: formData.checkOutDate,
@@ -262,34 +252,31 @@ const Banner = () => {
 
             const resultType = selectedInfo.type
 
-            // console.log(searchParams, searchResult, searchData, 'search Page')
+            try {
 
-            if (searchResult !== undefined) {
-                navigate(`/hotelssearch?searchResult=${JSON.stringify(searchData)}`, {
-                    state: {
-                        searchFormData: searchData,
-                        searchResult: searchResult,
-                        suggestions: combinedOptions
-                    }
-                });
-
-            } else {
-                console.log('searchResult is undefined, cannot proceed without it');
+                if (searchResult !== undefined) {
+                    navigate(`/hotels-search?searchResult=${JSON.stringify(searchData)}`, {
+                        state: {
+                            searchFormData: searchData,
+                            searchResult: searchResult,
+                            suggestions: combinedOptions,
+                        },
+                    });
+                } else {
+                    console.log('searchResult is undefined, cannot proceed without it');
+                }
+            } catch (error) {
+                console.error('Error during validation:', error);
             }
+        };
 
-            // navigate(`/newpage?searchResult=${JSON.stringify(searchData)}`, {
-            //     state: {
-            //         searchFormData: searchData,
-            //         searchResult: searchResult
-            //     }
-            // });
+        if (validateInputs()) {
+            handleValidSubmit();
+        } else {
+            console.log('cannot proceed without filling search');
         }
+    };
 
-        else {
-            console.log('cannot proceed without filling search')
-        }
-
-    }
 
     return (
         <Container fluid className='banner px-0'>
