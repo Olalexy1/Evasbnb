@@ -34,7 +34,7 @@ const PopularHotels = ({randomHotels}) => {
                                 <img src={item.max_photo_url} alt="Avatar" className='img' />
                             </div>
                             <div className="text-container py-2">
-                                <a href='/Room' style={{ whiteSpace: 'nowrap', display: 'inline-block', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '100%' }}><b>{item.hotel_name}</b></a>
+                                <a href={item.url} style={{ whiteSpace: 'nowrap', display: 'inline-block', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '100%' }}><b>{item.hotel_name}</b></a>
                                 <p style={{ textTransform: "capitalize"}}>{item.district || item.city_name_en}</p>
                                 <ul>
                                     {

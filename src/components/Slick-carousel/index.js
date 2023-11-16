@@ -95,7 +95,7 @@ const Slickcarousel = ({ hotelsList }) => {
             <div className='carousel-card' key={index}>
               <img src={item.max_photo_url} alt="Hotel-Img" />
               <div className="text-container py-2">
-                <a href='/Room' style={{ whiteSpace: 'nowrap', display: 'inline-block', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '100%' }}><b>{item.hotel_name}</b></a>
+                <a href={item.url} style={{ whiteSpace: 'nowrap', display: 'inline-block', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '100%' }}><b>{item.hotel_name}</b></a>
                 <h6 style={{ textTransform: "capitalize"}}>{item.district ? item.district : item.city_name_en}</h6>
                 <ul>
                   {
@@ -112,7 +112,7 @@ const Slickcarousel = ({ hotelsList }) => {
         </Slider>
 
         <button className="cssbuttons-io mt-5">
-          <a href='/Rooms'> <span> View All Hotels </span> </a>
+          <a href='#'> <span> View All Hotels </span> </a>
         </button>
       </Container>
     </Container>
