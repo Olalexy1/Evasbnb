@@ -23,7 +23,6 @@ const HotelCard = ({
 
     // console.log(hotel.hotel_facilities, 'see hotel data')
 
-    // Create an object to map facility IDs to their names
     const facilityMap = {};
     facilityData.forEach(facility => {
         facilityMap[facility.hotel_facility_type_id] = facility.name;
@@ -31,17 +30,12 @@ const HotelCard = ({
 
     const hotelFacilitiesData = hotel.hotel_facilities.split(',');
 
-    // Get the names of the facility IDs in arrayFacility
     const facilityNames = hotelFacilitiesData.map(id => facilityMap[id]);
-
-    // console.log(facilityNames, 'see facilities map')
 
     const hasWiFi = facilityNames?.includes("WiFi");
     const hasSwimmingPool = facilityNames?.includes("Swimming pool");
     const hasParking = facilityNames?.includes("Parking");
     const hasRestaurant = facilityNames?.includes("Restaurant");
-
-    // console.log(hotel, 'see hotel')
 
     const capitalizeText = (text) =>
         text
@@ -85,7 +79,7 @@ const HotelCard = ({
 
                     </div>
                     <div className="hotel-desc-container">
-                        <Card.Title style={{ textTransform: "Capitalize" }}>{capitalizeText(hotel.hotel_name)}</Card.Title>
+                        <Card.Title className='hotel-name' style={{ textTransform: "Capitalize" }}>{capitalizeText(hotel.hotel_name)}</Card.Title>
                         <p style={{ textTransform: "Capitalize" }}>{hotel.address_trans || hotel.address}, {hotel.district || hotel.city_trans}, {hotel.country_trans}.</p>
                         {/* <p>{hotel.district || hotel.city_trans }, {hotel.country_trans}.</p> */}
                         {

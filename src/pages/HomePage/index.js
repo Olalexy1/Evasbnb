@@ -97,7 +97,7 @@ const Homepage = () => {
 
     const hotels = HotelsList?.result || [];
 
-    const filteredHotelsByReview = hotels?.filter(hotel => hotel.review_score >= 8 && hotel.accommodation_type_name === 'Hotel')
+    const filteredHotelsByReview = hotels?.filter(hotel => hotel.review_score >= 7 && hotel.accommodation_type_name === 'Hotel')
 
     const filteredHotels = hotels?.filter(hotel => hotel.accommodation_type_name === 'Hotel')
 

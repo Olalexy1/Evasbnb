@@ -4,7 +4,7 @@
     flex-direction: row;
     gap: 20px;
     height: 250px;
-   
+
 
     .image-container {
         height: 100%;
@@ -53,10 +53,22 @@
         padding-right: 20px;
         // border: 1px solid red;
         justify-content: space-between;
+        overflow: hidden;
+
+        .hotel-name {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
 
         p {
             font-size: 16px;
             font-weight: 600;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2; /* Limit the number of lines to 2 */
+            -webkit-box-orient: vertical;
         }
 
         .review {
@@ -89,34 +101,33 @@
                 overflow: hidden;
                 outline: 2px solid #F10000;
                 text-decoration: none;
-              }
-              
-              .button:hover {
+            }
+
+            .button:hover {
                 color: #ffffff;
                 transform: scale(1.1);
                 outline: 2px solid #F10000;
-                box-shadow: 4px 5px 17px -4px ;
-              }
-              
-              .button::before {
+                box-shadow: 4px 5px 17px -4px;
+            }
+
+            .button::before {
                 content: "";
                 position: absolute;
                 left: -50px;
                 top: 0;
                 width: 0;
                 height: 100%;
-                background-color:#F10000;
+                background-color: #F10000;
                 transform: skewX(45deg);
                 z-index: -1;
                 transition: width 1000ms;
-              }
-              
-              .button:hover::before {
+            }
+
+            .button:hover::before {
                 width: 250%;
-              }
-              
+            }
+
 
         }
     }
 }
-

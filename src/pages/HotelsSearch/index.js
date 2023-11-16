@@ -14,28 +14,25 @@ import { BsFilter } from 'react-icons/bs';
 import Pagination from '../../components/Pagination/Pagination';
 import Spinner from 'react-bootstrap/Spinner';
 import Stack from 'react-bootstrap/Stack';
-import hotelTypes from '../../utils/HotelTypes';
 import { useCountry } from '../../context/countryContext';
-import { countries, singularize } from '../../utils';
+import { countries, singularize, hotelTypes, hotelFacilities } from '../../utils';
 
 const HotelsSearch = () => {
-    const location = useLocation();
-    const searchParams = new URLSearchParams(location.search);
-    // const searchResult = JSON.parse(searchParams.get('searchResult'));
-
-    const [currentPage, setCurrentPage] = useState(1);
-
-    // const searchDetails = location.state?.searchFormData;
+    let location = useLocation();
 
     const [searchDetails, setSearchDetails] = useState(location.state?.searchFormData);
 
     const [searchResult, setSearchResult] = useState(location.state?.searchResult);
 
-    const suggestionsList = location.state?.suggestions
+    const [suggestionsList, setSuggestionList] = useState(location.state?.suggestions);
+
+    const [queryParams, setQueryParams] = useSearchParams();
+
+    const searchData = JSON.parse(queryParams.get('searchResult'));
+
+    const [currentPage, setCurrentPage] = useState(1);
 
     const SearchResultHotelList = searchResult?.result || [];
-
-    const searchData = JSON.parse(searchParams.get('searchResult'));
 
     const { country } = useCountry();
 
@@ -51,6 +48,7 @@ const HotelsSearch = () => {
     const [isFiltered, setIsFiltered] = useState(false);
     const [selectedRating, setSelectedRating] = useState([])
     const [selectedFilter, setSelectedFilter] = useState([])
+    const [selectedAmenities, setSelectedAmenities] = useState([])
 
     const handlePropertyChange = (event) => {
         const selectedType = event.target.value;
@@ -103,6 +101,24 @@ const HotelsSearch = () => {
         setIsFiltered(false)
     };
 
+
+    const handleAmenitiesChange = (event) => {
+        const selectedType = Number(event.target.value);
+        const isSelected = selectedAmenities.includes(selectedType);
+
+        setIsFiltered(true)
+
+        if (isSelected) {
+            // If the type is already selected, remove it
+            setSelectedAmenities(selectedAmenities.filter(type => type !== selectedType));
+        } else {
+            // If the type is not selected, add it
+            setSelectedAmenities([...selectedAmenities, selectedType]);
+        }
+
+        setIsFiltered(false)
+    };
+
     const [errors, setErrors] = useState({
         formLocation: '',
         checkInDate: '',
@@ -117,6 +133,8 @@ const HotelsSearch = () => {
     const [newSearchParams, setNewSearchParams] = useState(null);
 
     const allPropertyTypes = hotelTypes?.result || [];
+
+    const amenityTypes = hotelFacilities?.result || [];
 
     const BATCH_SIZE = 5; // Number of suggestions to load at a time
 
@@ -160,23 +178,6 @@ const HotelsSearch = () => {
 
     const newSearchResultHotelList = newSearchResult?.result || [];
 
-    // const filterPropertyType = () => {
-    //     if (isSuccess) {
-    //         if (selectedProperty.length === 0) {
-    //             return newSearchResultHotelList;
-    //         }
-
-    //         return newSearchResultHotelList.filter((accommodation) => selectedProperty.includes(accommodation.accommodation_type_name));
-
-    //     } else {
-    //         if (selectedProperty.length === 0) {
-    //             return SearchResultHotelList;
-    //         }
-
-    //         return SearchResultHotelList.filter((accommodation) => selectedProperty.includes(accommodation.accommodation_type_name));
-    //     }
-    // };
-
     let filteredList;
 
     const filterPropertyType = () => {
@@ -207,6 +208,18 @@ const HotelsSearch = () => {
         if (selectedFilter.length > 0) {
             filteredList = filteredList.filter((accommodation) =>
                 selectedFilter.includes(accommodation.ribbon_text || accommodation.is_beach_front === 1)
+            );
+        }
+
+        // Apply Amenities filter
+        if (selectedAmenities.length > 0) {
+            filteredList = filteredList.filter((accommodation) =>
+                selectedAmenities.some((amenity) =>
+                    accommodation.hotel_facilities
+                    .split(',')
+                    .map(Number)
+                    .includes(Number(amenity))
+                )
             );
         }
 
@@ -317,7 +330,7 @@ const HotelsSearch = () => {
 
             setNewSearchParams(baseParams);
 
-            refetch()
+            await refetch()
 
             // const resultType = selectedInfo.type
 
@@ -327,11 +340,17 @@ const HotelsSearch = () => {
 
                 setSearchDetails(searchDataCurrent)
 
+                setSuggestionList(suggestionsList)
+
                 setSelectedProperty([])
 
                 setSelectedRating([])
 
                 setSelectedFilter([])
+
+                setSelectedAmenities([])
+
+                setQueryParams({ searchResult: JSON.stringify(searchDataCurrent) });
 
                 filteredList = [];
             }
@@ -346,12 +365,6 @@ const HotelsSearch = () => {
 
     let PageSize = 10;
 
-    // const currentSearchResultData = useMemo(() => {
-    //     const firstPageIndex = (currentPage - 1) * PageSize;
-    //     const lastPageIndex = firstPageIndex + PageSize;
-    //     return SearchResultHotelList.slice(firstPageIndex, lastPageIndex);
-    // }, [currentPage]);
-
     const currentSearchResultData = useMemo(() => {
         if (isSuccess) {
             // If isFetching is true, use newSearchResultHotelList
@@ -364,7 +377,7 @@ const HotelsSearch = () => {
             const lastPageIndex = firstPageIndex + PageSize;
             return filterPropertyType().slice(firstPageIndex, lastPageIndex);
         }
-    }, [currentPage, isFetching, isLoading, SearchResultHotelList, newSearchResultHotelList, selectedProperty, selectedRating, selectedFilter, isSuccess, PageSize]);
+    }, [currentPage, isFetching, isLoading, SearchResultHotelList, newSearchResultHotelList, selectedProperty, selectedRating, selectedFilter, selectedAmenities, isSuccess, PageSize]);
 
     console.log(newSearchResultHotelList, 'see new search results hotel list')
 
@@ -374,7 +387,8 @@ const HotelsSearch = () => {
 
     console.log(filterPropertyType(), filterPropertyType().length, 'see filter property type')
 
-    // console.log(searchDetails, 'see search details')
+    console.log(selectedAmenities, 'selected Amenities')
+
 
     return (
         <Container fluid className='py-5'>
@@ -456,11 +470,25 @@ const HotelsSearch = () => {
                             <div className='filter-wrappers'>
                                 <p>Property Amenities</p>
                                 <FormGroup>
-                                    <FormControlLabel control={<Checkbox />} label="Parking" />
-                                    <FormControlLabel control={<Checkbox />} label="Restaurant" />
-                                    <FormControlLabel control={<Checkbox />} label="Pets Allowed" />
-                                    <FormControlLabel control={<Checkbox />} label="Room Service" />
-                                    <FormControlLabel control={<Checkbox />} label="Bar" />
+
+                                    {
+                                        amenityTypes
+                                            .filter(item => [2, 3, 4, 5, 7, 8, 11, 17, 22, 24, 46, 54, 96, 107, 109, 301, 433].includes(item.hotel_facility_type_id))
+                                            .map(item => (
+                                                <FormControlLabel
+                                                    key={item.hotel_facility_type_id}
+                                                    control={
+                                                        <Checkbox
+                                                            onChange={handleAmenitiesChange}
+                                                            checked={selectedAmenities.includes(Number(item.hotel_facility_type_id))}
+                                                            value={Number(item.hotel_facility_type_id)}
+                                                        />
+                                                    }
+                                                    label={item.name}
+                                                />
+                                            ))
+                                    }
+
                                 </FormGroup>
                             </div>
                         </div>
