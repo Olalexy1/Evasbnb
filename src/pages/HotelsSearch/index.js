@@ -379,15 +379,15 @@ const HotelsSearch = () => {
         }
     }, [currentPage, isFetching, isLoading, SearchResultHotelList, newSearchResultHotelList, selectedProperty, selectedRating, selectedFilter, selectedAmenities, isSuccess, PageSize]);
 
-    console.log(newSearchResultHotelList, 'see new search results hotel list')
+    // console.log(newSearchResultHotelList, 'see new search results hotel list')
 
     // console.log(SearchResultHotelList, 'see old search result')
 
     // console.log(currentSearchResultData, 'see current search result data')
 
-    console.log(filterPropertyType(), filterPropertyType().length, 'see filter property type')
+    // console.log(filterPropertyType(), filterPropertyType().length, 'see filter property type')
 
-    console.log(selectedAmenities, 'selected Amenities')
+    // console.log(selectedAmenities, 'selected Amenities')
 
 
     return (
