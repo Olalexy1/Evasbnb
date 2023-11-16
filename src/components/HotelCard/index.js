@@ -5,8 +5,13 @@ import './style.scss';
 import { FaStar, FaWifi, FaParking } from 'react-icons/fa';
 import { MdRestaurantMenu, MdPool } from 'react-icons/md';
 import Button from '@mui/material/Button';
+import Checkbox from '@mui/material/Checkbox';
+import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
+import Favorite from '@mui/icons-material/Favorite';
 
 import hotelFacilities from '../../utils/HotelFacilities';
+
+const label = { inputProps: { 'aria-label': 'Favorite' } };
 
 const HotelCard = ({
     hotel
@@ -18,7 +23,6 @@ const HotelCard = ({
 
     // console.log(hotel.hotel_facilities, 'see hotel data')
 
-    // Create an object to map facility IDs to their names
     const facilityMap = {};
     facilityData.forEach(facility => {
         facilityMap[facility.hotel_facility_type_id] = facility.name;
@@ -26,17 +30,12 @@ const HotelCard = ({
 
     const hotelFacilitiesData = hotel.hotel_facilities.split(',');
 
-    // Get the names of the facility IDs in arrayFacility
     const facilityNames = hotelFacilitiesData.map(id => facilityMap[id]);
-
-    // console.log(facilityNames, 'see facilities map')
 
     const hasWiFi = facilityNames?.includes("WiFi");
     const hasSwimmingPool = facilityNames?.includes("Swimming pool");
     const hasParking = facilityNames?.includes("Parking");
     const hasRestaurant = facilityNames?.includes("Restaurant");
-
-    // console.log(hotel, 'see hotel')
 
     const capitalizeText = (text) =>
         text
@@ -64,10 +63,24 @@ const HotelCard = ({
                             </div>
                         }
 
+                        <div className='favorite-check'>
+                            <Checkbox
+                                {...label}
+                                icon={<FavoriteBorder />}
+                                checkedIcon={<Favorite />}
+                                sx={{
+                                    color: '#ff0000',
+                                    '&.Mui-checked': {
+                                        color: '#ff0000',
+                                    },
+                                }}
+                            />
+                        </div>
+
                     </div>
                     <div className="hotel-desc-container">
-                        <Card.Title style={{ textTransform: "Capitalize" }}>{capitalizeText(hotel.hotel_name)}</Card.Title>
-                        <p style={{ textTransform: "Capitalize" }}>{hotel.address_trans || hotel.address}, {hotel.district || hotel.city_trans }, {hotel.country_trans}.</p>
+                        <Card.Title className='hotel-name' style={{ textTransform: "Capitalize" }}>{capitalizeText(hotel.hotel_name)}</Card.Title>
+                        <p style={{ textTransform: "Capitalize" }}>{hotel.address_trans || hotel.address}, {hotel.district || hotel.city_trans}, {hotel.country_trans}.</p>
                         {/* <p>{hotel.district || hotel.city_trans }, {hotel.country_trans}.</p> */}
                         {
                             hotel.review_score && (
@@ -77,10 +90,10 @@ const HotelCard = ({
                         <p>Price: {Math.floor(hotel.min_total_price).toLocaleString('en-US', { style: 'currency', currency: hotel.currency_code }).replace(/\.00$/, '')}</p>
                         <div className='button-container'>
                             <Stack direction="horizontal" gap={2}>
-                                {hasWiFi && <FaWifi/>}
-                                {hasSwimmingPool && <MdPool/>}
-                                {hasParking && <FaParking/>}
-                                {hasRestaurant && <MdRestaurantMenu/>}
+                                {hasWiFi && <FaWifi />}
+                                {hasSwimmingPool && <MdPool />}
+                                {hasParking && <FaParking />}
+                                {hasRestaurant && <MdRestaurantMenu />}
                             </Stack>
                             <a className='button' href={hotel.url} target="_blank" rel="noopener noreferrer">Book Now</a>
                         </div>

@@ -14,28 +14,25 @@ import { BsFilter } from 'react-icons/bs';
 import Pagination from '../../components/Pagination/Pagination';
 import Spinner from 'react-bootstrap/Spinner';
 import Stack from 'react-bootstrap/Stack';
-import hotelTypes from '../../utils/HotelTypes';
 import { useCountry } from '../../context/countryContext';
-import countries from '../../utils/Countries'
+import { countries, singularize, hotelTypes, hotelFacilities } from '../../utils';
 
 const HotelsSearch = () => {
-    const location = useLocation();
-    const searchParams = new URLSearchParams(location.search);
-    // const searchResult = JSON.parse(searchParams.get('searchResult'));
-
-    const [currentPage, setCurrentPage] = useState(1);
-
-    // const searchDetails = location.state?.searchFormData;
+    let location = useLocation();
 
     const [searchDetails, setSearchDetails] = useState(location.state?.searchFormData);
 
-    const searchResult = location.state?.searchResult;
+    const [searchResult, setSearchResult] = useState(location.state?.searchResult);
 
-    const suggestionsList = location.state?.suggestions
+    const [suggestionsList, setSuggestionList] = useState(location.state?.suggestions);
+
+    const [queryParams, setQueryParams] = useSearchParams();
+
+    const searchData = JSON.parse(queryParams.get('searchResult'));
+
+    const [currentPage, setCurrentPage] = useState(1);
 
     const SearchResultHotelList = searchResult?.result || [];
-
-    const searchData = JSON.parse(searchParams.get('searchResult'));
 
     const { country } = useCountry();
 
@@ -47,6 +44,80 @@ const HotelsSearch = () => {
     const [inputId, setInputId] = useState('');
     const [inputType, setInputType] = useState('');
     const [selectedInfo, setSelectedInfo] = useState(searchDetails?.locationDetails);
+    const [selectedProperty, setSelectedProperty] = useState([]);
+    const [isFiltered, setIsFiltered] = useState(false);
+    const [selectedRating, setSelectedRating] = useState([])
+    const [selectedFilter, setSelectedFilter] = useState([])
+    const [selectedAmenities, setSelectedAmenities] = useState([])
+
+    const handlePropertyChange = (event) => {
+        const selectedType = event.target.value;
+        const isSelected = selectedProperty.includes(selectedType);
+
+        setIsFiltered(true)
+
+        if (isSelected) {
+            // If the type is already selected, remove it
+            setSelectedProperty(selectedProperty.filter(type => type !== selectedType));
+        } else {
+            // If the type is not selected, add it
+            setSelectedProperty([...selectedProperty, selectedType]);
+        }
+
+        setIsFiltered(false)
+    };
+
+    const handleRatingChange = (event) => {
+        const selectedType = event.target.value;
+        const isSelected = selectedRating.includes(selectedType);
+
+        setIsFiltered(true)
+
+        if (isSelected) {
+            // If the type is already selected, remove it
+            setSelectedRating(selectedRating.filter(type => type !== selectedType));
+        } else {
+            // If the type is not selected, add it
+            setSelectedRating([...selectedRating, selectedType]);
+        }
+
+        setIsFiltered(false)
+    };
+
+    const handleOtherFiltersChange = (event) => {
+        const selectedType = event.target.value;
+        const isSelected = selectedFilter.includes(selectedType);
+
+        setIsFiltered(true)
+
+        if (isSelected) {
+            // If the type is already selected, remove it
+            setSelectedFilter(selectedFilter.filter(type => type !== selectedType));
+        } else {
+            // If the type is not selected, add it
+            setSelectedFilter([...selectedFilter, selectedType]);
+        }
+
+        setIsFiltered(false)
+    };
+
+
+    const handleAmenitiesChange = (event) => {
+        const selectedType = Number(event.target.value);
+        const isSelected = selectedAmenities.includes(selectedType);
+
+        setIsFiltered(true)
+
+        if (isSelected) {
+            // If the type is already selected, remove it
+            setSelectedAmenities(selectedAmenities.filter(type => type !== selectedType));
+        } else {
+            // If the type is not selected, add it
+            setSelectedAmenities([...selectedAmenities, selectedType]);
+        }
+
+        setIsFiltered(false)
+    };
 
     const [errors, setErrors] = useState({
         formLocation: '',
@@ -63,17 +134,7 @@ const HotelsSearch = () => {
 
     const allPropertyTypes = hotelTypes?.result || [];
 
-    // console.log(suggestionsList, 'see new suggestions')
-
-
-    // const params = {
-    //     country: searchDetails?.country,
-    // };
-
-
-    // const { data: cityList } = useGetListOfCitiesQuery(params);
-    // const { data: districtList } = useGetListOfDistrictsQuery(params);
-    // const { data: hotelsList } = useGetListOfHotelsQuery(params);
+    const amenityTypes = hotelFacilities?.result || [];
 
     const BATCH_SIZE = 5; // Number of suggestions to load at a time
 
@@ -117,36 +178,54 @@ const HotelsSearch = () => {
 
     const newSearchResultHotelList = newSearchResult?.result || [];
 
-    // const cities = cityList?.result || [];
-    // const districts = districtList?.result || [];
-    // const hotels = hotelsList?.result || [];
+    let filteredList;
 
-    // // Filter the data based on the condition nr_hotels !== 0
-    // const filteredCities = cities?.filter(city => city.nr_hotels !== 0);
-    // const cityIdsWithHotels = filteredCities?.map(city => city.city_id);
+    const filterPropertyType = () => {
 
-    // const cityInfo = filteredCities?.map(city => ({
-    //     id: city.city_id,
-    //     name: city.name,
-    //     number_hotels: city.nr_hotels,
-    //     type: 'city',
-    // }));
+        if (isSuccess) {
+            // Use newSearchResultHotelList if isSuccess is true
+            filteredList = [...newSearchResultHotelList];
+        } else {
+            // Use SearchResultHotelList if isSuccess is false
+            filteredList = [...SearchResultHotelList];
+        }
 
-    // const districtInfo = districts?.map(district => ({
-    //     id: district.district_id,
-    //     name: district.name,
-    //     number_hotels: district.nr_hotels,
-    //     type: 'district',
-    // }))
+        // Apply property type filter
+        if (selectedProperty.length > 0) {
+            filteredList = filteredList.filter((accommodation) =>
+                selectedProperty.includes(accommodation.accommodation_type_name)
+            );
+        }
 
-    // // Filter hotels data based on city_ids present in cityInfo
-    // const hotelsInfo = hotels?.filter(hotel => cityIdsWithHotels.includes(hotel.city_id))?.map(hotel => ({
-    //     id: hotel.hotel_id,
-    //     name: hotel.name,
-    //     type: 'hotel',
-    // }));
+        // Apply review score filter
+        if (selectedRating.length > 0) {
+            filteredList = filteredList.filter((accommodation) =>
+                accommodation.review_score >= Math.min(...selectedRating)
+            );
+        }
 
-    // const combinedOptions = [...cityInfo, ...districtInfo, ...hotelsInfo]
+        // Apply other filter
+        if (selectedFilter.length > 0) {
+            filteredList = filteredList.filter((accommodation) =>
+                selectedFilter.includes(accommodation.ribbon_text || accommodation.is_beach_front === 1)
+            );
+        }
+
+        // Apply Amenities filter
+        if (selectedAmenities.length > 0) {
+            filteredList = filteredList.filter((accommodation) =>
+                selectedAmenities.some((amenity) =>
+                    accommodation.hotel_facilities
+                    .split(',')
+                    .map(Number)
+                    .includes(Number(amenity))
+                )
+            );
+        }
+
+        return filteredList;
+    };
+
 
     const { checkInDate, checkOutDate, adults, children, rooms, locationDetails } = formData
 
@@ -211,12 +290,11 @@ const HotelsSearch = () => {
         return validationPassed;
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
 
         e.preventDefault();
 
         if (validateInputs()) {
-            isCheckOutValid()
 
             const searchDataCurrent = {
                 checkInDate: formData.checkInDate,
@@ -237,7 +315,7 @@ const HotelsSearch = () => {
                 adults_number: formData.adults,
                 order_by: 'popularity',
                 dest_id: destId,
-                filter_by_currency: 'AED',
+                filter_by_currency: 'USD',
                 locale: 'en-gb',
                 room_number: formData.rooms,
                 categories_filter_ids: 'class::2,class::4,free_cancellation::1',
@@ -252,13 +330,30 @@ const HotelsSearch = () => {
 
             setNewSearchParams(baseParams);
 
-            refetch()
+            await refetch()
 
             // const resultType = selectedInfo.type
 
-            setSearchedLocation(formLocation)
+            if (isSuccess) {
 
-            setSearchDetails(searchDataCurrent)
+                setSearchedLocation(formLocation)
+
+                setSearchDetails(searchDataCurrent)
+
+                setSuggestionList(suggestionsList)
+
+                setSelectedProperty([])
+
+                setSelectedRating([])
+
+                setSelectedFilter([])
+
+                setSelectedAmenities([])
+
+                setQueryParams({ searchResult: JSON.stringify(searchDataCurrent) });
+
+                filteredList = [];
+            }
 
         }
 
@@ -270,31 +365,30 @@ const HotelsSearch = () => {
 
     let PageSize = 10;
 
-    // const currentSearchResultData = useMemo(() => {
-    //     const firstPageIndex = (currentPage - 1) * PageSize;
-    //     const lastPageIndex = firstPageIndex + PageSize;
-    //     return SearchResultHotelList.slice(firstPageIndex, lastPageIndex);
-    // }, [currentPage]);
-
     const currentSearchResultData = useMemo(() => {
         if (isSuccess) {
-            // If isFetching is true, use SearchResultHotelList
+            // If isFetching is true, use newSearchResultHotelList
             const firstPageIndex = (currentPage - 1) * PageSize;
             const lastPageIndex = firstPageIndex + PageSize;
-            return newSearchResultHotelList.slice(firstPageIndex, lastPageIndex);
+            return filterPropertyType().slice(firstPageIndex, lastPageIndex);
         } else {
-            // If isFetching is false, use newSearchResultHotelList
+            // If isFetching is false, use searchResultHotelList
             const firstPageIndex = (currentPage - 1) * PageSize;
             const lastPageIndex = firstPageIndex + PageSize;
-            return SearchResultHotelList.slice(firstPageIndex, lastPageIndex);
+            return filterPropertyType().slice(firstPageIndex, lastPageIndex);
         }
-    }, [currentPage, isFetching, isLoading, SearchResultHotelList, newSearchResultHotelList]);
+    }, [currentPage, isFetching, isLoading, SearchResultHotelList, newSearchResultHotelList, selectedProperty, selectedRating, selectedFilter, selectedAmenities, isSuccess, PageSize]);
 
-    console.log( newSearchResultHotelList, 'see new search results hotel list')
+    console.log(newSearchResultHotelList, 'see new search results hotel list')
 
     // console.log(SearchResultHotelList, 'see old search result')
 
     // console.log(currentSearchResultData, 'see current search result data')
+
+    console.log(filterPropertyType(), filterPropertyType().length, 'see filter property type')
+
+    console.log(selectedAmenities, 'selected Amenities')
+
 
     return (
         <Container fluid className='py-5'>
@@ -319,11 +413,15 @@ const HotelsSearch = () => {
                                 <span>Search Filters</span>
                             </div>
                             <div className='filter-wrappers'>
-                                <p>Property type</p>
+                                <p>Property Type</p>
                                 <FormGroup>
                                     {
                                         allPropertyTypes.map((item) => (
-                                            <FormControlLabel key={item.hotel_type_id} control={<Checkbox />} label={item.name} />
+                                            <FormControlLabel key={item.hotel_type_id} control={<Checkbox
+                                                onChange={handlePropertyChange}
+                                                checked={selectedProperty.includes(singularize(item.name))}
+                                                value={singularize(item.name)}
+                                            />} label={item.name} />
                                         ))
                                     }
                                 </FormGroup>
@@ -332,38 +430,71 @@ const HotelsSearch = () => {
                             <div className='filter-wrappers'>
                                 <p>Property Rating</p>
                                 <FormGroup>
-                                    <FormControlLabel control={<Checkbox />} label="Superb: 9+" />
-                                    <FormControlLabel control={<Checkbox />} label="Very Good: 8+" />
-                                    <FormControlLabel control={<Checkbox />} label="Good: 7+" />
-                                    <FormControlLabel control={<Checkbox />} label="Pleasant: 6+" />
+                                    <FormControlLabel control={<Checkbox
+                                        onChange={handleRatingChange}
+                                        checked={selectedRating.includes('9')}
+                                        value={9}
+                                    />} label="Superb: 9+" />
+                                    <FormControlLabel control={<Checkbox
+                                        onChange={handleRatingChange}
+                                        checked={selectedRating.includes('8')}
+                                        value={8}
+                                    />} label="Very Good: 8+" />
+                                    <FormControlLabel control={<Checkbox
+                                        onChange={handleRatingChange}
+                                        checked={selectedRating.includes('7')}
+                                        value={7}
+                                    />} label="Good: 7+" />
+                                    <FormControlLabel control={<Checkbox
+                                        onChange={handleRatingChange}
+                                        checked={selectedRating.includes('6')}
+                                        value={6}
+                                    />} label="Pleasant: 6+" />
                                 </FormGroup>
                             </div>
                             <div className='divider' />
-                            {/* <div className='filter-wrappers'>
-                                <p>Brands</p>
+                            <div className='filter-wrappers'>
+                                <p>Other Filters</p>
                                 <FormGroup>
-                                    <FormControlLabel control={<Checkbox />} label="hotel" />
-                                    <FormControlLabel control={<Checkbox />} label="apartment" />
-                                    <FormControlLabel control={<Checkbox />} label="resort" />
-                                    <FormControlLabel control={<Checkbox />} label="villa" />
-                                    <FormControlLabel control={<Checkbox />} label="hostel" />
+                                    <FormControlLabel control={<Checkbox
+                                        onChange={handleOtherFiltersChange}
+                                        value={'Breakfast included'}
+                                    />} label="Breakfast Included" />
+                                    <FormControlLabel control={<Checkbox
+                                        onChange={handleOtherFiltersChange}
+                                        value={1}
+                                    />} label="Beach Front" />
                                 </FormGroup>
                             </div>
-                            <div className='divider' /> */}
+                            <div className='divider' />
                             <div className='filter-wrappers'>
                                 <p>Property Amenities</p>
                                 <FormGroup>
-                                    <FormControlLabel control={<Checkbox />} label="Parking" />
-                                    <FormControlLabel control={<Checkbox />} label="Restaurant" />
-                                    <FormControlLabel control={<Checkbox />} label="Pets Allowed" />
-                                    <FormControlLabel control={<Checkbox />} label="Room Service" />
-                                    <FormControlLabel control={<Checkbox />} label="Bar" />
+
+                                    {
+                                        amenityTypes
+                                            .filter(item => [2, 3, 4, 5, 7, 8, 11, 17, 22, 24, 46, 54, 96, 107, 109, 301, 433].includes(item.hotel_facility_type_id))
+                                            .map(item => (
+                                                <FormControlLabel
+                                                    key={item.hotel_facility_type_id}
+                                                    control={
+                                                        <Checkbox
+                                                            onChange={handleAmenitiesChange}
+                                                            checked={selectedAmenities.includes(Number(item.hotel_facility_type_id))}
+                                                            value={Number(item.hotel_facility_type_id)}
+                                                        />
+                                                    }
+                                                    label={item.name}
+                                                />
+                                            ))
+                                    }
+
                                 </FormGroup>
                             </div>
                         </div>
                     </Col>
                     {<Col lg md={8}>
-                        {isFetching && isSuccess ? (
+                        {(isFetching) || isFiltered ? (
                             <Stack direction='row' style={{ alignItems: 'center' }}>
                                 <Spinner animation="border" role="status">
                                     <span className="visually-hidden">Loading...</span>
@@ -380,7 +511,9 @@ const HotelsSearch = () => {
                                         ? searchedLocation
                                         : isSuccess && selectedInfo.type === "hotel"
                                             ? locationName
-                                            : searchDetails?.location} : {isSuccess ? newSearchResultHotelList.length : SearchResultHotelList.length} properties found
+                                            : searchDetails?.location} : {
+                                        filterPropertyType().length
+                                    } properties found
                                 </h5>
 
                                 {currentSearchResultData.map((hotel, index) => (
@@ -388,18 +521,12 @@ const HotelsSearch = () => {
                                 ))}
                             </div>
                         )}
-                        {/* <div className='hotels-container'>
-                            <h5>{formLocation}: {SearchResultHotelList.length} properties found</h5>
-                            {currentSearchResultData.map((hotel, index) => (
-                                <HotelCard key={index} hotel={hotel} />
-                            ))}
-                        </div> */}
                     </Col>}
                 </Row>
                 <Pagination
                     className="pagination-bar"
                     currentPage={currentPage}
-                    totalCount={isSuccess ? newSearchResultHotelList.length : SearchResultHotelList.length}
+                    totalCount={filterPropertyType().length}
                     pageSize={PageSize}
                     onPageChange={page => setCurrentPage(page)}
                 />

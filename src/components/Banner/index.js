@@ -60,9 +60,9 @@ const Banner = () => {
         base: 'USD'
     }
 
-    const { data: cityList, isFetching, isLoading, isSuccess, isError, error } = useGetListOfCitiesQuery(citiesParams);
-    const { data: districtList } = useGetListOfDistrictsQuery(districtsParams);
-    const { data: hotelsList } = useGetListOfHotelsQuery(hotelsParams);
+    const { data: cityList, refetch: refetchCities } = useGetListOfCitiesQuery(citiesParams);
+    const { data: districtList, refetch: refetchDistricts } = useGetListOfDistrictsQuery(districtsParams);
+    const { data: hotelsList, refetch: refetchListOfHotels } = useGetListOfHotelsQuery(hotelsParams);
     const navigate = useNavigate();
     const { data: currencyData } = useGetCurrencyRatesQuery(currencyParams);
 
@@ -110,15 +110,7 @@ const Banner = () => {
 
     const destId = locationData?.[0].dest_id;
 
-    const { data: searchResult } = useGetHotelsBySearchQuery(searchParams);
-
-    // if (isLoading) return (
-    //     <Stack direction='row' style={{ alignItems: 'center' }}>
-    //         <Spinner animation="border" role="status">
-    //             <span className="visually-hidden">Loading...</span>
-    //         </Spinner>
-    //     </Stack>
-    // )
+    const { data: searchResult, isSuccess, isFetching, isLoading, refetch: refetchHotels } = useGetHotelsBySearchQuery(searchParams);
 
     const cities = cityList?.result || [];
     const districts = districtList?.result || [];
@@ -150,6 +142,15 @@ const Banner = () => {
     }));
 
     const combinedOptions = [...cityInfo, ...districtInfo, ...hotelsInfo]
+
+    useEffect(() => {
+        if (combinedOptions.length === 0) {
+            refetchCities();
+            refetchDistricts();
+            refetchListOfHotels();
+        }
+    }, [combinedOptions]);
+
 
     const { checkInDate, checkOutDate, adults, children, rooms, locationDetails } = formData
 
@@ -219,13 +220,11 @@ const Banner = () => {
         return validationPassed;
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
 
         e.preventDefault();
 
-        if (validateInputs()) {
-            isCheckOutValid()
-
+        const handleValidSubmit = async () => {
             const searchData = {
                 checkInDate: formData.checkInDate,
                 checkOutDate: formData.checkOutDate,
@@ -260,36 +259,46 @@ const Banner = () => {
 
             setSearchParams(baseParams);
 
-            const resultType = selectedInfo.type
+            await refetchHotels()
 
-            // console.log(searchParams, searchResult, searchData, 'search Page')
+            // const resultType = selectedInfo.type;
 
-            if (searchResult !== undefined) {
-                navigate(`/hotelssearch?searchResult=${JSON.stringify(searchData)}`, {
-                    state: {
-                        searchFormData: searchData,
-                        searchResult: searchResult,
-                        suggestions: combinedOptions
-                    }
-                });
+            try {
 
-            } else {
-                console.log('searchResult is undefined, cannot proceed without it');
+                if (isSuccess) {
+                    const encodedSearchData = encodeURIComponent(JSON.stringify(searchData));
+                    navigate(`/hotels-search?searchResult=${encodedSearchData}`, {
+                        state: {
+                            searchFormData: searchData,
+                            searchResult: searchResult,
+                            suggestions: combinedOptions,
+                        },
+                    });
+
+                    // navigate({
+                    //     pathname: '/hotels-search',
+                    //     search: `?searchResult=${JSON.stringify(searchData)}`,
+                    //     state: {
+                    //         searchDetails: searchData,
+                    //         searchResult: searchResult,
+                    //         suggestionsList: combinedOptions,
+                    //     },
+                    // });
+
+                } else {
+                    console.log('searchResult is undefined, cannot proceed without it');
+                }
+            } catch (error) {
+                console.error('Error during validation:', error);
             }
+        };
 
-            // navigate(`/newpage?searchResult=${JSON.stringify(searchData)}`, {
-            //     state: {
-            //         searchFormData: searchData,
-            //         searchResult: searchResult
-            //     }
-            // });
+        if (validateInputs()) {
+            handleValidSubmit();
+        } else {
+            console.log('cannot proceed without filling search');
         }
-
-        else {
-            console.log('cannot proceed without filling search')
-        }
-
-    }
+    };
 
     return (
         <Container fluid className='banner px-0'>

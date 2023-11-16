@@ -12,7 +12,7 @@ import { Subform, Inqiuryform } from '../../components/Forms';
 
 import { useGetHotelsByCoordinatesQuery } from '../../services/bookingApi';
 
-import { useCountry } from '../../context/countryContext'; 
+import { useCountry } from '../../context/countryContext';
 
 const Homepage = () => {
     const today = new Date();
@@ -27,8 +27,6 @@ const Homepage = () => {
     const [longitude, setLongitude] = useState('');
     const [position, setPosition] = useState('');
     const { country, setCountry } = useCountry();
-
-    console.log(country, 'see country')
 
     const googleApiKey = process.env.REACT_APP_GOOGLE_API_KEY
 
@@ -89,17 +87,17 @@ const Homepage = () => {
 
     const { data: HotelsList, error, isLoading } = useGetHotelsByCoordinatesQuery(hotelsListParams);
 
-    if (isLoading) return (
-        <Stack direction='row' style={{ alignItems: 'center' }}>
-            <Spinner animation="border" role="status">
-                <span className="visually-hidden">Loading...</span>
-            </Spinner>
-        </Stack>
-    )
+    // if (isLoading) return (
+    //     <Stack direction='row' style={{ alignItems: 'center' }}>
+    //         <Spinner animation="border" role="status">
+    //             <span className="visually-hidden">Loading...</span>
+    //         </Spinner>
+    //     </Stack>
+    // )
 
     const hotels = HotelsList?.result || [];
 
-    const filteredHotelsByReview = hotels?.filter(hotel => hotel.review_score >= 8 && hotel.accommodation_type_name === 'Hotel')
+    const filteredHotelsByReview = hotels?.filter(hotel => hotel.review_score >= 7 && hotel.accommodation_type_name === 'Hotel')
 
     const filteredHotels = hotels?.filter(hotel => hotel.accommodation_type_name === 'Hotel')
 
