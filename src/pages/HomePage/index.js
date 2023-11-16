@@ -38,36 +38,36 @@ const Homepage = () => {
         })
     }, [latitude, longitude]);
 
-    useEffect(() => {
-        if (latitude !== null && longitude !== null) {
-            const fetchCountryFromCoordinates = async () => {
-                try {
-                    const response = await fetch(
-                        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${googleApiKey}`
-                    );
+    // useEffect(() => {
+    //     if (latitude !== null && longitude !== null) {
+    //         const fetchCountryFromCoordinates = async () => {
+    //             try {
+    //                 const response = await fetch(
+    //                     `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${googleApiKey}`
+    //                 );
 
-                    if (!response.ok) {
-                        throw new Error('Failed to fetch data');
-                    }
+    //                 if (!response.ok) {
+    //                     throw new Error('Failed to fetch data');
+    //                 }
 
-                    const data = await response.json();
+    //                 const data = await response.json();
 
-                    const result = data.results[0];
-                    const countryComponent = result.address_components.find(
-                        (component) => component.types.includes('country')
-                    );
+    //                 const result = data.results[0];
+    //                 const countryComponent = result.address_components.find(
+    //                     (component) => component.types.includes('country')
+    //                 );
 
-                    if (countryComponent) {
-                        setCountry(countryComponent.long_name);
-                    }
-                } catch (error) {
-                    console.error('Error fetching country:', error);
-                }
-            };
+    //                 if (countryComponent) {
+    //                     setCountry(countryComponent.long_name);
+    //                 }
+    //             } catch (error) {
+    //                 console.error('Error fetching country:', error);
+    //             }
+    //         };
 
-            fetchCountryFromCoordinates();
-        }
-    }, [latitude, longitude, setCountry]);
+    //         fetchCountryFromCoordinates();
+    //     }
+    // }, [latitude, longitude, setCountry]);
 
 
     const hotelsListParams = {
@@ -85,23 +85,29 @@ const Homepage = () => {
         categories_filter_ids: 'class::2,class::4,free_cancellation::1'
     }
 
-    const { data: HotelsList, error, isLoading } = useGetHotelsByCoordinatesQuery(hotelsListParams);
+    const { data: HotelsList, error, isLoading, isSuccess, refetch, isFetching } = useGetHotelsByCoordinatesQuery(hotelsListParams);
 
-    // if (isLoading) return (
-    //     <Stack direction='row' style={{ alignItems: 'center' }}>
-    //         <Spinner animation="border" role="status">
-    //             <span className="visually-hidden">Loading...</span>
-    //         </Spinner>
-    //     </Stack>
-    // )
+
+    useEffect(() => {
+        if (HotelsList == undefined) {
+            refetch()
+        }
+    }, [HotelsList]);
+
+
+    if (isLoading || isFetching) return (
+        <Stack direction='row' style={{ alignItems: 'center', minHeight: '100vh' }}>
+            <Spinner animation="border" role="status">
+                <span className="visually-hidden">Loading...</span>
+            </Spinner>
+        </Stack>
+    )
 
     const hotels = HotelsList?.result || [];
 
     const filteredHotelsByReview = hotels?.filter(hotel => hotel.review_score >= 7 && hotel.accommodation_type_name === 'Hotel')
 
     const filteredHotels = hotels?.filter(hotel => hotel.accommodation_type_name === 'Hotel')
-
-    // console.log(filteredHotels, 'Filtered Hotels');
 
     const shuffleArray = (array) => {
         const shuffled = [...array];
@@ -125,7 +131,6 @@ const Homepage = () => {
     } else {
         randomHotels = [];
     }
-
 
     const hotelsInCity = filteredHotels?.slice(0, 12);
 
