@@ -73,7 +73,7 @@
     }
 
     .links-text {
-      color: black;
+      color: #000;
       text-decoration: none;
       flex-direction: column;
       font-weight: 600;
@@ -108,8 +108,8 @@
       font-weight: 600;
       text-transform: capitalize;
       font-size: 16.5px;
-      transition: all 0.1s ease-in-out;
-      color: #ffffff;
+      // transition: all 0.1s ease-in-out;
+      color: #000;
     }
 
     &:hover {
@@ -218,7 +218,7 @@
           font-weight: 600;
           text-transform: capitalize;
           font-size: 16.5px;
-          transition: all 0.1s ease-in-out;
+          // transition: all 0.1s ease-in-out;
           color: #000;
         }
     
