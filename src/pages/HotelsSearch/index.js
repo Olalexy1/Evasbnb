@@ -64,7 +64,9 @@ const HotelsSearch = () => {
             setSelectedProperty([...selectedProperty, selectedType]);
         }
 
-        setIsFiltered(false)
+        setTimeout(() => {
+            setIsFiltered(false);
+        }, 1000);
     };
 
     const handleRatingChange = (event) => {
@@ -81,7 +83,9 @@ const HotelsSearch = () => {
             setSelectedRating([...selectedRating, selectedType]);
         }
 
-        setIsFiltered(false)
+        setTimeout(() => {
+            setIsFiltered(false);
+        }, 1000);
     };
 
     const handleOtherFiltersChange = (event) => {
@@ -98,7 +102,10 @@ const HotelsSearch = () => {
             setSelectedFilter([...selectedFilter, selectedType]);
         }
 
-        setIsFiltered(false)
+        setTimeout(() => {
+            setIsFiltered(false);
+        }, 1000);
+
     };
 
 
@@ -116,7 +123,9 @@ const HotelsSearch = () => {
             setSelectedAmenities([...selectedAmenities, selectedType]);
         }
 
-        setIsFiltered(false)
+        setTimeout(() => {
+            setIsFiltered(false);
+        }, 1000);
     };
 
     const [errors, setErrors] = useState({
@@ -182,13 +191,15 @@ const HotelsSearch = () => {
 
     const filterPropertyType = () => {
 
-        if (isSuccess) {
-            // Use newSearchResultHotelList if isSuccess is true
-            filteredList = [...newSearchResultHotelList];
-        } else {
-            // Use SearchResultHotelList if isSuccess is false
-            filteredList = [...SearchResultHotelList];
-        }
+        // if (isSuccess) {
+        //     // Use newSearchResultHotelList if isSuccess is true
+        //     filteredList = [...newSearchResultHotelList];
+        // } else {
+        //     // Use SearchResultHotelList if isSuccess is false
+        //     filteredList = [...SearchResultHotelList];
+        // }
+
+        filteredList = [...SearchResultHotelList]
 
         // Apply property type filter
         if (selectedProperty.length > 0) {
@@ -216,9 +227,9 @@ const HotelsSearch = () => {
             filteredList = filteredList.filter((accommodation) =>
                 selectedAmenities.some((amenity) =>
                     accommodation.hotel_facilities
-                    .split(',')
-                    .map(Number)
-                    .includes(Number(amenity))
+                        .split(',')
+                        .map(Number)
+                        .includes(Number(amenity))
                 )
             );
         }
@@ -330,29 +341,25 @@ const HotelsSearch = () => {
 
             setNewSearchParams(baseParams);
 
-            await refetch()
+            try {
+                // Wait for the refetch to complete
+                await refetch();
 
-            // const resultType = selectedInfo.type
+                setSearchedLocation(formLocation);
+                setSearchDetails(searchDataCurrent);
+                setSuggestionList(suggestionsList);
 
-            if (isSuccess) {
-
-                setSearchedLocation(formLocation)
-
-                setSearchDetails(searchDataCurrent)
-
-                setSuggestionList(suggestionsList)
-
-                setSelectedProperty([])
-
-                setSelectedRating([])
-
-                setSelectedFilter([])
-
-                setSelectedAmenities([])
-
-                setQueryParams({ searchResult: JSON.stringify(searchDataCurrent) });
-
-                filteredList = [];
+                if (isSuccess) {
+                    setSearchResult(newSearchResult);
+                    setSelectedProperty([]);
+                    setSelectedRating([]);
+                    setSelectedFilter([]);
+                    setSelectedAmenities([]);
+                    setQueryParams({ searchResult: JSON.stringify(searchDataCurrent) });
+                    filteredList = [];
+                }
+            } catch (error) {
+                console.error('Error during refetch:', error);
             }
 
         }
@@ -366,28 +373,33 @@ const HotelsSearch = () => {
     let PageSize = 10;
 
     const currentSearchResultData = useMemo(() => {
-        if (isSuccess) {
-            // If isFetching is true, use newSearchResultHotelList
-            const firstPageIndex = (currentPage - 1) * PageSize;
-            const lastPageIndex = firstPageIndex + PageSize;
-            return filterPropertyType().slice(firstPageIndex, lastPageIndex);
-        } else {
-            // If isFetching is false, use searchResultHotelList
-            const firstPageIndex = (currentPage - 1) * PageSize;
-            const lastPageIndex = firstPageIndex + PageSize;
-            return filterPropertyType().slice(firstPageIndex, lastPageIndex);
-        }
-    }, [currentPage, isFetching, isLoading, SearchResultHotelList, newSearchResultHotelList, selectedProperty, selectedRating, selectedFilter, selectedAmenities, isSuccess, PageSize]);
+        // if (isSuccess) {
+        //     // If isFetching is true, use newSearchResultHotelList
+        //     const firstPageIndex = (currentPage - 1) * PageSize;
+        //     const lastPageIndex = firstPageIndex + PageSize;
+        //     return filterPropertyType().slice(firstPageIndex, lastPageIndex);
+        // } else {
+        //     // If isFetching is false, use searchResultHotelList
+        //     const firstPageIndex = (currentPage - 1) * PageSize;
+        //     const lastPageIndex = firstPageIndex + PageSize;
+        //     return filterPropertyType().slice(firstPageIndex, lastPageIndex);
+        // }
 
-    // console.log(newSearchResultHotelList, 'see new search results hotel list')
+        const firstPageIndex = (currentPage - 1) * PageSize;
+        const lastPageIndex = firstPageIndex + PageSize;
+        return filterPropertyType().slice(firstPageIndex, lastPageIndex);
+
+    }, [currentPage, isFetching, isLoading, SearchResultHotelList, newSearchResultHotelList, selectedProperty, selectedRating, selectedFilter, selectedAmenities, isSuccess, PageSize, refetch]);
+
+    console.log(SearchResultHotelList, 'see form location', formLocation, 'see new search results hotel list')
 
     // console.log(SearchResultHotelList, 'see old search result')
 
-    // console.log(currentSearchResultData, 'see current search result data')
+    // console.log(searchDetails, 'see current search data')
 
     // console.log(filterPropertyType(), filterPropertyType().length, 'see filter property type')
 
-    // console.log(selectedAmenities, 'selected Amenities')
+    // console.log(selectedAmenities, 'selected Amenities')S
 
 
     return (
@@ -450,6 +462,11 @@ const HotelsSearch = () => {
                                         checked={selectedRating.includes('6')}
                                         value={6}
                                     />} label="Pleasant: 6+" />
+                                    <FormControlLabel control={<Checkbox
+                                        onChange={handleRatingChange}
+                                        checked={selectedRating.includes('5')}
+                                        value={5}
+                                    />} label="Okay: 5+" />
                                 </FormGroup>
                             </div>
                             <div className='divider' />
