@@ -1,475 +1,243 @@
-// .navigation-container {
-//     background-color: #FBFCFB !important;
-//     opacity: 0.9;
-
-//     .navigation {
-//         // border: 1px solid red;
-//         display: flex !important;
-//         justify-content: space-between !important;
-//     }
-
-//     .brand {
-//         display: flex;
-//         align-items: center !important;
-//         font-size: 1.25rem;
-//         font-weight: 600;
-//         color: #222222 !important;
-
-//         img {
-//             margin-right: 20px;
-//         }
-
-//     }
-// }
-
-// .nav-links-container {
-//     // border: 1px dashed green;
-//     width: 80%;
-//     display: flex;
-//     justify-content: space-between;
-
-//     .links {
-//         font-size: 1.10rem;
-//         font-weight: 600;
-//         color: #222222 !important;
-//         line-height: 30px;
-//         border-bottom: 3px solid #F10000;
-//         align-self: center;
-//     }
-
-//     .links:hover {
-//         border-bottom: 3px solid #222222;
-//     }
-
-//     .links-alt {
-//         font-size: 1.10rem;
-//         font-weight: 500;
-//         color: #222222 !important;
-//         line-height: 30px;
-//         // border-bottom: 3px solid white;
-//         align-self: center;
-//     }
-
-//     .links-alt:hover {
-//         border-bottom: 3px solid #222222;
-//     }
-
-//     /* From uiverse.io by @adamgiebl */
-//     .cssbuttons-io {
-//         position: relative;
-//         font-family: inherit;
-//         font-weight: 500;
-//         font-size: 18px;
-//         letter-spacing: 0.05em;
-//         border-radius: 0.8em;
-//         border: none;
-//         background: linear-gradient(to right, #DF1F1F, #F10000);
-//         color: ghostwhite;
-//         overflow: hidden;
-//     }
-   
-//    .cssbuttons-io span {
-//     position: relative;
-//     z-index: 10;
-//     transition: color 0.4s;
-//     display: inline-flex;
-//     align-items: center;
-//     padding: 0.8em 1.2em 0.8em 1.05em;
-//    }
-   
-//    .cssbuttons-io::before,
-//    .cssbuttons-io::after {
-//     position: absolute;
-//     top: 0;
-//     left: 0;
-//     width: 100%;
-//     height: 100%;
-//     z-index: 0;
-//    }
-   
-//    .cssbuttons-io::before {
-//     content: "";
-//     background: #222222;
-//     width: 120%;
-//     left: -10%;
-//     transform: skew(30deg);
-//     transition: transform 0.4s cubic-bezier(0.3, 1, 0.8, 1);
-//    }
-   
-//    .cssbuttons-io:hover::before {
-//     transform: translate3d(100%, 0, 0);
-//    }
-   
-//    .cssbuttons-io:active {
-//     transform: scale(0.95);
-//    }
-   
-
-// }
-
-  
-// /* 
-// ##Device = Tablets, Ipads (landscape)
-// ##Screen = B/w 768px to 1024px
-// */
-
-// @media (min-width: 1024px) and (max-width: 1440px) and (orientation: landscape) {
-//     .brand {
-//         display: flex;
-
-//         span {
-//             display: none !important;
-//         }
-
-//     }
-
-//     .nav-links-container {
-//         // border: 1px solid green;
-//         width: 90% !important;
-//         display: flex;
-//         justify-content: space-between;
-    
-//         .links {
-//             font-size: 1.10rem;
-//             font-weight: 500;
-//             color: #222222 !important;
-//             line-height: 30px;
-//             border-bottom: 3px solid red;
-//             align-self: center;
-//         }
-    
-//         .links:hover {
-//             border-bottom: 3px solid #222222;
-//         }
-    
-//         .links-alt {
-//             font-size: 1.10rem;
-//             font-weight: 500;
-//             color: #222222 !important;
-//             line-height: 30px;
-//             // border-bottom: 3px solid white;
-//             align-self: center;
-//         }
-    
-//         .links-alt:hover {
-//             border-bottom: 3px solid #222222;
-//         }
-//     }
-
-// }
-
-// @media (min-width: 768px) and (max-width: 1024px) {
-//     .brand {
-//         display: flex;
-
-//         span {
-//             display: none !important;
-//         }
-
-//     }
-
-//     .nav-links-container {
-//         // border: 1px solid green;
-//         width: 90% !important;
-//         display: flex;
-//         justify-content: space-between;
-    
-//         .links {
-//             font-size: 1.10rem;
-//             font-weight: 500;
-//             color: #222222 !important;
-//             line-height: 30px;
-//             border-bottom: 3px solid red;
-//             align-self: center;
-//         }
-    
-//         .links:hover {
-//             border-bottom: 3px solid #222222;
-//         }
-    
-//         .links-alt {
-//             font-size: 1.10rem;
-//             font-weight: 500;
-//             color: #222222 !important;
-//             line-height: 30px;
-//             // border-bottom: 3px solid white;
-//             align-self: center;
-//         }
-    
-//         .links-alt:hover {
-//             border-bottom: 3px solid #222222;
-//         }
-//     }
-
-// }
-
-
-// @media (min-width: 768px) and (max-width: 768px) {
-//     .brand {
-//         display: flex;
-
-//         span {
-//             display: none !important;
-//         }
-
-//     }
-
-//     .nav-links-container {
-//         // border: 1px solid green;
-//         width: 100% !important;
-//         display: flex;
-//         justify-content: space-between;
-    
-//         .links {
-//             font-size: 1.10rem;
-//             font-weight: 500;
-//             color: #222222 !important;
-//             line-height: 30px;
-//             border-bottom: 3px solid red;
-//             align-self: center;
-//         }
-    
-//         .links:hover {
-//             border-bottom: 3px solid #222222;
-//         }
-    
-//         .links-alt {
-//             font-size: 1.10rem;
-//             font-weight: 500;
-//             color: #222222 !important;
-//             line-height: 30px;
-//             // border-bottom: 3px solid white;
-//             align-self: center;
-//         }
-    
-//         .links-alt:hover {
-//             border-bottom: 3px solid #222222;
-//         }
-//     }
-
-// }
-
-// @media (min-width: 481px) and (max-width: 767px) {
-//     .brand {
-//         display: flex;
-
-//         span {
-//             display: none !important;
-//         }
-
-//     }
-
-//     .nav-links-container {
-//         // border: 1px dashed green;
-//         width: 100%;
-//         display: flex;
-//         justify-content: space-between;
-//     }
-
-// }
-  
-//   /* 
-//     ##Device = Most of the Smartphones Mobiles (Portrait)
-//     ##Screen = B/w 320px to 479px
-//   */
-  
-// @media (min-width: 320px) and (max-width: 480px) {
-//     .brand {
-//         display: flex;
-
-//         span {
-//             display: none !important;
-//         }
-
-//     }
-
-//     .nav-links-container {
-//         // border: 1px dashed green;
-//         width: 100%;
-//         display: flex;
-//         justify-content: space-between;
-//     }
-
-//     // .navigation {
-//     //     background-color: #FBFCFB !important;
-//     //     opacity: 0.9;
-//     //     min-height: 300px;
-//     //     z-index: 99;
-//     //     // position: absolute;
-//     // }
-// }
-
-
 .app__navbar {
-    width: 100%;
-  
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  
-    padding: 1rem 2rem;
-    background: rgba(255, 255, 255, 0.25);
-    // box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    position: fixed;
-    z-index: 99;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 1rem 2rem;
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  position: fixed;
+  z-index: 99;
+  // border: 1px solid #fa0404;
+}
+
+.app__navbar-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // border: 1px solid #fa0404;
+
+  .logo-text {
+    font-size: 25px;
+    font-weight: 700;
+    color: #E12727;
+    text-decoration: none;
   }
-  
-  .app__navbar-logo {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-  
-    img {
-      width: 80px;
-      height: auto;
-  
-      @media screen and (min-width: 2000px) {
-        width: 180px;
-        height: 40px;
-      }
-    }
+
+  .logo-text::before {
+    content: "Book";
+    color: #FA0404;
   }
-  
-  .app__navbar-links {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  
-    list-style: none;
-  
-    li {
-      margin: 0 1rem;
-      cursor: pointer;
-  
-      flex-direction: column;
-  
-      div {
-        width: 5px;
-        height: 5px;
-        background: transparent;
-        border-radius: 50%;
-  
-        margin-bottom: 5px;
-      }
-  
-      a {
-        color: black;
-        text-decoration: none;
-        flex-direction: column;
-        font-weight: 700;
-        text-transform: uppercase;
-        font-size: 18px;
-  
-        transition: all 0.3s ease-in-out;
-  
-        &:hover {
-          color: red;
-        }
-      }
-  
-      &:hover {
-        div {
-          background: red;
-        }
-      }
-    }
-  
-    @media screen and (max-width: 900px) {
-      display: none;
+
+  .logo-text::after {
+    content: "Stay";
+    color: #7B4A4A;
+  }
+
+  img {
+    width: 50px;
+    height: auto;
+    margin-right: 20px;
+
+    @media screen and (min-width: 2000px) {
+      width: 180px;
+      height: 40px;
     }
   }
-  
-  .app__navbar-menu {
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    position: relative;
-  
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: whitesmoke;
-  
-  
-    svg {
-      width: 70%;
-      height: 70%;
-      color: red;
-    }
-  
+}
+
+.app__navbar-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // border: 1px solid #fa0404;
+  list-style: none;
+  margin: 0px;
+
+  li {
+    margin: 0 1rem;
+    cursor: pointer;
+    // border: 1px solid #fa0404;
+
+    flex-direction: column;
+
     div {
-      position: fixed;
-      top: 0;
-      bottom: 0;
-      right: 0;
-      z-index: 5;
-  
-      padding: 1rem;
-  
-      width: 80%;
-      height: 100vh;
-      
-      display: flex;
-      justify-content: flex-end;
-      align-items: flex-end;
+      width: 0px;
+      height: 2px;
+      background: transparent;
+      margin-top: 3px;
+      transition: width 0.4s ease, margin-left 0.4s ease;
+    }
+
+    .links-text {
+      color: black;
+      text-decoration: none;
       flex-direction: column;
-      
-    //   background: url('../../assets/bgWhite.png');
-      background-color: var(--white-color);
-      background-size: cover;
-      background-repeat: repeat;
-  
-      /* top box shadow */
-      box-shadow: 0px 0px 20px rgba(168, 168, 168, 0.15);
-  
-      svg {
-        width: 35px;
-        height: 35px;
-        color: var(--secondary-color);
-        margin: 0.5rem 1rem;
+      font-weight: 600;
+      text-transform: capitalize;
+      font-size: 16.5px;
+      transition: all 0.4s ease-in-out;
+    }
+
+    &:hover {
+
+      .links-text {
+        color: #fa0404;
       }
-  
-      ul {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        height: 100%;
+
+      div {
+        background: #fa0404;
         width: 100%;
-  
-        display: flex;
-        justify-content: flex-start;
-        align-items: flex-start;
-        flex-direction: column;
-  
-        li {
-          margin: 1rem;
-  
-          a {
-            color: var(--gray-color);
-            text-decoration: none;
-            font-size: 1rem;
-            text-transform: uppercase;
-            font-weight: 500;
-  
-            transition: all 0.3s ease-in-out;
-  
-            &:hover {
-              color: var(--secondary-color);
-            }
+        margin-right: auto;
+      }
+    }
+  }
+
+  .link-btn {
+    padding: 4px 10px;
+    // border: 1px solid #e0e0eb;
+    border: 1px solid #fa0404;
+    border-radius: 8px;
+
+    .link-btn-text {
+      text-decoration: none;
+      flex-direction: column;
+      font-weight: 600;
+      text-transform: capitalize;
+      font-size: 16.5px;
+      transition: all 0.1s ease-in-out;
+      color: #ffffff;
+    }
+
+    &:hover {
+      background-color: #ffffff;
+
+      .link-btn-text {
+        color: #fa0404;
+      }
+    }
+  }
+
+  @media screen and (max-width: 900px) {
+    display: none;
+  }
+}
+
+.app__navbar-menu {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  position: relative;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: whitesmoke;
+
+
+  svg {
+    width: 70%;
+    height: 70%;
+    color: #fa0404;
+    cursor: pointer;
+  }
+
+  div {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 5;
+
+    padding: 1rem;
+
+    width: 80%;
+    height: 100vh;
+
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    flex-direction: column;
+
+    background-color: #ffffff;
+    background-size: cover;
+    background-repeat: repeat;
+    /* top box shadow */
+    box-shadow: 0px 0px 20px rgba(168, 168, 168, 0.15);
+
+    svg {
+      width: 35px;
+      height: 35px;
+      color: #fa0404;
+      margin: 0.5rem 1rem;
+      cursor: pointer;
+    }
+
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      flex-direction: column;
+
+      li {
+        margin: 1rem;
+
+        a {
+          color: #000;
+          text-decoration: none;
+          font-size: 1rem;
+          text-transform: capitalize;
+          font-weight: 500;
+
+          transition: all 0.3s ease-in-out;
+
+          &:hover {
+            color: #fa0404;
           }
         }
       }
-  
-      @media screen and (min-width: 900px) {
-        display: none;
+
+      .link-btn {
+        padding: 4px 10px;
+        // border: 1px solid #e0e0eb;
+        border: 1px solid #fa0404;
+        border-radius: 8px;
+    
+        .link-btn-text {
+          text-decoration: none;
+          flex-direction: column;
+          font-weight: 600;
+          text-transform: capitalize;
+          font-size: 16.5px;
+          transition: all 0.1s ease-in-out;
+          color: #000;
+        }
+    
+        &:hover {
+          background-color: #ffffff;
+    
+          .link-btn-text {
+            color: #fa0404;
+          }
+        }
       }
     }
-  
+
     @media screen and (min-width: 900px) {
       display: none;
     }
   }
+
+  @media screen and (min-width: 900px) {
+    display: none;
+  }
+}

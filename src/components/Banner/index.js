@@ -1,18 +1,14 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
-import Carousel from 'react-bootstrap/Carousel';
-import Spinner from 'react-bootstrap/Spinner';
 import Stack from 'react-bootstrap/Stack';
 
-import slider1 from '../../images/arthur-hickinbotham.jpg'
-import slider2 from '../../images/cara-grobbelaar.jpg'
-import slider3 from '../../images/harry-cunningham.jpg'
-import slider4 from '../../images/vije-vijendranath.jpg'
+import roomImg1 from '../../images/room1.jpg';
+import roomImg2 from '../../images/room2.jpg';
 
 import { useCountry } from '../../context/countryContext';
 import countries from '../../utils/Countries'
@@ -21,7 +17,7 @@ import countries from '../../utils/Countries'
 import { FaChevronCircleRight, FaChevronCircleLeft, FaUser, FaChild, FaCalendarDay, FaMapMarkerAlt } from 'react-icons/fa';
 import { IoBed } from 'react-icons/io5';
 import './style.scss';
-import { useGetListOfCitiesQuery, useGetListOfDistrictsQuery, useGetListOfHotelsQuery, useGetHotelDetailsQuery, useGetHotelsBySearchQuery, useGetHotelsByLocationQuery } from '../../services/bookingApi';
+import { useGetListOfCitiesQuery, useGetListOfDistrictsQuery, useGetListOfHotelsQuery, useGetHotelsBySearchQuery, useGetHotelsByLocationQuery } from '../../services/bookingApi';
 
 import { useGetCurrencyRatesQuery } from '../../services/currencyApi';
 
@@ -141,7 +137,11 @@ const Banner = () => {
         type: 'hotel',
     }));
 
-    const combinedOptions = [...cityInfo, ...districtInfo, ...hotelsInfo]
+    // const combinedOptions = [...cityInfo, ...districtInfo, ...hotelsInfo]
+
+    const combinedOptions = useMemo(() => {
+        return [...cityInfo, ...districtInfo, ...hotelsInfo];
+    }, [cityInfo, districtInfo, hotelsInfo]);
 
     useEffect(() => {
         if (combinedOptions.length === 0) {
@@ -149,8 +149,7 @@ const Banner = () => {
             refetchDistricts();
             refetchListOfHotels();
         }
-    }, [combinedOptions]);
-
+    }, [combinedOptions, refetchCities, refetchDistricts, refetchListOfHotels]);
 
     const { checkInDate, checkOutDate, adults, children, rooms, locationDetails } = formData
 
@@ -301,51 +300,24 @@ const Banner = () => {
     };
 
     return (
-        <Container fluid className='banner px-0'>
-            <Carousel
-                indicators="false"
-                nextIcon={<FaChevronCircleRight className='indicator-icon' />}
-                prevIcon={<FaChevronCircleLeft className='indicator-icon' />}>
-                <Carousel.Item>
-                    <img
-                        className="d-block w-100"
-                        src={slider1}
-                        alt="First slide"
-                    />
-                    <Carousel.Caption>
-                        <h3>First slide label</h3>
-                        <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-                    </Carousel.Caption>
-                </Carousel.Item>
+        <Container fluid className='banner px-0' style={{ position: 'relative' }}>
 
-                <Carousel.Item>
-                    <img
-                        className="d-block w-100"
-                        src={slider2}
-                        alt="Second slide"
-                    />
+            <img
+                className="banner-img"
+                src={roomImg2}
+                alt="banner image"
+            />
 
-                    <Carousel.Caption>
-                        <h3>Second slide label</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                    </Carousel.Caption>
-                </Carousel.Item>
+            <div className="overlay">
+                <div className='overlay-text'>
+                    <Stack>
 
-                <Carousel.Item>
-                    <img
-                        className="d-block w-100"
-                        src={slider4}
-                        alt="Third slide"
-                    />
+                    </Stack>
+                    <h2>Enjoy Your Stay, <br/> With No Worries</h2>
+                    <p>Welcome to BookMyStay hotel booking website, where we make your travel experience easier and hassle free. With our platform you can find the perfect accommodation for your stay.</p>
+                </div>
+            </div>
 
-                    <Carousel.Caption>
-                        <h3>Third slide label</h3>
-                        <p>
-                            Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-                        </p>
-                    </Carousel.Caption>
-                </Carousel.Item>
-            </Carousel>
             <Container className='form-container my-5'>
                 <Form className='px-0'>
                     <Row className='form mx-1 px-2'>

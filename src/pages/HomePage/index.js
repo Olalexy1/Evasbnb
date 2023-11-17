@@ -89,14 +89,17 @@ const Homepage = () => {
 
 
     useEffect(() => {
-        if (HotelsList == undefined) {
-            refetch()
+        if (HotelsList === undefined) {
+            // Check if refetch is a function before calling it
+            if (typeof refetch === 'function') {
+                refetch();
+            }
         }
-    }, [HotelsList]);
+    }, [HotelsList, refetch]);
 
 
     if (isLoading || isFetching) return (
-        <Stack direction='row' style={{ alignItems: 'center', minHeight: '100vh' }}>
+        <Stack direction='row' style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
             <Spinner animation="border" role="status">
                 <span className="visually-hidden">Loading...</span>
             </Spinner>

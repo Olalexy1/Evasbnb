@@ -13,18 +13,18 @@ const navLinks = [
   },
   {
     id: 2,
-    name: 'Hotels',
-    href: '/',
+    name: 'Blog',
+    href: '#',
   },
-  // {
-  //   id: 3,
-  //   name: "Booking",
-  //   href: '/',
-  // },
+  {
+    id: 3,
+    name: "About Us",
+    href: '#',
+  },
   {
     id: 4,
     name: "Contact Us",
-    href: '/',
+    href: '#',
   }
 ]
 
@@ -34,15 +34,25 @@ const NavBar = () => {
   return (
     <nav className="app__navbar">
       <div className="app__navbar-logo">
-        <img src={logo} alt="logo" />
+        {/* <img src={logo} alt="logo" /> */}
+        <h1>
+          <a href="/" class="logo-text">My</a>
+        </h1>
       </div>
       <ul className="app__navbar-links">
         {navLinks.map((item) => (
           <li className="app__flex p-text" key={item.id}>
+            <a className="links-text" href={item.href}>{item.name}</a>
             <div />
-            <a href={item.href}>{item.name}</a>
           </li>
         ))}
+
+        <li className='link-btn'>
+          <a className="link-btn-text" href='/'>Sign In</a>
+        </li>
+        <li className='link-btn'>
+          <a className="link-btn-text" href='/'>Register</a>
+        </li>
       </ul>
 
       <div className="app__navbar-menu">
@@ -62,6 +72,13 @@ const NavBar = () => {
                   </a>
                 </li>
               ))}
+
+              <li className='link-btn'>
+                <a className="link-btn-text" href='/'>Sign In</a>
+              </li>
+              <li className='link-btn'>
+                <a className="link-btn-text" href='/'>Register</a>
+              </li>
             </ul>
           </motion.div>
         )}
