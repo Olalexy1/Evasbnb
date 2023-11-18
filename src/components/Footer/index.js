@@ -28,9 +28,9 @@ const Footer = () => {
                         </div>
 
                         <div className='social-media-container mt-3'>
-                            <a href=""> <FaFacebook className='icon'/> </a>
-                            <a href=""> <FaInstagram className='icon'/> </a>
-                            <a href=""> <FaTwitter className='icon'/> </a>    
+                            <a href="#"> <FaFacebook className='icon'/> </a>
+                            <a href="#"> <FaInstagram className='icon'/> </a>
+                            <a href="#"> <FaTwitter className='icon'/> </a>    
                         </div>  
 
                     </Col>

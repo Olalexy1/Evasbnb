@@ -4,7 +4,6 @@ import Stack from 'react-bootstrap/Stack';
 import './style.scss';
 import { FaStar, FaWifi, FaParking } from 'react-icons/fa';
 import { MdRestaurantMenu, MdPool } from 'react-icons/md';
-import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
 import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
 import Favorite from '@mui/icons-material/Favorite';
@@ -81,7 +80,6 @@ const HotelCard = ({
                     <div className="hotel-desc-container">
                         <Card.Title className='hotel-name' style={{ textTransform: "Capitalize" }}>{capitalizeText(hotel.hotel_name)}</Card.Title>
                         <p style={{ textTransform: "Capitalize" }}>{hotel.address_trans || hotel.address}, {hotel.district || hotel.city_trans}, {hotel.country_trans}.</p>
-                        {/* <p>{hotel.district || hotel.city_trans }, {hotel.country_trans}.</p> */}
                         {
                             hotel.review_score && (
                                 <p className='review'><FaStar className='icon' /> {hotel.review_score.toLocaleString('en-US', { minimumFractionDigits: 1 })}</p>
@@ -89,7 +87,7 @@ const HotelCard = ({
                         }
                         <p>Price: {Math.floor(hotel.min_total_price).toLocaleString('en-US', { style: 'currency', currency: hotel.currency_code }).replace(/\.00$/, '')}</p>
                         <div className='button-container'>
-                            <Stack direction="horizontal" gap={2}>
+                            <Stack direction="horizontal" gap={2} className='amenities-stack'>
                                 {hasWiFi && <FaWifi />}
                                 {hasSwimmingPool && <MdPool />}
                                 {hasParking && <FaParking />}

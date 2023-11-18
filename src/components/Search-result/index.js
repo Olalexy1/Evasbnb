@@ -8,9 +8,9 @@ import RedRoom from '../../images/redroom.jpeg';
 import PurpleRoom from '../../images/purpleroom.jpeg';
 import GreenRoom from '../../images/greenroom.jpeg';
 
-import { FaBed, FaBath, FaWifi, FaParking, faSwimmer, FaSwimmer, } from 'react-icons/fa';
-import { GiMeal, GiVacuumCleaner } from 'react-icons/gi';
-import { MdOutlineLocalLaundryService, MdPets, MdKitchen } from 'react-icons/md';
+import { FaBath, FaWifi } from 'react-icons/fa';
+// import { GiMeal, GiVacuumCleaner } from 'react-icons/gi';
+// import { MdOutlineLocalLaundryService, MdPets, MdKitchen } from 'react-icons/md';
 import { IoBed } from 'react-icons/io5';
 
 import './style.scss'

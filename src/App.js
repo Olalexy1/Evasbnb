@@ -19,7 +19,6 @@ import Services from './pages/Services-page';
 import Properties from './pages/Properties';
 import Room from './pages/Room';
 import Checkout from './pages/Checkout';
-import SearchResults from './components/Search-result';
 import HotelsSearch from './pages/HotelsSearch';
 
 import { Helmet } from 'react-helmet-async';
@@ -44,7 +43,6 @@ function App() {
           <Route exact path="/properties" element={<Properties />} />
           <Route exact path="/room" element={<Room />} />
           <Route exact path="/checkout" element={<Checkout />} />
-          <Route exact path="/search-results" element={<SearchResults />} />
           <Route path="/hotels-search" element={<HotelsSearch />} />
         </Routes>
         <Footer />

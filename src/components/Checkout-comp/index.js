@@ -3,7 +3,7 @@ import React from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Form from 'react-bootstrap/Form';
+// import Form from 'react-bootstrap/Form';
 import Accordion from 'react-bootstrap/Accordion';
 import { useAccordionButton } from 'react-bootstrap/AccordionButton';
 import Card from 'react-bootstrap/Card';
@@ -85,9 +85,7 @@ const Checkoutcomp = () => {
                 <Col md={6} lg={6} className='mb-3'>
                     <div className='checkout-cards py-4'>
                         <h4>Booking Total</h4>
-
                     </div>
-
                 </Col>
             </Row>
 

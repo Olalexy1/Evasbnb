@@ -5,8 +5,8 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 
-import RedRoom from '../../images/redroom.jpeg';
-import PurpleRoom from '../../images/purpleroom.jpeg';
+// import RedRoom from '../../images/redroom.jpeg';
+// import PurpleRoom from '../../images/purpleroom.jpeg';
 import GreenRoom from '../../images/greenroom.jpeg';
 
 import Slickcarousel from '../image-gallery-carousel';

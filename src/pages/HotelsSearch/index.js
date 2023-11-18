@@ -8,7 +8,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import { useSearchParams, useLocation } from 'react-router-dom';
 import SearchForm from '../../components/SearchForm';
 import HotelCard from '../../components/HotelCard';
-import { useGetListOfCitiesQuery, useGetListOfDistrictsQuery, useGetListOfHotelsQuery, useGetHotelsByLocationQuery, useGetHotelsBySearchQuery } from '../../services/bookingApi';
+import { useGetHotelsByLocationQuery, useGetHotelsBySearchQuery } from '../../services/bookingApi';
 import './style.scss';
 import { BsFilter } from 'react-icons/bs';
 import Pagination from '../../components/Pagination/Pagination';
@@ -16,9 +16,13 @@ import Spinner from 'react-bootstrap/Spinner';
 import Stack from 'react-bootstrap/Stack';
 import { useCountry } from '../../context/countryContext';
 import { countries, singularize, hotelTypes, hotelFacilities } from '../../utils';
+import { motion } from 'framer-motion';
+import { HiX } from 'react-icons/hi';
 
 const HotelsSearch = () => {
     let location = useLocation();
+
+    const [toggle, setToggle] = useState(false);
 
     const [searchDetails, setSearchDetails] = useState(location.state?.searchFormData);
 
@@ -64,6 +68,8 @@ const HotelsSearch = () => {
             setSelectedProperty([...selectedProperty, selectedType]);
         }
 
+        setToggle(false)
+
         setTimeout(() => {
             setIsFiltered(false);
         }, 1000);
@@ -83,6 +89,8 @@ const HotelsSearch = () => {
             setSelectedRating([...selectedRating, selectedType]);
         }
 
+        setToggle(false)
+
         setTimeout(() => {
             setIsFiltered(false);
         }, 1000);
@@ -101,6 +109,8 @@ const HotelsSearch = () => {
             // If the type is not selected, add it
             setSelectedFilter([...selectedFilter, selectedType]);
         }
+
+        setToggle(false)
 
         setTimeout(() => {
             setIsFiltered(false);
@@ -122,6 +132,8 @@ const HotelsSearch = () => {
             // If the type is not selected, add it
             setSelectedAmenities([...selectedAmenities, selectedType]);
         }
+
+        setToggle(false)
 
         setTimeout(() => {
             setIsFiltered(false);
@@ -418,10 +430,10 @@ const HotelsSearch = () => {
             />
             <Container>
                 <Row>
-                    <Col lg={4} className="d-none d-md-block">
+                    <Col lg={4} className="d-none d-md-none d-lg-block">
                         <div className='filter-container'>
                             <div direction="horizontal" gap={3} className='filter-header'>
-                                <BsFilter />
+                                <BsFilter style={{ fontSize: '24px' }} />
                                 <span>Search Filters</span>
                             </div>
                             <div className='filter-wrappers'>
@@ -510,7 +522,7 @@ const HotelsSearch = () => {
                             </div>
                         </div>
                     </Col>
-                    {<Col lg md={8}>
+                    {<Col lg={8} className="d-md-block">
                         {(isFetching) || isFiltered ? (
                             <Stack direction='row' style={{ alignItems: 'center' }}>
                                 <Spinner animation="border" role="status">
@@ -519,19 +531,130 @@ const HotelsSearch = () => {
                             </Stack>
                         ) : (
                             <div className='hotels-container'>
-                                <h5 style={{ textTransform: "capitalize" }}>
-                                    {isSuccess &&
-                                        (selectedInfo.type === "district" ||
-                                            selectedInfo.type === "city" ||
-                                            selectedInfo.type === "region" ||
-                                            selectedInfo.type === "country")
-                                        ? searchedLocation
-                                        : isSuccess && selectedInfo.type === "hotel"
-                                            ? locationName
-                                            : searchDetails?.location} : {
-                                        filterPropertyType().length
-                                    } properties found
-                                </h5>
+                                <Stack direction='horizontal' style={{ alignItems: 'center', justifyContent: 'space-between', border: "1px solid lightgrey", borderRadius: '8px', padding: '10px' }}>
+                                    <h5 style={{ textTransform: "capitalize" }}>
+                                        {isSuccess &&
+                                            (selectedInfo.type === "district" ||
+                                                selectedInfo.type === "city" ||
+                                                selectedInfo.type === "region" ||
+                                                selectedInfo.type === "country")
+                                            ? searchedLocation
+                                            : isSuccess && selectedInfo.type === "hotel"
+                                                ? locationName
+                                                : searchDetails?.location} : {
+                                            filterPropertyType().length
+                                        } properties found
+                                    </h5>
+
+
+                                    <Stack direction='horizontal' className='filter-mobile d-block d-md-block d-lg-none' style={{ alignItems: 'center', gap: '8px', fontWeight: '600', cursor: 'pointer' }}
+                                    onClick={() => setToggle(true)}>
+                                        <BsFilter />
+                                        <span style={{ fontSize: '18px' }}>Filter</span>
+                                    </Stack>
+                                </Stack>
+
+                                {toggle && (
+                                    <motion.div
+                                        className='filter-motion-div d-lg-none'
+                                        whileInView={{ x: [300, 0] }}
+                                        transition={{ duration: 0.85, ease: 'easeOut' }}
+                                    >
+                                        <HiX className="close-icon" onClick={() => setToggle(false)} />
+                                        
+                                        <div className='filter-container'>
+                                            <div direction="horizontal" gap={3} className='filter-header'>
+                                                <BsFilter style={{ fontSize: '24px' }} />
+                                                <span>Search Filters</span>
+                                            </div>
+                                            <div className='filter-wrappers'>
+                                                <p>Property Type</p>
+                                                <FormGroup>
+                                                    {
+                                                        allPropertyTypes.map((item) => (
+                                                            <FormControlLabel key={item.hotel_type_id} control={<Checkbox
+                                                                onChange={handlePropertyChange}
+                                                                checked={selectedProperty.includes(singularize(item.name))}
+                                                                value={singularize(item.name)}
+                                                            />} label={item.name} />
+                                                        ))
+                                                    }
+                                                </FormGroup>
+                                            </div>
+                                            <div className='divider' />
+                                            <div className='filter-wrappers'>
+                                                <p>Property Rating</p>
+                                                <FormGroup>
+                                                    <FormControlLabel control={<Checkbox
+                                                        onChange={handleRatingChange}
+                                                        checked={selectedRating.includes('9')}
+                                                        value={9}
+                                                    />} label="Superb: 9+" />
+                                                    <FormControlLabel control={<Checkbox
+                                                        onChange={handleRatingChange}
+                                                        checked={selectedRating.includes('8')}
+                                                        value={8}
+                                                    />} label="Very Good: 8+" />
+                                                    <FormControlLabel control={<Checkbox
+                                                        onChange={handleRatingChange}
+                                                        checked={selectedRating.includes('7')}
+                                                        value={7}
+                                                    />} label="Good: 7+" />
+                                                    <FormControlLabel control={<Checkbox
+                                                        onChange={handleRatingChange}
+                                                        checked={selectedRating.includes('6')}
+                                                        value={6}
+                                                    />} label="Pleasant: 6+" />
+                                                    <FormControlLabel control={<Checkbox
+                                                        onChange={handleRatingChange}
+                                                        checked={selectedRating.includes('5')}
+                                                        value={5}
+                                                    />} label="Okay: 5+" />
+                                                </FormGroup>
+                                            </div>
+                                            <div className='divider' />
+                                            <div className='filter-wrappers'>
+                                                <p>Other Filters</p>
+                                                <FormGroup>
+                                                    <FormControlLabel control={<Checkbox
+                                                        onChange={handleOtherFiltersChange}
+                                                        value={'Breakfast included'}
+                                                    />} label="Breakfast Included" />
+                                                    <FormControlLabel control={<Checkbox
+                                                        onChange={handleOtherFiltersChange}
+                                                        value={1}
+                                                    />} label="Beach Front" />
+                                                </FormGroup>
+                                            </div>
+                                            <div className='divider' />
+                                            <div className='filter-wrappers'>
+                                                <p>Property Amenities</p>
+                                                <FormGroup>
+
+                                                    {
+                                                        amenityTypes
+                                                            .filter(item => [2, 3, 4, 5, 7, 8, 11, 17, 22, 24, 46, 54, 96, 107, 109, 301, 433].includes(item.hotel_facility_type_id))
+                                                            .map(item => (
+                                                                <FormControlLabel
+                                                                    key={item.hotel_facility_type_id}
+                                                                    control={
+                                                                        <Checkbox
+                                                                            onChange={handleAmenitiesChange}
+                                                                            checked={selectedAmenities.includes(Number(item.hotel_facility_type_id))}
+                                                                            value={Number(item.hotel_facility_type_id)}
+                                                                        />
+                                                                    }
+                                                                    label={item.name}
+                                                                />
+                                                            ))
+                                                    }
+
+                                                </FormGroup>
+                                            </div>
+                                        </div>
+
+                                    </motion.div>
+                                )}
 
                                 {currentSearchResultData.map((hotel, index) => (
                                     <HotelCard key={index} hotel={hotel} />
