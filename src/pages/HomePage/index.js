@@ -8,7 +8,7 @@ import Banner from '../../components/Banner';
 import { PopularHotels } from '../../components/Section';
 import Slickcarousel from '../../components/Slick-carousel';
 import Blogcards from '../../components/Blog-cards';
-import { Subform, Inqiuryform } from '../../components/Forms';
+import { Subform } from '../../components/Forms';
 
 import { useGetHotelsByCoordinatesQuery } from '../../services/bookingApi';
 
@@ -20,7 +20,7 @@ const Homepage = () => {
     const nextTomorrow = new Date(today)
     tomorrow.setDate(today.getDate() + 1);
     nextTomorrow.setDate(today.getDate() + 2);
-    const todayISO = new Date().toISOString().split('T')[0];
+    // const todayISO = new Date().toISOString().split('T')[0];
     const tomorrowISO = tomorrow.toISOString().split('T')[0];
     const nextTomorrowISO = nextTomorrow.toISOString().split('T')[0];
     const [latitude, setLatitude] = useState('');

@@ -32,14 +32,5 @@ const Subform = () => {
         </Container>
      );
 }
-
-const Inqiuryform = () => {
-    return ( 
-        <Container>
-            
-        </Container>
-     );
-}
  
- 
-export {Subform, Inqiuryform};
+export { Subform };

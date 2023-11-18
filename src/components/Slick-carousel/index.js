@@ -89,7 +89,7 @@ const Slickcarousel = ({ hotelsList }) => {
   return (
     <Container fluid className='slick-container py-5'>
       <Container className='slick-carousel my-5'>
-        <h3 className='py-3'>More Hotels in Your City Close To You</h3>
+        <h3 style={{textAlign: 'center'}} className='py-3'>More Hotels in Your City Close To You</h3>
         <Slider {...settings}>
           {hotelsList?.map((item, index) => (
             <div className='carousel-card' key={index}>

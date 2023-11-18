@@ -25,8 +25,8 @@ const PopularHotels = ({randomHotels}) => {
     return (
         <Container fluid className='mt-5'>
             <Container className='midsection py-5'>
-                <h3>The Best Hotels In Your City</h3>
-                <p>Available in Your City</p>
+                <h3 style={{textAlign: 'center'}}>The Best Hotels In Your City</h3>
+                <p style={{textAlign: 'center'}}>Available in Your City</p>
                 <Row className='mx-2 pt-3'>
                     {randomHotels?.map((item, index) => (
                         <Col lg={4} md={6} sm={12} key={index} className='rooms px-0 mb-4 pe-3'>
@@ -62,8 +62,8 @@ const BottomSection = () => {
             <Container className='services-container px-5 my-5'>
                 <Row className='px-0'>
                     <Col className='text-container px-0 pt-3' lg={4} md={12}>
-                        <h3>Our Services</h3>
-                        <p>We are providing you with the best services available...</p>
+                        <h3 style={{textAlign: 'center'}}>Our Services</h3>
+                        <p style={{textAlign: 'center'}}>We are providing you with the best services available...</p>
                     </Col>
                     <Col lg={8} md={12}>
                         <Row className='px-0'>

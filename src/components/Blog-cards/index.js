@@ -21,9 +21,9 @@ const Blogcards = () => {
                         <div className="card">
                             <img src={slider1} alt="Avatar" className='img'/>
                             <div className='text-container'>
-                                <h6><a href=''>Things you need to see while you're in Johannesburg</a></h6>
+                                <h6><a href='#'>Things you need to see while you're in Johannesburg</a></h6>
                                 <p>Lorem ipsum dolor sit amet. Quo voluptatem officiis aut totam mollitia sit tempore autem quo architecto laborum qui sequi sint id accusamus tempore...</p>
-                                <a className='read-more' href=''>Read More...</a>
+                                <a className='read-more' href='#'>Read More...</a>
                             </div>
                         </div>
                     </Col>
@@ -31,9 +31,9 @@ const Blogcards = () => {
                         <div className="card">
                             <img src={slider2} alt="Avatar" className='img'/>
                             <div className='text-container'>
-                                <h6><a href=''>Things you need to see while you're in Johannesburg</a></h6>
+                                <h6><a href='#'>Things you need to see while you're in Johannesburg</a></h6>
                                 <p>Lorem ipsum dolor sit amet. Quo voluptatem officiis aut totam mollitia sit tempore autem quo architecto laborum qui sequi sint id accusamus tempore...</p>
-                                <a className='read-more' href=''>Read More...</a>
+                                <a className='read-more' href='#'>Read More...</a>
                             </div>
                         </div>
                     </Col>
@@ -41,9 +41,9 @@ const Blogcards = () => {
                         <div className="card">
                             <img src={slider3} alt="Avatar" className='img'/>
                             <div className='text-container'>
-                                <h6><a href=''>Things you need to see while you're in Johannesburg</a></h6>
+                                <h6><a href='#'>Things you need to see while you're in Johannesburg</a></h6>
                                 <p>Lorem ipsum dolor sit amet. Quo voluptatem officiis aut totam mollitia sit tempore autem quo architecto laborum qui sequi sint id accusamus tempore...</p>
-                                <a className='read-more' href=''>Read More...</a>
+                                <a className='read-more' href='#'>Read More...</a>
                             </div>
                         </div>
                     </Col>

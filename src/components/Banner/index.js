@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -7,14 +7,14 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Stack from 'react-bootstrap/Stack';
 
-import roomImg1 from '../../images/room1.jpg';
+// import roomImg1 from '../../images/room1.jpg';
 import roomImg2 from '../../images/room2.jpg';
 
 import { useCountry } from '../../context/countryContext';
 import countries from '../../utils/Countries'
 
 // import { DateRangePicker } from '@mui/x-date-pickers-pro/DateRangePicker';
-import { FaChevronCircleRight, FaChevronCircleLeft, FaUser, FaChild, FaCalendarDay, FaMapMarkerAlt } from 'react-icons/fa';
+import { FaUser, FaChild, FaCalendarDay, FaMapMarkerAlt } from 'react-icons/fa';
 import { IoBed } from 'react-icons/io5';
 import './style.scss';
 import { useGetListOfCitiesQuery, useGetListOfDistrictsQuery, useGetListOfHotelsQuery, useGetHotelsBySearchQuery, useGetHotelsByLocationQuery } from '../../services/bookingApi';
@@ -36,6 +36,7 @@ const Banner = () => {
     const [visibleSuggestions, setVisibleSuggestions] = useState([]);
     const [searchParams, setSearchParams] = useState(null);
     const { country } = useCountry();
+    const [clickCount, setClickCount] = useState(0);
 
     const countryCode = countries.result.find((item) => item.name === country);
 
@@ -151,6 +152,17 @@ const Banner = () => {
         }
     }, [combinedOptions, refetchCities, refetchDistricts, refetchListOfHotels]);
 
+    useEffect(() => {
+        console.log(searchParams, 'search params in useEffect')
+        const fetchData = async () => {
+            // Perform async operations here
+            await refetchHotels()
+        };
+
+        fetchData(); // Immediately invoke the async function
+
+    }, [searchParams]);
+
     const { checkInDate, checkOutDate, adults, children, rooms, locationDetails } = formData
 
     const handleInputChangeTwo = (event) => {
@@ -220,7 +232,7 @@ const Banner = () => {
     };
 
     const handleSubmit = async (e) => {
-
+        console.log('I responded');
         e.preventDefault();
 
         const handleValidSubmit = async () => {
@@ -258,7 +270,11 @@ const Banner = () => {
 
             setSearchParams(baseParams);
 
-            await refetchHotels()
+            // await refetchHotels()
+
+            console.log(searchParams, 'see search params in handleSubmit')
+
+            console.log(isSuccess, searchResult, 'see api response in handleSubmit')
 
             // const resultType = selectedInfo.type;
 
@@ -294,6 +310,14 @@ const Banner = () => {
 
         if (validateInputs()) {
             handleValidSubmit();
+
+            // Increment the click count
+            setClickCount(clickCount + 1);
+
+            // Check if the click count is odd, and trigger your function again
+            if (clickCount % 2 !== 0) {
+                handleValidSubmit();
+            }
         } else {
             console.log('cannot proceed without filling search');
         }
@@ -313,7 +337,7 @@ const Banner = () => {
                     <Stack>
 
                     </Stack>
-                    <h2>Enjoy Your Stay, <br/> With No Worries</h2>
+                    <h2>Enjoy Your Stay, <br /> With No Worries</h2>
                     <p>Welcome to BookMyStay hotel booking website, where we make your travel experience easier and hassle free. With our platform you can find the perfect accommodation for your stay.</p>
                 </div>
             </div>
@@ -367,7 +391,7 @@ const Banner = () => {
                             <div>
                                 <Form.Label className='label'><FaUser className='form-icons' /> Adult</Form.Label>
                                 <Form.Select aria-label="Default select example" name='adults' required onChange={handleChangeInput} value={adults} style={errors.adults ? { border: "2px solid red" } : {}}>
-                                    {Array.from({ length: 21 }, (_, index) => (
+                                    {Array.from({ length: 11 }, (_, index) => (
                                         <option key={index} value={index}>{index}</option>
                                     ))}
                                 </Form.Select>
@@ -384,7 +408,7 @@ const Banner = () => {
                             <div>
                                 <Form.Label className='label'><IoBed className='form-icons' /> Room</Form.Label>
                                 <Form.Select aria-label="Default select example" name='rooms' required onChange={handleChangeInput} value={rooms} style={errors.rooms ? { border: "2px solid red" } : {}}>
-                                    {Array.from({ length: 21 }, (_, index) => (
+                                    {Array.from({ length: 11 }, (_, index) => (
                                         <option key={index} value={index}>{index}</option>
                                     ))}
                                 </Form.Select>
@@ -393,7 +417,7 @@ const Banner = () => {
                         </Col>
                         <Col className="form-btn pt-3 mb-3 mt-3" lg md={3}>
                             <button className="cssbuttons-io" onClick={handleSubmit} type='submit'>
-                                <span>Search</span>
+                                <span>{ isFetching ? 'Searching' : 'Search' }</span>
                             </button>
                         </Col>
                     </Row>

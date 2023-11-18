@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { HiMenuAlt4, HiX } from 'react-icons/hi';
 import { motion } from 'framer-motion';
+import { useLocation } from 'react-router-dom';
 
-import logo from '../../images/logo.png';
+// import logo from '../../images/logo.png';
 import './style.scss';
 
 const navLinks = [
@@ -24,24 +25,25 @@ const navLinks = [
   {
     id: 4,
     name: "Contact Us",
-    href: '#',
+    href: '/contact',
   }
 ]
 
 const NavBar = () => {
   const [toggle, setToggle] = useState(false);
+  const location = useLocation();
 
   return (
     <nav className="app__navbar">
       <div className="app__navbar-logo">
         {/* <img src={logo} alt="logo" /> */}
         <h1>
-          <a href="/" class="logo-text">My</a>
+          <a href="/" className="logo-text">My</a>
         </h1>
       </div>
       <ul className="app__navbar-links">
         {navLinks.map((item) => (
-          <li className="app__flex p-text" key={item.id}>
+          <li className={`app__flex p-text ${location.pathname === item.href ? 'active' : ''}`} key={item.id}>
             <a className="links-text" href={item.href}>{item.name}</a>
             <div />
           </li>
@@ -66,8 +68,9 @@ const NavBar = () => {
             <HiX onClick={() => setToggle(false)} />
             <ul>
               {navLinks.map((item) => (
-                <li key={item.id}>
-                  <a href={item.href} onClick={() => setToggle(false)}>
+                <li 
+                key={item.id}>
+                  <a className={`${location.pathname === item.href ? 'active' : ''}`} href={item.href} onClick={() => setToggle(false)}>
                     {item.name}
                   </a>
                 </li>
