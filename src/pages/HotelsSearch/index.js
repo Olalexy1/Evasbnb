@@ -184,12 +184,67 @@ const HotelsSearch = () => {
         };
     }, []);
 
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                // Check if newSearchParams has data
+                if (newSearchParams && Object.keys(newSearchParams).length > 0) {
+                    const response = await refetch();
+
+                    await new Promise((resolve) => setTimeout(resolve, 2000));
+
+                    const searchDataCurrent = {
+                        checkInDate: formData.checkInDate,
+                        checkOutDate: formData.checkOutDate,
+                        adults: formData.adults,
+                        children: formData.children,
+                        rooms: formData.rooms,
+                        location: formLocation,
+                        locationDetails: selectedInfo,
+                        countryCode: countryCode.country
+                    };
+
+                    setSearchedLocation(formLocation);
+                    setSearchDetails(searchDataCurrent);
+                    setSuggestionList(suggestionsList);
+
+                    if (response.isSuccess && response.data) {
+                        setSearchResult((prevSearchResult) => {
+                            // Use the state updater function to get the latest state
+                            // Do any additional processing here if needed
+                            return response.data;
+                        });
+                        // setSearchResult(response.data);
+                        setSelectedProperty([]);
+                        setSelectedRating([]);
+                        setSelectedFilter([]);
+                        setSelectedAmenities([]);
+                        setQueryParams({ searchResult: JSON.stringify(searchDataCurrent) });
+                        filteredList = [];
+                    } else {
+                        console.log('Search result is undefined. Cannot proceed without it.');
+                    }
+                }
+            } catch (error) {
+                console.error('Error fetching hotels:', error);
+                // Handle error if needed
+            }
+        };
+
+        fetchData();
+    }, [newSearchParams]);
+
+    useEffect(() => {
+        // Use the updated value of searchResult immediately when it changes
+        console.log('Updated searchResult:', searchResult);
+    }, [searchResult]);
+
     const locationParams = {
         name: formLocation,
         locale: 'en-gb'
     };
 
-    const { data: locationData } = useGetHotelsByLocationQuery(locationParams)
+    const { data: locationData } = useGetHotelsByLocationQuery(locationParams);
 
     const destId = locationData?.[0].dest_id;
 
@@ -197,7 +252,7 @@ const HotelsSearch = () => {
 
     const { data: newSearchResult, isFetching, isLoading, isSuccess, isError, error, refetch } = useGetHotelsBySearchQuery(newSearchParams);
 
-    const newSearchResultHotelList = newSearchResult?.result || [];
+    // const newSearchResultHotelList = newSearchResult?.result || [];
 
     let filteredList;
 
@@ -319,17 +374,6 @@ const HotelsSearch = () => {
 
         if (validateInputs()) {
 
-            const searchDataCurrent = {
-                checkInDate: formData.checkInDate,
-                checkOutDate: formData.checkOutDate,
-                adults: formData.adults,
-                children: formData.children,
-                rooms: formData.rooms,
-                location: formLocation,
-                locationDetails: selectedInfo,
-                countryCode: countryCode.country
-            };
-
             const baseParams = {
                 checkin_date: formData.checkInDate,
                 dest_type: selectedInfo.type,
@@ -353,27 +397,6 @@ const HotelsSearch = () => {
 
             setNewSearchParams(baseParams);
 
-            try {
-                // Wait for the refetch to complete
-                await refetch();
-
-                setSearchedLocation(formLocation);
-                setSearchDetails(searchDataCurrent);
-                setSuggestionList(suggestionsList);
-
-                if (isSuccess) {
-                    setSearchResult(newSearchResult);
-                    setSelectedProperty([]);
-                    setSelectedRating([]);
-                    setSelectedFilter([]);
-                    setSelectedAmenities([]);
-                    setQueryParams({ searchResult: JSON.stringify(searchDataCurrent) });
-                    filteredList = [];
-                }
-            } catch (error) {
-                console.error('Error during refetch:', error);
-            }
-
         }
 
         else {
@@ -385,23 +408,11 @@ const HotelsSearch = () => {
     let PageSize = 10;
 
     const currentSearchResultData = useMemo(() => {
-        // if (isSuccess) {
-        //     // If isFetching is true, use newSearchResultHotelList
-        //     const firstPageIndex = (currentPage - 1) * PageSize;
-        //     const lastPageIndex = firstPageIndex + PageSize;
-        //     return filterPropertyType().slice(firstPageIndex, lastPageIndex);
-        // } else {
-        //     // If isFetching is false, use searchResultHotelList
-        //     const firstPageIndex = (currentPage - 1) * PageSize;
-        //     const lastPageIndex = firstPageIndex + PageSize;
-        //     return filterPropertyType().slice(firstPageIndex, lastPageIndex);
-        // }
-
         const firstPageIndex = (currentPage - 1) * PageSize;
         const lastPageIndex = firstPageIndex + PageSize;
         return filterPropertyType().slice(firstPageIndex, lastPageIndex);
 
-    }, [currentPage, isFetching, isLoading, SearchResultHotelList, newSearchResultHotelList, selectedProperty, selectedRating, selectedFilter, selectedAmenities, isSuccess, PageSize, refetch]);
+    }, [currentPage, isFetching, isLoading, SearchResultHotelList, selectedProperty, selectedRating, selectedFilter, selectedAmenities, isSuccess, PageSize, refetch]);
 
     console.log(SearchResultHotelList, 'see form location', formLocation, 'see new search results hotel list')
 
@@ -523,7 +534,7 @@ const HotelsSearch = () => {
                         </div>
                     </Col>
                     {<Col lg={8} className="d-md-block">
-                        {(isFetching) || isFiltered ? (
+                        {(isFetching && newSearchParams !== null) || isFiltered ? (
                             <Stack direction='row' style={{ alignItems: 'center' }}>
                                 <Spinner animation="border" role="status">
                                     <span className="visually-hidden">Loading...</span>
@@ -548,7 +559,7 @@ const HotelsSearch = () => {
 
 
                                     <Stack direction='horizontal' className='filter-mobile d-block d-md-block d-lg-none' style={{ alignItems: 'center', gap: '8px', fontWeight: '600', cursor: 'pointer' }}
-                                    onClick={() => setToggle(true)}>
+                                        onClick={() => setToggle(true)}>
                                         <BsFilter />
                                         <span style={{ fontSize: '18px' }}>Filter</span>
                                     </Stack>
@@ -561,7 +572,7 @@ const HotelsSearch = () => {
                                         transition={{ duration: 0.85, ease: 'easeOut' }}
                                     >
                                         <HiX className="close-icon" onClick={() => setToggle(false)} />
-                                        
+
                                         <div className='filter-container'>
                                             <div direction="horizontal" gap={3} className='filter-header'>
                                                 <BsFilter style={{ fontSize: '24px' }} />
