@@ -89,7 +89,7 @@ const SearchForm = ({
                         <div>
                             <Form.Label className='label'><FaUser className='form-icons' /> Adult</Form.Label>
                             <Form.Select aria-label="Default select example" name='adults' required onChange={handleChangeInput} value={adults} style={errors.adults ? { border: "2px solid red" } : {}}>
-                                {Array.from({ length: 21 }, (_, index) => (
+                                {Array.from({ length: 11 }, (_, index) => (
                                     <option key={index} value={index}>{index}</option>
                                 ))}
                             </Form.Select>
@@ -106,7 +106,7 @@ const SearchForm = ({
                         <div>
                             <Form.Label className='label'><IoBed className='form-icons' /> Room</Form.Label>
                             <Form.Select aria-label="Default select example" name='rooms' required onChange={handleChangeInput} value={rooms} style={errors.rooms ? { border: "2px solid red" } : {}}>
-                                {Array.from({ length: 21 }, (_, index) => (
+                                {Array.from({ length: 11 }, (_, index) => (
                                     <option key={index} value={index}>{index}</option>
                                 ))}
                             </Form.Select>
@@ -114,7 +114,7 @@ const SearchForm = ({
                         </div>
                     </Col>
                     <Col className="form-btn pt-3 mb-3 mt-3" lg md={3}>
-                        <button className="cssbuttons-io" onClick={handleSubmit} type='submit'>
+                        <button className="cssbuttons-io" onClick={handleSubmit}>
                             <span>Search</span>
                         </button>
                     </Col>

@@ -36,7 +36,6 @@ const Banner = () => {
     const [visibleSuggestions, setVisibleSuggestions] = useState([]);
     const [searchParams, setSearchParams] = useState(null);
     const { country } = useCountry();
-    const [clickCount, setClickCount] = useState(0);
 
     const countryCode = countries.result.find((item) => item.name === country);
 
@@ -150,17 +149,49 @@ const Banner = () => {
             refetchDistricts();
             refetchListOfHotels();
         }
-    }, [combinedOptions, refetchCities, refetchDistricts, refetchListOfHotels]);
+    }, [combinedOptions]);
 
     useEffect(() => {
-        console.log(searchParams, 'search params in useEffect')
+
         const fetchData = async () => {
-            // Perform async operations here
-            await refetchHotels()
+            try {
+
+                const response = await refetchHotels();
+
+                await new Promise((resolve) => setTimeout(resolve, 2000));
+
+                if (response.isSuccess && response.data) {
+
+                    const searchData = {
+                        checkInDate: formData.checkInDate,
+                        checkOutDate: formData.checkOutDate,
+                        adults: formData.adults,
+                        children: formData.children,
+                        rooms: formData.rooms,
+                        location: location,
+                        locationDetails: selectedInfo,
+                        countryCode: countryCode.country,
+                    };
+
+                    const encodedSearchData = encodeURIComponent(JSON.stringify(searchData));
+
+                    navigate(`/hotels-search?searchResult=${encodedSearchData}`, {
+                        state: {
+                            searchFormData: searchData,
+                            searchResult: response.data, //searchResult,
+                            suggestions: combinedOptions,
+                        },
+                    });
+
+                } else {
+                    console.log('Search result is undefined. Cannot proceed without it.');
+                }
+            } catch (error) {
+                console.error('Error fetching hotels:', error);
+            }
         };
 
-        fetchData(); // Immediately invoke the async function
-
+        fetchData();
     }, [searchParams]);
 
     const { checkInDate, checkOutDate, adults, children, rooms, locationDetails } = formData
@@ -169,6 +200,18 @@ const Banner = () => {
         const value = event.target.value;
         setLocation(value);
         setErrors(prevErrors => ({ ...prevErrors, location: '' }));
+
+        // const matchingSuggestion = visibleSuggestions.find(
+        //     (suggestion) => suggestion.name.toLowerCase() === value.toLowerCase()
+        // );
+
+        // if (matchingSuggestion) {
+        //     setLocation(matchingSuggestion.name);
+        //     setErrors((prevErrors) => ({ ...prevErrors, location: '' }));
+        // } else {
+        //     // If there is no match, you can choose to clear the location or keep it as it is
+        //     setLocation('');
+        // }
 
         const filteredSuggestions = combinedOptions?.filter(suggestion =>
             suggestion.name.toLowerCase().includes(value.toLowerCase())
@@ -232,20 +275,10 @@ const Banner = () => {
     };
 
     const handleSubmit = async (e) => {
-        console.log('I responded');
+
         e.preventDefault();
 
-        const handleValidSubmit = async () => {
-            const searchData = {
-                checkInDate: formData.checkInDate,
-                checkOutDate: formData.checkOutDate,
-                adults: formData.adults,
-                children: formData.children,
-                rooms: formData.rooms,
-                location: location,
-                locationDetails: selectedInfo,
-                countryCode: countryCode.country
-            };
+        if (validateInputs()) {
 
             const baseParams = {
                 checkin_date: formData.checkInDate,
@@ -270,54 +303,7 @@ const Banner = () => {
 
             setSearchParams(baseParams);
 
-            // await refetchHotels()
 
-            console.log(searchParams, 'see search params in handleSubmit')
-
-            console.log(isSuccess, searchResult, 'see api response in handleSubmit')
-
-            // const resultType = selectedInfo.type;
-
-            try {
-
-                if (isSuccess) {
-                    const encodedSearchData = encodeURIComponent(JSON.stringify(searchData));
-                    navigate(`/hotels-search?searchResult=${encodedSearchData}`, {
-                        state: {
-                            searchFormData: searchData,
-                            searchResult: searchResult,
-                            suggestions: combinedOptions,
-                        },
-                    });
-
-                    // navigate({
-                    //     pathname: '/hotels-search',
-                    //     search: `?searchResult=${JSON.stringify(searchData)}`,
-                    //     state: {
-                    //         searchDetails: searchData,
-                    //         searchResult: searchResult,
-                    //         suggestionsList: combinedOptions,
-                    //     },
-                    // });
-
-                } else {
-                    console.log('searchResult is undefined, cannot proceed without it');
-                }
-            } catch (error) {
-                console.error('Error during validation:', error);
-            }
-        };
-
-        if (validateInputs()) {
-            handleValidSubmit();
-
-            // Increment the click count
-            setClickCount(clickCount + 1);
-
-            // Check if the click count is odd, and trigger your function again
-            if (clickCount % 2 !== 0) {
-                handleValidSubmit();
-            }
         } else {
             console.log('cannot proceed without filling search');
         }
@@ -416,8 +402,8 @@ const Banner = () => {
                             </div>
                         </Col>
                         <Col className="form-btn pt-3 mb-3 mt-3" lg md={3}>
-                            <button className="cssbuttons-io" onClick={handleSubmit} type='submit'>
-                                <span>{ isFetching ? 'Searching' : 'Search' }</span>
+                            <button className="cssbuttons-io" onClick={handleSubmit}>
+                                <span>{isFetching ? 'Searching' : 'Search'}</span>
                             </button>
                         </Col>
                     </Row>
